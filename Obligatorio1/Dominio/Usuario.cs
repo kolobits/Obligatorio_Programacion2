@@ -38,6 +38,7 @@ namespace Dominio
 
 
 
+
         public void Validar()
         {
             throw new NotImplementedException();

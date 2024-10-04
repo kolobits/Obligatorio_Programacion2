@@ -13,6 +13,7 @@ namespace Dominio
         private List<Publicacion> _publicaciones = new List<Publicacion>();
         private List<Articulo> _articulos = new List<Articulo>();
         private List<Oferta> _ofertas = new List<Oferta>();
+        //private List<Venta> _ventas = new List<Venta>();
 
         private static Sistema _instancia;
 
@@ -194,12 +195,45 @@ namespace Dominio
 
         private void PrecargarVentas()
         {
+            Articulo articulo1 = GetArticuloPorNombre("Laptop");
+            Articulo articulo2 = GetArticuloPorNombre("Smartphone");
 
+            if (articulo1 != null && articulo2 != null)
+            {
+                List<Articulo> listaArticulos = new List<Articulo> { articulo1, articulo2 };
+
+                Cliente cliente = new Cliente(2000.00, "Juan", "Rodriguez", "juanrodriguez@gmail.com", "contrasenia1");
+                Usuario usuario = new Administrador("Pedro", "Pérez", "pedroperez@gmail.com", "Admin123");
+
+                Venta v1 = new Venta(
+                    esOfertaRelampago: true,
+                    estado: Estado.ABIERTA,
+                    fechaPublicacion: new DateTime(2024, 06, 29),
+                    articulos: listaArticulos,
+                    cliente: cliente,
+                    usuario: usuario,
+                    fechaFin: DateTime.Now.AddDays(7) 
+                );
+
+                _publicaciones.Add(v1);
+            }
         }
 
 
 
+        //public void ListarVentas()
+        //{
+        //    foreach (Venta v in _publicaciones)
+        //    {
+        //        if (v is Venta)
+        //        {
+        //            Console.WriteLine($"{v.PrecioFinal}");
+        //        }
+        //    }
+                       
+        //}
 
+    
         public Articulo GetArticuloPorNombre(string nombreArticulo)
         {
             foreach (Articulo a in _articulos)
@@ -212,58 +246,6 @@ namespace Dominio
             return null; // Si no encuentra el artículo, retorna null
         }
 
-        //Menú interactivo
-        public void MostrarMenu()
-        {
-            int opcion = -1;
-            do
-            {
-                Console.WriteLine("---- Menú Principal ----");
-                Console.WriteLine("1. Listar todos los clientes");
-                Console.WriteLine("2. Listar artículos por categoría");
-                Console.WriteLine("3. Alta de artículo");
-                Console.WriteLine("4. Listar publicaciones entre dos fechas");
-                Console.WriteLine("5. Salir");
-                Console.Write("Selecciona una opción: ");
-                opcion = int.Parse(Console.ReadLine());
-
-                switch (opcion)
-                {
-                    case 1:
-                        Console.Clear();
-                        Console.WriteLine("Lista de clientes:");
-                        ListarClientes();
-                        Console.ReadKey();
-                        return;
-                    case 2:
-                        Console.Clear();
-                        Console.WriteLine("Artículos por categoría");
-                        //ListarArticulosPorCategoria();
-                        return;
-                    case 3:
-                        Console.Clear();
-                        //AltaArticulo();
-                        Console.WriteLine("Ingrese articulo");
-                        return;
-                    case 4:
-                        Console.Clear();
-                        Console.WriteLine("Ingrese las fechas");
-                        //ListarPublicacionesEntreFechas();
-                        return;
-                    case 5:
-                        Console.WriteLine("Saliendo del sistema...");
-                        Console.ReadKey();
-                        break;
-                    default:
-                        Console.WriteLine("Opción no válida, intenta nuevamente.");
-                        Console.ReadKey();
-                        Console.Clear();
-                        MostrarMenu();
-                        return;
-                }
-
-            } while (opcion != 5);
-        }
 
         public void ListarClientes()
         {
@@ -275,6 +257,128 @@ namespace Dominio
                 }
             }
         }
+
+        public void ListarArticulosPorCategoria()
+        {
+
+            Console.WriteLine("Elige una categoría:");
+            Console.WriteLine("1. Playa");
+            Console.WriteLine("2. Aventura");
+            Console.WriteLine("3. Ropa");
+            Console.WriteLine("4. Accesorios");
+            Console.WriteLine("5. Cuidado Personal");
+            Console.WriteLine("6. Camping");
+            Console.WriteLine("7. Fotografía");
+            Console.WriteLine("8. Electrónica");
+            Console.WriteLine("9. Deporte");
+            Console.WriteLine("10. Juguetes");
+            Console.WriteLine("11. Juegos");
+            Console.WriteLine("12. Literatura");
+            Console.WriteLine("13. Hogar");
+            Console.WriteLine("14. Manualidades");
+            Console.WriteLine("15. Arte");
+            Console.WriteLine("16. Papelería");
+
+            string opcion = Console.ReadLine();
+            string categoria = "";
+
+            switch (opcion)
+            {
+                case "1":
+                    categoria = "Playa";
+                    break;
+                case "2":
+                    categoria = "Aventura";
+                    break;
+                case "3":
+                    categoria = "Ropa";
+                    break;
+                case "4":
+                    categoria = "Accesorios";
+                    break;
+                case "5":
+                    categoria = "Cuidado Personal";
+                    break;
+                case "6":
+                    categoria = "Camping";
+                    break;
+                case "7":
+                    categoria = "Fotografía";
+                    break;
+                case "8":
+                    categoria = "Electrónica";
+                    break;
+                case "9":
+                    categoria = "Deporte";
+                    break;
+                case "10":
+                    categoria = "Juguetes";
+                    break;
+                case "11":
+                    categoria = "Juegos";
+                    break;
+                case "12":
+                    categoria = "Literatura";
+                    break;
+                case "13":
+                    categoria = "Hogar";
+                    break;
+                case "14":
+                    categoria = "Manualidades";
+                    break;
+                case "15":
+                    categoria = "Arte";
+                    break;
+                case "16":
+                    categoria = "Papelería";
+                    break;
+                default:
+                    Console.WriteLine("Opción no válida.");
+                    return;
+            }
+
+            Console.WriteLine($"Artículos en la categoría '{categoria}':");
+
+            bool existeArticulo = false;
+            foreach (Articulo a in _articulos)
+            {
+                {
+                    if (a.Categoria == categoria)
+                    {
+                        Console.WriteLine($"Nombre: {a.Nombre}, Precio: ${a.Precio}");
+                        existeArticulo = true;
+                    }
+                }
+
+            }
+            if (!existeArticulo)
+            {
+                Console.WriteLine("No hay artículos disponibles en esta categoría.");
+            }
+
+
+        }
+
+        public void AltaArticulo()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
+        }
+
+
+
+
+
+        //public Articulo(string nombre, string categoria, double precio)
+        //{
+        //    Id = UltimoId++;
+        //    Nombre = nombre;
+        //    Categoria = categoria;
+        //    Precio = precio;
+        //}
     }
 
 

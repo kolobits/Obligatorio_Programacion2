@@ -29,6 +29,8 @@ namespace Dominio
             Precio = precio;
         }
 
+
+
         //public void ValidarNombreArticulo()
         //{
         //    if (String.IsNullOrEmpty(nombre){

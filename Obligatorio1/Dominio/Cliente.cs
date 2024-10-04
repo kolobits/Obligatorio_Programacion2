@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Dominio
 {
@@ -22,36 +23,28 @@ namespace Dominio
         {
             SaldoDisponible = saldoDisponible;
         }
+        public override void MostrarDatos()
+        {
+            Console.WriteLine($"Nombre: {Nombre}, Apellido: {Apellido}, Email: {Email}, Saldo Disponible: ${SaldoDisponible}");
+        }
+
+
+
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
 
    
-
-    /*
-    public void ValidarSaldo()
-    {
-        if (SaldoDisponible <= 0)
-        {
-            throw new Exception("El cliente no tiene saldo disponible.");
-        }
-    }
-
-    public void ValidarNombreCliente()
-    {
-        if (String.IsNullOrEmpty(nombre){
-
-            throw new Exeption("El nombre no puede ser vacio");
-
-        }
-    }
-
-    public void ValidarApellidoCliente()
-    {
-        if (String.IsNullOrEmpty(apellido){
-
-            throw new Exeption("El apellido no puede ser vacio");
-
-        }
-    }
-    */
-
 }
