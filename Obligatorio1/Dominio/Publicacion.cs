@@ -48,7 +48,7 @@ namespace Dominio
         }
 
 
-        internal void ValidarArticulo()
+        public void ValidarArticulo()
         {
             if (_articulos == null || _articulos.Count == 0)
             {

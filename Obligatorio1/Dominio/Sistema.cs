@@ -13,7 +13,7 @@ namespace Dominio
         private List<Publicacion> _publicaciones = new List<Publicacion>();
         private List<Articulo> _articulos = new List<Articulo>();
         private List<Oferta> _ofertas = new List<Oferta>();
-        //private List<Venta> _ventas = new List<Venta>();
+
 
         private static Sistema _instancia;
 
@@ -33,11 +33,11 @@ namespace Dominio
             return _instancia;
         }
 
-        public List<Usuario> Usuarios
-        {
-            get { return _usuarios; }
-            set { _usuarios = value; }
-        }
+        //public List<Usuario> Usuarios
+        //{
+        //    get { return _usuarios; }
+        //    set { _usuarios = value; }
+        //}
 
 
 
@@ -47,6 +47,7 @@ namespace Dominio
             PrecargarAdministradores();
             PrecargarArticulos();
             PrecargarVentas();
+            PrecargarSubastas();
         }
 
 
@@ -195,45 +196,87 @@ namespace Dominio
 
         private void PrecargarVentas()
         {
-            Articulo articulo1 = GetArticuloPorNombre("Laptop");
-            Articulo articulo2 = GetArticuloPorNombre("Smartphone");
+            Cliente cliente1 = GetClientePorEmail("luismartinez@gmail.com");
+            Cliente cliente2 = GetClientePorEmail("anagomez@gmail.com");
+            Cliente cliente3 = GetClientePorEmail("carloslopez@gmail.com");
+            Cliente cliente4 = GetClientePorEmail("mariafernandez@gmail.com");
+            Cliente cliente5 = GetClientePorEmail("sofiahernandez@gmail.com");
+            Cliente cliente6 = GetClientePorEmail("pedrosanchez@gmail.com");
+            Cliente cliente7 = GetClientePorEmail("lauramorales@gmail.com");
+            Cliente cliente8 = GetClientePorEmail("javiercastillo@gmail.com");
+            Cliente cliente9 = GetClientePorEmail("isabeltorres@gmail.com");
+            Cliente cliente10 = GetClientePorEmail("juanrodriguez@gmail.com");
 
-            if (articulo1 != null && articulo2 != null)
-            {
-                List<Articulo> listaArticulos = new List<Articulo> { articulo1, articulo2 };
+            Administrador admin1 = GetAdministradorPorNombre("Pedro");
+            Administrador admin2 = GetAdministradorPorNombre("Andrés");
 
-                Cliente cliente = new Cliente(2000.00, "Juan", "Rodriguez", "juanrodriguez@gmail.com", "contrasenia1");
-                Usuario usuario = new Administrador("Pedro", "Pérez", "pedroperez@gmail.com", "Admin123");
+            Venta v1 = new Venta(true, Estado.ABIERTA, DateTime.Now, cliente1, admin1, DateTime.Now.AddDays(5));
+            _publicaciones.Add(v1);
 
-                Venta v1 = new Venta(
-                    esOfertaRelampago: true,
-                    estado: Estado.ABIERTA,
-                    fechaPublicacion: new DateTime(2024, 06, 29),
-                    articulos: listaArticulos,
-                    cliente: cliente,
-                    usuario: usuario,
-                    fechaFin: DateTime.Now.AddDays(7) 
-                );
+            Venta v2 = new Venta(false, Estado.ABIERTA, DateTime.Now, cliente2, admin1, DateTime.Now.AddDays(5));
+            _publicaciones.Add(v2);
 
-                _publicaciones.Add(v1);
-            }
+            Venta v3 = new Venta(true, Estado.ABIERTA, DateTime.Now, cliente3, admin2, DateTime.Now.AddDays(5));
+            _publicaciones.Add(v3);
+
+            Venta v4 = new Venta(false, Estado.ABIERTA, DateTime.Now, cliente4, admin2, DateTime.Now.AddDays(5));
+            _publicaciones.Add(v4);
+
+            Venta v5 = new Venta(true, Estado.ABIERTA, DateTime.Now, cliente5, admin1, DateTime.Now.AddDays(5));
+            _publicaciones.Add(v5);
+
+            Venta v6 = new Venta(false, Estado.ABIERTA, DateTime.Now, cliente6, admin1, DateTime.Now.AddDays(5));
+            _publicaciones.Add(v6);
+
+            Venta v7 = new Venta(true, Estado.ABIERTA, DateTime.Now, cliente7, admin2, DateTime.Now.AddDays(5));
+            _publicaciones.Add(v7);
+
+            Venta v8 = new Venta(false, Estado.ABIERTA, DateTime.Now, cliente8, admin2, DateTime.Now.AddDays(5));
+            _publicaciones.Add(v8);
+
+            Venta v9 = new Venta(true, Estado.ABIERTA, DateTime.Now, cliente9, admin1, DateTime.Now.AddDays(5));
+            _publicaciones.Add(v9);
+
+            Venta v10 = new Venta(false, Estado.ABIERTA, DateTime.Now, cliente10, admin1, DateTime.Now.AddDays(5));
+            _publicaciones.Add(v10);
         }
 
-        //
 
-        //public void ListarVentas()
-        //{
-        //    foreach (Venta v in _publicaciones)
-        //    {
-        //        if (v is Venta)
-        //        {
-        //            Console.WriteLine($"{v.PrecioFinal}");
-        //        }
-        //    }
-                       
-        //}
 
-    
+        private void PrecargarSubastas() 
+        { 
+            Subasta s1 = new Subasta()
+        }
+
+
+
+
+
+
+        public Administrador GetAdministradorPorNombre(string nombre)
+        {
+            foreach (Usuario u in _usuarios)
+            {
+                if (u is Administrador && u.Nombre == nombre)
+                {
+                    return (Administrador)u; // Si encuentra un administrador con el nombre, lo retorna
+                }
+            }
+            return null; // Si no encuentra el administrador, retorna null
+        }
+
+        public Cliente GetClientePorEmail(string email)
+        {
+            foreach (Usuario u in _usuarios)
+            {
+                if (u is Cliente && u.Email == email)
+                {
+                    return (Cliente)u; // Si encuentra un cliente con el email, lo retorna
+                }
+            }
+            return null; // Si no encuentra el cliente, retorna null
+        }
+
         public Articulo GetArticuloPorNombre(string nombreArticulo)
         {
             foreach (Articulo a in _articulos)
@@ -244,10 +287,18 @@ namespace Dominio
                 }
             }
             return null; // Si no encuentra el artículo, retorna null
+
         }
 
 
-        public void ListarClientes()
+
+
+
+
+
+
+
+            public void ListarClientes()
         {
             foreach (Usuario u in _usuarios)
             {
@@ -371,17 +422,4 @@ namespace Dominio
 
 
 
-
-        //public Articulo(string nombre, string categoria, double precio)
-        //{
-        //    Id = UltimoId++;
-        //    Nombre = nombre;
-        //    Categoria = categoria;
-        //    Precio = precio;
-        //}
     }
-
-
-
-
-}

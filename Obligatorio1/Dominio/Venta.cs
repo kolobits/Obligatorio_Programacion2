@@ -17,7 +17,7 @@ namespace Dominio
         }
 
     
-        public Venta(bool esOfertaRelampago, Estado estado, DateTime fechaPublicacion, List<Articulo> articulos, Cliente cliente,Usuario usuario, DateTime fechaFin) : base(estado, fechaPublicacion, articulos, cliente, usuario, fechaFin)
+        public Venta(bool esOfertaRelampago, Estado estado, DateTime fechaPublicacion, Cliente cliente,Usuario usuario, DateTime fechaFin) : base(estado, fechaPublicacion, cliente, usuario, fechaFin)
         {
             EsOfertaRelampago = esOfertaRelampago;
             PrecioFinal = CalcularPrecio();

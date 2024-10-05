@@ -38,7 +38,7 @@ namespace UI
                         return;
                     case 3:
                         Console.Clear();
-                        s.ListarVentas();
+                        //s.ListarVentas();
                         //AltaArticulo();
                         Console.WriteLine("Ingrese articulo");
                         return;

@@ -32,9 +32,6 @@ namespace Dominio
             Fecha = fecha;
         }
 
-        internal void Validar()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
