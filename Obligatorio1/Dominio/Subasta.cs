@@ -12,8 +12,6 @@ namespace Dominio
 
         public double MontoBase { get; set; } = 0;
 
-        private List<Subasta> _subastas = new List<Subasta>();
-
         private List<Oferta> _ofertas = new List<Oferta>();
 
         public Subasta()
@@ -36,10 +34,16 @@ namespace Dominio
             _ofertas.Add(oferta);
         }
 
+
         // Método para obtener las ofertas
         public List<Oferta> ObtenerOfertas()
         {
             return _ofertas; 
+        }
+
+        public override double CalcularPrecioFinal()
+        {
+            throw new NotImplementedException();
         }
 
 

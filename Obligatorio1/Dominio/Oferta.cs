@@ -32,6 +32,7 @@ namespace Dominio
             Fecha = fecha;
         }
 
+
         
     }
 }

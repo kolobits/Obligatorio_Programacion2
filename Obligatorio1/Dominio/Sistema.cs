@@ -214,35 +214,34 @@ namespace Dominio
             Venta v1 = new Venta(true, Estado.ABIERTA, DateTime.Now, cliente1, admin1, DateTime.Now.AddDays(5));
             v1.AgregarArticulo(new Articulo("Laptop", "Tecnología", 1200.00));
             v1.AgregarArticulo(new Articulo("Mouse", "Accesorios", 30.00));
-            v1.ValidarArticulo();
-            _publicaciones.Add(v1);
+            AltaPublicacion(v1);
 
             Venta v2 = new Venta(false, Estado.ABIERTA, DateTime.Now, cliente2, admin1, DateTime.Now.AddDays(5));
-            _publicaciones.Add(v2);
+            AltaPublicacion(v2);
 
             Venta v3 = new Venta(true, Estado.ABIERTA, DateTime.Now, cliente3, admin2, DateTime.Now.AddDays(5));
-            _publicaciones.Add(v3);
+            AltaPublicacion(v3);
 
             Venta v4 = new Venta(false, Estado.ABIERTA, DateTime.Now, cliente4, admin2, DateTime.Now.AddDays(5));
-            _publicaciones.Add(v4);
+            AltaPublicacion(v4);
 
             Venta v5 = new Venta(true, Estado.ABIERTA, DateTime.Now, cliente5, admin1, DateTime.Now.AddDays(5));
-            _publicaciones.Add(v5);
+            AltaPublicacion(v5);
 
             Venta v6 = new Venta(false, Estado.ABIERTA, DateTime.Now, cliente6, admin1, DateTime.Now.AddDays(5));
-            _publicaciones.Add(v6);
+            AltaPublicacion(v6);
 
             Venta v7 = new Venta(true, Estado.ABIERTA, DateTime.Now, cliente7, admin2, DateTime.Now.AddDays(5));
-            _publicaciones.Add(v7);
+            AltaPublicacion(v7);
 
             Venta v8 = new Venta(false, Estado.ABIERTA, DateTime.Now, cliente8, admin2, DateTime.Now.AddDays(5));
-            _publicaciones.Add(v8);
+            AltaPublicacion(v8);
 
             Venta v9 = new Venta(true, Estado.ABIERTA, DateTime.Now, cliente9, admin1, DateTime.Now.AddDays(5));
-            _publicaciones.Add(v9);
+            AltaPublicacion(v9);
 
             Venta v10 = new Venta(false, Estado.ABIERTA, DateTime.Now, cliente10, admin1, DateTime.Now.AddDays(5));
-            _publicaciones.Add(v10);
+            AltaPublicacion(v10);
         }
 
 
@@ -306,115 +305,66 @@ namespace Dominio
             }
         }
 
-        public void ListarArticulosPorCategoria()
+
+        public void AltaPublicacion(Publicacion publicacion)
         {
-
-            Console.WriteLine("Elige una categoría:");
-            Console.WriteLine("1. Playa");
-            Console.WriteLine("2. Aventura");
-            Console.WriteLine("3. Ropa");
-            Console.WriteLine("4. Accesorios");
-            Console.WriteLine("5. Cuidado Personal");
-            Console.WriteLine("6. Camping");
-            Console.WriteLine("7. Fotografía");
-            Console.WriteLine("8. Electrónica");
-            Console.WriteLine("9. Deporte");
-            Console.WriteLine("10. Juguetes");
-            Console.WriteLine("11. Juegos");
-            Console.WriteLine("12. Literatura");
-            Console.WriteLine("13. Hogar");
-            Console.WriteLine("14. Manualidades");
-            Console.WriteLine("15. Arte");
-            Console.WriteLine("16. Papelería");
-
-            string opcion = Console.ReadLine();
-            string categoria = "";
-
-            switch (opcion)
+            // Verificar si la publicación es nula
+            if (publicacion == null)
             {
-                case "1":
-                    categoria = "Playa";
-                    break;
-                case "2":
-                    categoria = "Aventura";
-                    break;
-                case "3":
-                    categoria = "Ropa";
-                    break;
-                case "4":
-                    categoria = "Accesorios";
-                    break;
-                case "5":
-                    categoria = "Cuidado Personal";
-                    break;
-                case "6":
-                    categoria = "Camping";
-                    break;
-                case "7":
-                    categoria = "Fotografía";
-                    break;
-                case "8":
-                    categoria = "Electrónica";
-                    break;
-                case "9":
-                    categoria = "Deporte";
-                    break;
-                case "10":
-                    categoria = "Juguetes";
-                    break;
-                case "11":
-                    categoria = "Juegos";
-                    break;
-                case "12":
-                    categoria = "Literatura";
-                    break;
-                case "13":
-                    categoria = "Hogar";
-                    break;
-                case "14":
-                    categoria = "Manualidades";
-                    break;
-                case "15":
-                    categoria = "Arte";
-                    break;
-                case "16":
-                    categoria = "Papelería";
-                    break;
-                default:
-                    Console.WriteLine("Opción no válida.");
-                    return;
+                throw new Exception("La publicación no puede ser nula.");
             }
 
-            Console.WriteLine($"Artículos en la categoría '{categoria}':");
+            // Validar que la publicación esté en estado ABIERTA
+            if (publicacion.Estado != Estado.ABIERTA)
+            {
+                throw new Exception("La publicación debe estar en estado ABIERTA.");
+            }
+            
+            // Agregar la publicación a la lista
+            _publicaciones.Add(publicacion);
+        }
 
+
+        public void AltaArticulo(Articulo articulo)
+        {
+            try
+            {
+                if (!_articulos.Contains(articulo))
+                {
+                    articulo.ValidarArticulo();
+                    _articulos.Add(articulo);
+                }
+                else
+                {
+                    throw new Exception("El articulo ya existe en el sistema");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        public void ListarArticulosPorCategoria(string categoria)
+        {
             bool existeArticulo = false;
+
             foreach (Articulo a in _articulos)
             {
+                if (a.Categoria == categoria)
                 {
-                    if (a.Categoria == categoria)
-                    {
-                        Console.WriteLine($"Nombre: {a.Nombre}, Precio: ${a.Precio}");
-                        existeArticulo = true;
-                    }
+                    Console.WriteLine($"Nombre: {a.Nombre}, Precio: ${a.Precio}");
+                    existeArticulo = true;
                 }
-
             }
+
             if (!existeArticulo)
             {
                 Console.WriteLine("No hay artículos disponibles en esta categoría.");
             }
-
-
         }
-
-        public void AltaArticulo()
-        {
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-            Console.WriteLine("");
-        }
-
 
 
 

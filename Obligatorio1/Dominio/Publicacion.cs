@@ -24,6 +24,9 @@ namespace Dominio
         public DateTime FechaFin { get; set; }
 
         private List<Articulo> _articulos = new List<Articulo>();
+        
+        
+
 
         public Publicacion()
         {
@@ -39,46 +42,56 @@ namespace Dominio
             ClienteFinal = cliente;
             UsuarioFinalizador = usuario;
             FechaFin = fechaFin;
-            Validar();
         }
-
-        public void Validar()
-        {
- 
-        }
-
+  
         public void AgregarArticulo(Articulo articulo)
         {
+
             if (articulo == null)
             {
                 throw new Exception("El artículo no puede ser nulo.");
             }
+
+            if (string.IsNullOrEmpty(articulo.Nombre))
+            {
+                throw new Exception("El nombre del artículo no puede estar vacío.");
+            }
+
+            if (string.IsNullOrEmpty(articulo.Categoria))
+            {
+                throw new Exception("La categoría del artículo no puede estar vacía.");
+            }
+
+            if (articulo.Precio <= 0)
+            {
+                throw new Exception("El precio del artículo debe ser mayor a cero.");
+            }
+
             _articulos.Add(articulo);
         }
+        
 
-        public List<Articulo> ObtenerArticulos()
+        // Método para obtener la lista de artículos
+        public List<Articulo> GetArticulos()
         {
             return _articulos;
         }
 
-        public void ValidarArticulo()
-        {
-             if (_articulos == null || _articulos.Count == 0)
-            {
-                throw new Exception("Se deben incluir artículos en la publicación.");
-            }
-        }
+        // Método para establecer la lista de artículos
+        //public void SetArticulos(List<Articulo> articulos)
+        //{
+        //    if (articulos == null && articulos.Count == 0)
+        //    {
+        //        throw new Exception("La lista de artículos no puede estar vacía.");
+        //    }
+        //    _articulos = articulos;
+        //}
+
 
         // Método para calcular el precio total de los articulos
-        public double CalcularPrecioTotal()
-        {
-            double total = 0;
-            foreach (Articulo articulo in _articulos)
-            {
-                total += articulo.Precio;
-            }
-            return total;
-        }
+        public abstract double CalcularPrecioFinal();
+        
+
     }
 
 }
