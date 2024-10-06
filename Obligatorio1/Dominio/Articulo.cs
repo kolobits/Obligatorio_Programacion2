@@ -31,15 +31,31 @@ namespace Dominio
 
 
 
-        //public void ValidarNombreArticulo()
-        //{
-        //    if (String.IsNullOrEmpty(nombre){
+        private void ValidarNombre()
+        {
+            if (String.IsNullOrEmpty(Nombre))
+            {
+                throw new Exception("El nombre no puede ser vacio");
 
-        //        throw new Exeption("El nombre no puede ser vacio");
+            }
+        }
 
-        //    }
-        //}
+        private void ValidarCategoria()
+        {
+            if (String.IsNullOrEmpty(Categoria))
+            {
+               throw new Exception("La categoría no puede estar vacia");
+            }
+        }
 
+
+        private void ValidarPrecio()
+        {
+            if (Precio <= 0)
+            {
+                throw new Exception("El precio no puede ser 0");
+            }
+        }
 
 
     }

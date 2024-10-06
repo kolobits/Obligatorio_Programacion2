@@ -17,25 +17,25 @@ namespace Dominio
 
         public DateTime FechaPublicacion { get; set; }
 
-        private List<Articulo> _articulos = new List<Articulo>();
-
         public Cliente ClienteFinal { get; set; }
 
         public Usuario UsuarioFinalizador { get; set; }
 
         public DateTime FechaFin { get; set; }
 
+        private List<Articulo> _articulos = new List<Articulo>();
+
         public Publicacion()
         {
             id = UltimoId++;
         }
 
-        public Publicacion(Estado estado, DateTime fechaPublicacion, List<Articulo> articulos, Cliente cliente, Usuario usuario, DateTime fechaFin)
+
+        public Publicacion(Estado estado, DateTime fechaPublicacion, Cliente cliente, Usuario usuario, DateTime fechaFin)
         {
             id = UltimoId++;
             Estado = estado;
             FechaPublicacion = fechaPublicacion;
-            _articulos = articulos;
             ClienteFinal = cliente;
             UsuarioFinalizador = usuario;
             FechaFin = fechaFin;
@@ -44,13 +44,26 @@ namespace Dominio
 
         public void Validar()
         {
-            ValidarArticulo();
+ 
         }
 
+        public void AgregarArticulo(Articulo articulo)
+        {
+            if (articulo == null)
+            {
+                throw new Exception("El artículo no puede ser nulo.");
+            }
+            _articulos.Add(articulo);
+        }
+
+        public List<Articulo> ObtenerArticulos()
+        {
+            return _articulos;
+        }
 
         public void ValidarArticulo()
         {
-            if (_articulos == null || _articulos.Count == 0)
+             if (_articulos == null || _articulos.Count == 0)
             {
                 throw new Exception("Se deben incluir artículos en la publicación.");
             }
@@ -62,9 +75,9 @@ namespace Dominio
             double total = 0;
             foreach (Articulo articulo in _articulos)
             {
-                total += articulo.Precio;  
+                total += articulo.Precio;
             }
-            return total; 
+            return total;
         }
     }
 

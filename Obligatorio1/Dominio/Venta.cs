@@ -24,6 +24,8 @@ namespace Dominio
 
         }
 
+
+
        // Método para calcular precio con descuento si es relampago
         public double CalcularPrecio()
         {

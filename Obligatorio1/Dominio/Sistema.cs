@@ -21,6 +21,7 @@ namespace Dominio
         private Sistema()
         {
             PrecargarDatos();
+
         }
 
         // Singleton
@@ -211,6 +212,9 @@ namespace Dominio
             Administrador admin2 = GetAdministradorPorNombre("Andrés");
 
             Venta v1 = new Venta(true, Estado.ABIERTA, DateTime.Now, cliente1, admin1, DateTime.Now.AddDays(5));
+            v1.AgregarArticulo(new Articulo("Laptop", "Tecnología", 1200.00));
+            v1.AgregarArticulo(new Articulo("Mouse", "Accesorios", 30.00));
+            v1.ValidarArticulo();
             _publicaciones.Add(v1);
 
             Venta v2 = new Venta(false, Estado.ABIERTA, DateTime.Now, cliente2, admin1, DateTime.Now.AddDays(5));
@@ -243,9 +247,9 @@ namespace Dominio
 
 
 
-        private void PrecargarSubastas() 
-        { 
-            Subasta s1 = new Subasta()
+        private void PrecargarSubastas()
+        {
+            Subasta s1 = new Subasta();
         }
 
 
@@ -291,14 +295,7 @@ namespace Dominio
         }
 
 
-
-
-
-
-
-
-
-            public void ListarClientes()
+        public void ListarClientes()
         {
             foreach (Usuario u in _usuarios)
             {
@@ -423,3 +420,5 @@ namespace Dominio
 
 
     }
+
+}
