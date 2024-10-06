@@ -6,7 +6,7 @@ namespace UI
     {
         static void Main(string[] args)
         {
-        Sistema s = Sistema.Instancia();
+            Sistema s = Sistema.Instancia();
 
             int opcion = -1;
             do
@@ -32,31 +32,12 @@ namespace UI
                     case 2:
                         Console.Clear();
                         Console.WriteLine("Artículos por categoría");
-                        ListarArticulosPorCategoria();
+                        MostrarCategorias();
+                        MostrarArticulosPorCategoria(s);
+                        Console.ReadKey();
                         return;
                     case 3:
-                        try
-                        {
-                            Console.Clear();
-                            Console.WriteLine("Ingrese el nombre del articulo");
-                            string nombreArticulo = Console.ReadLine();
-                            Console.WriteLine("Ingrese la categoria del articulo");
-                            string categoriaArticulo = Console.ReadLine();
-                            Console.WriteLine("Ingrese el precio del articulo");
-                            double precioArticulo = double.Parse(Console.ReadLine());
-                            Articulo a = new Articulo(nombreArticulo, categoriaArticulo, precioArticulo);
-                            s.AltaArticulo(a);
-                            Console.WriteLine("Artículo dado de alta con éxito.");
-                            Console.ReadKey();
-
-                        }
-                        catch (Exception e)
-                        {
-
-                            Console.WriteLine(e.Message);
-                        }
-
-
+                        DarDeAltaArticulo(s);
                         return;
                     case 4:
                         Console.Clear();
@@ -80,10 +61,11 @@ namespace UI
 
             Console.ReadKey();
 
+
+
         }
 
-
-        public static void ListarArticulosPorCategoria()
+        public static void MostrarCategorias()
         {
             Console.WriteLine("Elige una categoría:");
             Console.WriteLine("1. Playa");
@@ -103,71 +85,117 @@ namespace UI
             Console.WriteLine("15. Arte");
             Console.WriteLine("16. Papelería");
 
-            string opcion = Console.ReadLine();
+
+        }
+
+        public static string LeerCategoria(int opcion)
+        {
             string categoria = "";
 
             switch (opcion)
             {
-                case "1":
+                case 1:
                     categoria = "Playa";
                     break;
-                case "2":
+                case 2:
                     categoria = "Aventura";
                     break;
-                case "3":
+                case 3:
                     categoria = "Ropa";
                     break;
-                case "4":
+                case 4:
                     categoria = "Accesorios";
                     break;
-                case "5":
+                case 5:
                     categoria = "Cuidado Personal";
                     break;
-                case "6":
+                case 6:
                     categoria = "Camping";
                     break;
-                case "7":
+                case 7:
                     categoria = "Fotografía";
                     break;
-                case "8":
+                case 8:
                     categoria = "Electrónica";
                     break;
-                case "9":
+                case 9:
                     categoria = "Deporte";
                     break;
-                case "10":
+                case 10:
                     categoria = "Juguetes";
                     break;
-                case "11":
+                case 11:
                     categoria = "Juegos";
                     break;
-                case "12":
+                case 12:
                     categoria = "Literatura";
                     break;
-                case "13":
+                case 13:
                     categoria = "Hogar";
                     break;
-                case "14":
+                case 14:
                     categoria = "Manualidades";
                     break;
-                case "15":
+                case 15:
                     categoria = "Arte";
                     break;
-                case "16":
+                case 16:
                     categoria = "Papelería";
                     break;
                 default:
                     Console.WriteLine("Opción no válida.");
-                    return;
+                    return null; // Si es inválido, retorna null.
             }
-           
 
-            Console.ReadKey();
+            return categoria; // Retorna el nombre de la categoría
+        }
 
+        public static void MostrarArticulosPorCategoria(Sistema s)
+        {
+            int opcionCategoria = int.Parse(Console.ReadLine());
+            string categoriaSeleccionada = LeerCategoria(opcionCategoria);
+            if (categoriaSeleccionada != null)
+            {
+                s.ListarArticulosPorCategoria(categoriaSeleccionada);
+            }
+            else
+            {
+                Console.WriteLine("Categoría no válida, intenta nuevamente.");
+            }
+        }
 
+        public static void DarDeAltaArticulo(Sistema s)
+        {
+            try
+            {
+                Console.Clear();
+                Console.WriteLine("Ingrese el nombre del articulo");
+                string nombreArticulo = Console.ReadLine();
+                Console.WriteLine("Ingrese la categoria del articulo");
+                string categoriaArticulo = Console.ReadLine();
+                Console.WriteLine("Ingrese el precio del articulo");
+                double precioArticulo = double.Parse(Console.ReadLine());
+                Articulo a = new Articulo(nombreArticulo, categoriaArticulo, precioArticulo);
+                s.AltaArticulo(a);
+                Console.WriteLine("Artículo dado de alta con éxito.");
+                Console.ReadKey();
 
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+            }
 
         }
+
+
+
+
+
+
+
+
     }
 }
 
