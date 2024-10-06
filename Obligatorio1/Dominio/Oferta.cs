@@ -13,9 +13,9 @@ namespace Dominio
 
         public static int UltimoId { get; set; } = 1;
 
-        public  Cliente Cliente { get; set; }
+        public Cliente Cliente { get; set; }
 
-        public  double  Monto { get; set; }
+        public double Monto { get; set; }
 
         public DateTime Fecha { get; set; }
 
@@ -33,6 +33,6 @@ namespace Dominio
         }
 
 
-        
+
     }
 }

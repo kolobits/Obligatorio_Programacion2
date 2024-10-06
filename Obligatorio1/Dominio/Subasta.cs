@@ -8,8 +8,6 @@ namespace Dominio
 {
     public class Subasta : Publicacion
     {
-        //private List<Oferta> _ofertas = new List<Oferta>(); 
-
         public double MontoBase { get; set; } = 0;
 
         private List<Oferta> _ofertas = new List<Oferta>();
@@ -35,24 +33,19 @@ namespace Dominio
         }
 
 
-        // Método para obtener las ofertas
+        // METODO PARA OBTENER LAS OFERTAS
         public List<Oferta> ObtenerOfertas()
         {
-            return _ofertas; 
+            return _ofertas;
         }
 
         public override double CalcularPrecioFinal()
         {
             throw new NotImplementedException();
-        }
+        }   
 
 
 
-
-        //public Subasta(List<Oferta> ofertas, Estado estado, DateTime fechaPublicacion, List<Articulo> articulos, Cliente cliente, DateTime fechaFin) : base(estado, fechaPublicacion, articulos, cliente, null, fechaFin)
-        //{
-        //    _ofertas = ofertas;
-        //}
     }
 
 

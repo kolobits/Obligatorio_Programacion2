@@ -27,22 +27,77 @@ namespace Dominio
             Apellido = apellido;
             Email = email;
             Contrasena = contrasena;
+            ValidarUsuario();
         }
+
+        // VALIDACIONES
+        public void ValidarUsuario()
+        {
+            ValidarNombre();
+            ValidarApellido();
+            ValidarEmail();
+            ValidarContrasena();
+        }
+
+        private void ValidarNombre()
+        {
+            if (string.IsNullOrEmpty(Nombre))
+            {
+                throw new Exception("El nombre no puede estar vacío.");
+            }
+
+            if (Nombre.Length < 2)
+            {
+                throw new Exception("El nombre debe tener al menos 2 caracteres.");
+            }
+        }
+
+        private void ValidarApellido()
+        {
+            if (string.IsNullOrEmpty(Apellido))
+            {
+                throw new Exception("El apellido no puede estar vacío.");
+            }
+
+            if (Apellido.Length < 2)
+            {
+                throw new Exception("El apellido debe tener al menos 2 caracteres.");
+            }
+        }
+
+        private void ValidarEmail()
+        {
+            if (string.IsNullOrEmpty(Email))
+            {
+                throw new Exception("El correo electrónico no puede estar vacío.");
+            }
+        }
+
+        private void ValidarContrasena()
+        {
+            if (string.IsNullOrEmpty(Contrasena))
+            {
+                throw new Exception("La contraseña no puede estar vacía.");
+            }
+
+            if (Contrasena.Length < 6)
+            {
+                throw new Exception("La contraseña debe tener al menos 6 caracteres.");
+            }
+
+        }
+
 
         public virtual void MostrarDatos()
         {
-            Console.WriteLine($"ID: {Id}, Nombre: {Nombre}, Apellido: {Apellido}, Email: {Email}");
+            Console.WriteLine($"Nombre: {Nombre}, Apellido: {Apellido}, Email: {Email}");
 
         }
 
-
-
-
-
-        public void Validar()
-        {
-            throw new NotImplementedException();
-        }
     }
 
+
 }
+
+
+

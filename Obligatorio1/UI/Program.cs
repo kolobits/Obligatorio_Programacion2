@@ -8,9 +8,13 @@ namespace UI
         {
             Sistema s = Sistema.Instancia();
 
+
+            //MENU DESPLEGABLE
+
             int opcion = -1;
             do
             {
+                Console.WriteLine("BIENVENIDO A LA TIENDA OBLIGATORIORT");
                 Console.WriteLine("---- Menú Principal ----");
                 Console.WriteLine("1. Listar todos los clientes");
                 Console.WriteLine("2. Listar artículos por categoría");
@@ -38,10 +42,10 @@ namespace UI
                         return;
                     case 3:
                         DarDeAltaArticulo(s);
+                        Console.ReadKey();
                         return;
                     case 4:
                         Console.Clear();
-                        Console.WriteLine("Ingrese las fechas");
                         //ListarPublicacionesEntreFechas();
                         return;
                     case 5:
@@ -52,7 +56,6 @@ namespace UI
                         Console.WriteLine("Opción no válida, intenta nuevamente.");
                         Console.ReadKey();
                         Console.Clear();
-                        //MostrarMenu();
                         return;
                 }
 
@@ -190,8 +193,22 @@ namespace UI
         }
 
 
+        //private static void ListarPublicacionesPorFecha()
+        //{
 
 
+        //    Console.Clear();
+        //    Console.WriteLine("Ingrese la primera fecha (dd/mm/yyyy):");
+        //    DateTime fechaInicial = DateTime.Parse(Console.ReadLine());
+
+        //    Console.WriteLine("Ingrese la segunda fecha (dd-mm-yyyy):");
+        //    DateTime fechaFinal = DateTime.Parse(Console.ReadLine());
+
+        //    if (fechaInicial > fechaFinal)
+        //    {
+        //        Console.WriteLine("La fecha de inicio no puede ser mayor a la fecha de fin.");
+
+        //    }
 
 
 

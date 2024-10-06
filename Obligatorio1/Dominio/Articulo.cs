@@ -31,7 +31,9 @@ namespace Dominio
         }
 
 
-        public void ValidarArticulo() 
+
+        // VALIDACIONES
+        public void ValidarArticulo()
         {
             ValidarNombre();
             ValidarCategoria();
@@ -52,7 +54,7 @@ namespace Dominio
         {
             if (String.IsNullOrEmpty(Categoria))
             {
-               throw new Exception("La categoría no puede estar vacia");
+                throw new Exception("La categoría no puede estar vacia");
             }
         }
 

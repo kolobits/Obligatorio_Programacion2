@@ -38,13 +38,13 @@ namespace Dominio
         }
 
 
-        // Método para calcular precio con descuento si es relampago
+        // METODO PARA CALCULAR PRECIO CON DESCUENTO
         public double CalcularPrecio()
         {
             double precioBase = CalcularPrecioFinal();
             if (EsOfertaRelampago)
             {
-                return precioBase * 0.80;  // Aplica el 20% si es oferta relámpago
+                return precioBase * 0.80;  // APLICA EL 20% SI ES RELAMPAGO
             }
             return precioBase;
         }

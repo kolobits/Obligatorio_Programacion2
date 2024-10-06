@@ -24,8 +24,8 @@ namespace Dominio
         public DateTime FechaFin { get; set; }
 
         private List<Articulo> _articulos = new List<Articulo>();
-        
-        
+
+
 
 
         public Publicacion()
@@ -43,7 +43,14 @@ namespace Dominio
             UsuarioFinalizador = usuario;
             FechaFin = fechaFin;
         }
-  
+
+        public virtual void MostrarDetalles()
+        {
+            Console.WriteLine($"ID: {id}, Nombre: {Nombre}, Estado: {Estado}, Fecha: {FechaPublicacion}");
+        }
+
+
+
         public void AgregarArticulo(Articulo articulo)
         {
 
@@ -69,28 +76,21 @@ namespace Dominio
 
             _articulos.Add(articulo);
         }
-        
 
-        // Método para obtener la lista de artículos
+
+        // METODO PARA OBTENER LISTA DE ARTICULOS
         public List<Articulo> GetArticulos()
         {
             return _articulos;
         }
 
-        // Método para establecer la lista de artículos
-        //public void SetArticulos(List<Articulo> articulos)
-        //{
-        //    if (articulos == null && articulos.Count == 0)
-        //    {
-        //        throw new Exception("La lista de artículos no puede estar vacía.");
-        //    }
-        //    _articulos = articulos;
-        //}
 
-
-        // Método para calcular el precio total de los articulos
+        // METODO PARA CALCULAR EL PRECIO TOTAL DE LOS PRODUCTOS
         public abstract double CalcularPrecioFinal();
-        
+
+
+
+
 
     }
 

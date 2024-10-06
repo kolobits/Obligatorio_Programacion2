@@ -51,7 +51,7 @@ namespace Dominio
             PrecargarSubastas();
         }
 
-
+        // PRECARGA CLIENTES
         private void PrecargarClientes()
         {
             Cliente c1 = new Cliente(2000.00, "Juan", "Rodriguez", "juanrodriguez@gmail.com", "contrasenia1");
@@ -77,6 +77,8 @@ namespace Dominio
             _usuarios.Add(c10);
         }
 
+
+        // PRECARGA ADMIN
         private void PrecargarAdministradores()
         {
             Administrador a1 = new Administrador("Pedro", "Perez", "pedroperez@gmail.com", "Admin123");
@@ -86,7 +88,7 @@ namespace Dominio
             _usuarios.Add(a2);
         }
 
-        // Region Precarga de Artículos
+        // PRECARGA ARTICULOS
         #region
         private void PrecargarArticulos()
         {
@@ -195,7 +197,9 @@ namespace Dominio
         }
         #endregion
 
-        private void PrecargarVentas()
+        //PRECARGA VENTAS
+        #region
+        public void PrecargarVentas()
         {
             Cliente cliente1 = GetClientePorEmail("luismartinez@gmail.com");
             Cliente cliente2 = GetClientePorEmail("anagomez@gmail.com");
@@ -243,7 +247,7 @@ namespace Dominio
             Venta v10 = new Venta(false, Estado.ABIERTA, DateTime.Now, cliente10, admin1, DateTime.Now.AddDays(5));
             AltaPublicacion(v10);
         }
-
+        #endregion
 
 
         private void PrecargarSubastas()
@@ -252,47 +256,32 @@ namespace Dominio
         }
 
 
-
-
-
-
+        // METODO OBTENER ADMIN
         public Administrador GetAdministradorPorNombre(string nombre)
         {
             foreach (Usuario u in _usuarios)
             {
                 if (u is Administrador && u.Nombre == nombre)
                 {
-                    return (Administrador)u; // Si encuentra un administrador con el nombre, lo retorna
+                    return (Administrador)u;
                 }
             }
-            return null; // Si no encuentra el administrador, retorna null
+            return null;
         }
 
+
+        // METODO OBTENER CLIENTE
         public Cliente GetClientePorEmail(string email)
         {
             foreach (Usuario u in _usuarios)
             {
                 if (u is Cliente && u.Email == email)
                 {
-                    return (Cliente)u; // Si encuentra un cliente con el email, lo retorna
+                    return (Cliente)u;
                 }
             }
-            return null; // Si no encuentra el cliente, retorna null
+            return null;
         }
-
-        public Articulo GetArticuloPorNombre(string nombreArticulo)
-        {
-            foreach (Articulo a in _articulos)
-            {
-                if (a.Nombre == nombreArticulo)
-                {
-                    return a;
-                }
-            }
-            return null; // Si no encuentra el artículo, retorna null
-
-        }
-
 
         public void ListarClientes()
         {
@@ -303,6 +292,20 @@ namespace Dominio
                     u.MostrarDatos();
                 }
             }
+        }
+
+
+        public Articulo GetArticuloPorNombre(string nombreArticulo)
+        {
+            foreach (Articulo a in _articulos)
+            {
+                if (a.Nombre == nombreArticulo)
+                {
+                    return a;
+                }
+            }
+            return null;
+
         }
 
 
@@ -319,7 +322,7 @@ namespace Dominio
             {
                 throw new Exception("La publicación debe estar en estado ABIERTA.");
             }
-            
+
             // Agregar la publicación a la lista
             _publicaciones.Add(publicacion);
         }
@@ -367,7 +370,17 @@ namespace Dominio
         }
 
 
+        public void PrecargarPublicaciones()
+        {
+
+        }
+
+
+
 
     }
 
+
+
 }
+
