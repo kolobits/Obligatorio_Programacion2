@@ -413,7 +413,6 @@ namespace Dominio
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("");
-            Console.WriteLine("");
         }
 
 
