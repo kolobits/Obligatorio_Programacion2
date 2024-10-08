@@ -17,10 +17,11 @@ namespace Dominio
 
         }
 
-        public Subasta(List<Oferta> ofertas, Estado estado, DateTime fechaPublicacion, Cliente cliente, DateTime fechaFin) : base(estado, fechaPublicacion, cliente, null, fechaFin)
+        public Subasta(double montoBase, Estado estado, DateTime fechaPublicacion, Cliente cliente, DateTime fechaFin) : base(estado, fechaPublicacion, cliente, null, fechaFin)
         {
-            _ofertas = ofertas;
+            MontoBase = montoBase;
         }
+
 
 
         public void AgregarOferta(Oferta oferta)

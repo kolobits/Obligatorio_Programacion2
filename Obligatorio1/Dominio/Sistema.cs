@@ -52,7 +52,7 @@ namespace Dominio
         }
 
         // PRECARGA CLIENTES
-        private void PrecargarClientes()
+        public void PrecargarClientes()
         {
             Cliente c1 = new Cliente(2000.00, "Juan", "Rodriguez", "juanrodriguez@gmail.com", "contrasenia1");
             Cliente c2 = new Cliente(1500.00, "Ana", "Gomez", "anagomez@gmail.com", "contrasenia2");
@@ -218,41 +218,35 @@ namespace Dominio
             Venta v1 = new Venta(true, Estado.ABIERTA, DateTime.Now, cliente1, admin1, DateTime.Now.AddDays(5));
             v1.AgregarArticulo(new Articulo("Laptop", "Tecnología", 1200.00));
             v1.AgregarArticulo(new Articulo("Mouse", "Accesorios", 30.00));
-            AltaPublicacion(v1);
-
+            
             Venta v2 = new Venta(false, Estado.ABIERTA, DateTime.Now, cliente2, admin1, DateTime.Now.AddDays(5));
-            AltaPublicacion(v2);
-
             Venta v3 = new Venta(true, Estado.ABIERTA, DateTime.Now, cliente3, admin2, DateTime.Now.AddDays(5));
-            AltaPublicacion(v3);
-
             Venta v4 = new Venta(false, Estado.ABIERTA, DateTime.Now, cliente4, admin2, DateTime.Now.AddDays(5));
-            AltaPublicacion(v4);
-
             Venta v5 = new Venta(true, Estado.ABIERTA, DateTime.Now, cliente5, admin1, DateTime.Now.AddDays(5));
-            AltaPublicacion(v5);
-
             Venta v6 = new Venta(false, Estado.ABIERTA, DateTime.Now, cliente6, admin1, DateTime.Now.AddDays(5));
-            AltaPublicacion(v6);
-
             Venta v7 = new Venta(true, Estado.ABIERTA, DateTime.Now, cliente7, admin2, DateTime.Now.AddDays(5));
-            AltaPublicacion(v7);
-
             Venta v8 = new Venta(false, Estado.ABIERTA, DateTime.Now, cliente8, admin2, DateTime.Now.AddDays(5));
-            AltaPublicacion(v8);
-
             Venta v9 = new Venta(true, Estado.ABIERTA, DateTime.Now, cliente9, admin1, DateTime.Now.AddDays(5));
-            AltaPublicacion(v9);
-
             Venta v10 = new Venta(false, Estado.ABIERTA, DateTime.Now, cliente10, admin1, DateTime.Now.AddDays(5));
+
+            AltaPublicacion(v1);
+            AltaPublicacion(v2);
+            AltaPublicacion(v3);
+            AltaPublicacion(v4);
+            AltaPublicacion(v5);
+            AltaPublicacion(v6);
+            AltaPublicacion(v7);
+            AltaPublicacion(v8);
+            AltaPublicacion(v9);
             AltaPublicacion(v10);
+
         }
         #endregion
 
 
         private void PrecargarSubastas()
         {
-            Subasta s1 = new Subasta();
+            Subasta s1 = new Subasta(800, Estado.ABIERTA, DateTime.Now.AddDays(-2),c1, DateTime.Now.AddDays(5));
         }
 
 
@@ -283,6 +277,7 @@ namespace Dominio
             return null;
         }
 
+        // METODO PARA LITAR CLIENTES
         public void ListarClientes()
         {
             foreach (Usuario u in _usuarios)
@@ -293,6 +288,7 @@ namespace Dominio
                 }
             }
         }
+
 
 
         public Articulo GetArticuloPorNombre(string nombreArticulo)
@@ -308,7 +304,7 @@ namespace Dominio
 
         }
 
-
+        // METODO PARA DAR DE ALTA UNA PUBLICACION
         public void AltaPublicacion(Publicacion publicacion)
         {
             // Verificar si la publicación es nula
@@ -327,7 +323,7 @@ namespace Dominio
             _publicaciones.Add(publicacion);
         }
 
-
+        // METODO PARA DAR DE ALTA UN ARTICULO
         public void AltaArticulo(Articulo articulo)
         {
             try
@@ -350,6 +346,7 @@ namespace Dominio
 
         }
 
+        // METODO PARA LISTAR ARTICULOS POR CATEGORIA
         public void ListarArticulosPorCategoria(string categoria)
         {
             bool existeArticulo = false;
@@ -370,13 +367,28 @@ namespace Dominio
         }
 
 
-        public void PrecargarPublicaciones()
+        //public void PrecargarPublicaciones()
+        //{
+
+        //}
+
+
+        // METODO LISTAR PUBLICACIONES POR FECHA
+        public List<Publicacion> ObtenerPublicacionesPorFechas(DateTime fechaInicio, DateTime fechaFin)
         {
 
+            List<Publicacion> publicacionesFiltradas = new List<Publicacion>();
+
+
+            foreach (Publicacion p in _publicaciones)
+            {
+                if (p.FechaPublicacion >= fechaInicio && p.FechaPublicacion <= fechaFin)
+                {
+                    publicacionesFiltradas.Add(p);
+                }
+            }
+            return publicacionesFiltradas;
         }
-
-
-
 
     }
 
