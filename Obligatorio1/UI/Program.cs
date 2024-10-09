@@ -62,7 +62,6 @@ namespace UI
                         return;
                     case 5:
                         Console.WriteLine("Saliendo del sistema...");
-                        Console.ReadKey();
                         break;
                     default:
                         Console.WriteLine("Opción no válida, intenta nuevamente.");

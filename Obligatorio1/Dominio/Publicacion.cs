@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public abstract class Publicacion
+    public abstract class Publicacion : IValidable
     {
         public int id { get; set; }
         public static int UltimoId { get; set; } = 1;
 
         public string Nombre { get; set; }
+
         public Estado Estado { get; set; }
 
         public DateTime FechaPublicacion { get; set; }
@@ -47,10 +48,10 @@ namespace Dominio
         // VALIDACIONES
         public void Validar()
         {
-            ValidarNombre();  
+            ValidarNombre();
         }
 
-        
+
         public void ValidarNombre()
         {
             if (string.IsNullOrEmpty(Nombre))
