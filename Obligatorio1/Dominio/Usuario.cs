@@ -87,7 +87,10 @@ namespace Dominio
 
         }
 
-
+        public void MostrarDatos()
+        {
+            Console.WriteLine($"ID: {Id}, Nombre: {Nombre}, Apellido: {Apellido}, Email: {Email}");
+        }
     }
 
 

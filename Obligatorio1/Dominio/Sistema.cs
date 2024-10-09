@@ -116,7 +116,7 @@ namespace Dominio
 
         // PRECARGA ARTICULOS
         #region
-        private void PrecargarArticulos()
+        public void PrecargarArticulos()
         {
             Articulo a1 = new Articulo("Balde", "Playa", 15.99);
             Articulo a2 = new Articulo("Sombrilla", "Playa", 25.50);
@@ -365,8 +365,8 @@ namespace Dominio
         }
         #endregion
 
-        //traer los clientes
-        //se puede usar metodo GetCliente PorEmail directo en instancia
+        // PRECARGA SUBASTAS
+        #region
         private void PrecargarSubastas()
         {
             Cliente cliente1 = GetClientePorEmail("luismartinez@gmail.com");
@@ -380,12 +380,76 @@ namespace Dominio
             Cliente cliente9 = GetClientePorEmail("isabeltorres@gmail.com");
             Cliente cliente10 = GetClientePorEmail("juanrodriguez@gmail.com");
 
+            List<Articulo> articulos = GetArticulo();
 
-            Subasta s1 = new Subasta();
+            Subasta subasta1 = new Subasta("Fotografía Profesional", DateTime.Now, 100);
+            subasta1.AltaArticulo(articulos[18]);
+            subasta1.AltaArticulo(articulos[19]);
+            subasta1.AltaArticulo(articulos[20]);
+            subasta1.AgregarOferta(new Oferta(cliente1, 550.00, DateTime.Now));
+            subasta1.AgregarOferta(new Oferta(cliente2, 600.00, DateTime.Now));
+            _publicaciones.Add(subasta1);
 
+            Subasta subasta2 = new Subasta("Equipo de Camping", DateTime.Now, 150);
+            subasta2.AltaArticulo(articulos[15]);
+            subasta2.AltaArticulo(articulos[16]);
+            subasta2.AltaArticulo(articulos[13]);
+            subasta2.AgregarOferta(new Oferta(cliente3, 200.00, DateTime.Now));
+            _publicaciones.Add(subasta2);
+           
+            Subasta subasta3 = new Subasta("Kit de Pesca y Aventura", DateTime.Now, 120);
+            subasta3.AltaArticulo(articulos[31]);
+            subasta3.AltaArticulo(articulos[17]);
+            subasta3.AgregarOferta(new Oferta(cliente4, 150.00, DateTime.Now));
+            subasta3.AgregarOferta(new Oferta(cliente1, 180.00, DateTime.Now.AddMinutes(5)));
+            _publicaciones.Add(subasta3);
 
+            Subasta subasta4 = new Subasta("Kit de Papelería", DateTime.Now, 50);
+            subasta4.AltaArticulo(articulos[49]);
+            subasta4.AltaArticulo(articulos[50]);
+            subasta4.AltaArticulo(articulos[48]);
+            subasta4.AgregarOferta(new Oferta(cliente2, 60.00, DateTime.Now));
+            _publicaciones.Add(subasta4);
+
+            
+            Subasta subasta5 = new Subasta("Arte y Pintura", DateTime.Now, 80);
+            subasta5.AltaArticulo(articulos[47]);
+            subasta5.AgregarOferta(new Oferta(cliente5, 100.00, DateTime.Now));
+            _publicaciones.Add(subasta5);
+
+            Subasta subasta6 = new Subasta("Equipo de Cocina", DateTime.Now, 70);
+            subasta6.AltaArticulo(articulos[40]);
+            subasta6.AltaArticulo(articulos[41]);
+            subasta6.AltaArticulo(articulos[42]);
+            subasta6.AgregarOferta(new Oferta(cliente6, 80.00, DateTime.Now));
+            _publicaciones.Add(subasta6);
+
+            Subasta subasta7 = new Subasta("Kit de Manualidades", DateTime.Now, 40);
+            subasta7.AltaArticulo(articulos[45]);
+            subasta7.AltaArticulo(articulos[46]);
+            subasta7.AgregarOferta(new Oferta(cliente7, 50.00, DateTime.Now));
+            _publicaciones.Add(subasta7);
+
+            Subasta subasta8 = new Subasta("Deporte Extremo", DateTime.Now, 250);
+            subasta8.AltaArticulo(articulos[26]);
+            subasta8.AltaArticulo(articulos[27]);
+            subasta8.AgregarOferta(new Oferta(cliente8, 300.00, DateTime.Now));
+            _publicaciones.Add(subasta8);
+
+            Subasta subasta9 = new Subasta("Kit de Camping", DateTime.Now, 200);
+            subasta9.AltaArticulo(articulos[15]);
+            subasta9.AltaArticulo(articulos[16]);
+            subasta9.AgregarOferta(new Oferta(cliente9, 220.00, DateTime.Now));
+            _publicaciones.Add(subasta9);
+
+            Subasta subasta10 = new Subasta("Juguetes y Juegos", DateTime.Now, 50);
+            subasta10.AltaArticulo(articulos[34]);
+            subasta10.AltaArticulo(articulos[35]);
+            subasta10.AgregarOferta(new Oferta(cliente10, 60.00, DateTime.Now));
+            _publicaciones.Add(subasta10);
 
         }
+        #endregion
 
 
         // METODO OBTENER ADMIN

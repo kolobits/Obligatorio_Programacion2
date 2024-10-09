@@ -8,17 +8,19 @@ namespace Dominio
 {
     public class Subasta : Publicacion
     {
-        public List<Oferta> Ofertas { get; private set; }
+        public List<Oferta> _ofertas { get; set; }
+        public Usuario UsuarioGanador { get; set; }
+        public Usuario AdministradorQueCierra { get; set; }
 
         public Subasta()
         {
-
+            _ofertas = new List<Oferta>();
         }
 
         public Subasta(string nombre, DateTime fechaPublicacion, double montoBase)
           : base(nombre, fechaPublicacion)
         {
-            Ofertas = new List<Oferta>();
+            _ofertas = new List<Oferta>();
         }
 
 
@@ -28,32 +30,60 @@ namespace Dominio
             {
                 throw new Exception("La oferta no puede ser nula.");
             }
-            Ofertas.Add(oferta);
+            _ofertas.Add(oferta);
         }
 
 
         public override double CalcularPrecioFinal()
         {
-         
-            double montoMaximo = 0;
-
-            
-            if (Ofertas.Count > 0)
+            if (_ofertas == null || _ofertas.Count == 0)
             {
-                
-                foreach (Oferta o in Ofertas)
+                return 0; 
+            }
+
+            Oferta mejorOferta = _ofertas[0]; 
+
+            foreach (Oferta o in _ofertas)
+            {
+                if (o.Monto > mejorOferta.Monto)
                 {
-                    if (o.Monto > montoMaximo)
-                    {
-                        montoMaximo = o.Monto;
-                    }
+                    mejorOferta = o;
                 }
             }
-            return montoMaximo; 
+
+            return mejorOferta.Monto; 
         }
 
 
+        public void CerrarSubasta(Administrador admin)
+        {
+            if (_ofertas == null || _ofertas.Count == 0)
+            {
+                throw new Exception("No hay ofertas para cerrar esta subasta.");
+            }
+
+            Oferta mejorOferta = _ofertas[0]; 
+
+            foreach (Oferta o in _ofertas)
+            {
+                if (o.Monto > mejorOferta.Monto)
+                {
+                    mejorOferta = o;  
+                }
+            }
+
+           
+            ClienteFinal = mejorOferta.Cliente;
+            UsuarioFinalizador = admin;
+
+            Estado = Estado.CERRADA;
+            FechaFin = DateTime.Now;
+        }
+
+
+
+
+
+
     }
-
-
 }
