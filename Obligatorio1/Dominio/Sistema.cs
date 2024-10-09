@@ -276,7 +276,7 @@ namespace Dominio
             Articulo a49 = new Articulo("Cuaderno", "Papelería", 5.00);
             Articulo a50 = new Articulo("Lápiz", "Papelería", 1.00);
 
-            Venta venta1 = new Venta("Verano en la playa", DateTime.Now, true);
+            Venta venta1 = new Venta("Verano en la playa", DateTime.Now.AddDays(-30), true);
             venta1.AltaArticulo(a1);
             venta1.AltaArticulo(a2);
             venta1.AltaArticulo(a3);
@@ -284,51 +284,51 @@ namespace Dominio
             _publicaciones.Add(venta1);
             
 
-            Venta venta2 = new Venta("Aventura en la naturaleza", DateTime.Now, false);
+            Venta venta2 = new Venta("Aventura en la naturaleza", DateTime.Now.AddDays(-45), false);
             venta2.AltaArticulo(a11);
             venta2.AltaArticulo(a12);
             venta2.AltaArticulo(a15);
             _publicaciones.Add(venta2);
 
-            Venta venta3 = new Venta("Fotografía en la aventura", DateTime.Now, false);
+            Venta venta3 = new Venta("Fotografía en la aventura", DateTime.Now.AddDays(-2), false);
             venta3.AltaArticulo(a18);
             venta3.AltaArticulo(a19);
             venta3.AltaArticulo(a20);
             _publicaciones.Add(venta3);
 
-            Venta venta4 = new Venta("Diversión deportiva", DateTime.Now, false);
+            Venta venta4 = new Venta("Diversión deportiva", DateTime.Now.AddDays(-10), false);
             venta4.AltaArticulo(a26);
             venta4.AltaArticulo(a27);
             venta4.AltaArticulo(a30);
             _publicaciones.Add(venta4);
 
-            Venta venta5 = new Venta("Cuidado personal y moda", DateTime.Now, false);
+            Venta venta5 = new Venta("Cuidado personal y moda", DateTime.Now.AddDays(-5), false);
             venta5.AltaArticulo(a6);
             venta5.AltaArticulo(a8);
             venta5.AltaArticulo(a39);
             _publicaciones.Add(venta5);
 
-            Venta venta6 = new Venta("Equipos electrónicos", DateTime.Now, true);
+            Venta venta6 = new Venta("Equipos electrónicos", DateTime.Now.AddDays(-1), true);
             venta6.AltaArticulo(a23);
             venta6.AltaArticulo(a25);
             _publicaciones.Add(venta6);
 
-            Venta venta7 = new Venta("Manualidades y arte", DateTime.Now, true);
+            Venta venta7 = new Venta("Manualidades y arte", DateTime.Now.AddDays(-12), true);
             venta7.AltaArticulo(a47);
             venta7.AltaArticulo(a48);
             _publicaciones.Add(venta7);
 
-            Venta venta8 = new Venta("Cocina en casa", DateTime.Now, false);
+            Venta venta8 = new Venta("Cocina en casa", DateTime.Now.AddDays(-2), false);
             venta8.AltaArticulo(a40);
             venta8.AltaArticulo(a41);
             _publicaciones.Add(venta8);
 
-            Venta venta9 = new Venta("Juegos de mesa y entretenimiento", DateTime.Now, true);
+            Venta venta9 = new Venta("Juegos de mesa y entretenimiento", DateTime.Now.AddDays(-52), true);
             venta9.AltaArticulo(a35);
             venta9.AltaArticulo(a36);
             _publicaciones.Add(venta9);
 
-            Venta venta10 = new Venta("Seguridad y accesorios", DateTime.Now, false);
+            Venta venta10 = new Venta("Seguridad y accesorios", DateTime.Now.AddDays(-5), false);
             venta10.AltaArticulo(a37);
             venta10.AltaArticulo(a38);
             _publicaciones.Add(venta10);
@@ -504,36 +504,47 @@ namespace Dominio
             _publicaciones.Add(publicacion);
         }
 
-
         // METODO PARA LISTAR ARTICULOS POR CATEGORIA
-
-        //que el metodo sea una lista y la retorne y despeus la capturamos en program 
-        public void ListarArticulosPorCategoria(string categoria)
+        public List<Articulo> ListarArticulosPorCat(string categoria)
         {
-            bool existeArticulo = false;
+            List<Articulo> listaAux = new List<Articulo>();
 
             foreach (Articulo a in _articulos)
             {
                 if (a.Categoria == categoria)
                 {
-                    Console.WriteLine($"Nombre: {a.Nombre}, Precio: ${a.Precio}");
-                    existeArticulo = true;
+                    listaAux.Add(a);
                 }
             }
-
-            if (!existeArticulo)
-            {
-                Console.WriteLine("No hay artículos disponibles en esta categoría.");
-            }
+            return listaAux;
         }
 
 
         // METODO LISTAR PUBLICACIONES POR FECHA
+        //public List<Publicacion> ListarPublicacionesPorFechas(DateTime fechaInicio, DateTime fechaFin)
+        //{
+
+        //    List<Publicacion> publicacionesFiltradas = new List<Publicacion>();
+
+
+        //    foreach (Publicacion p in _publicaciones)
+        //    {
+        //        if (p.FechaPublicacion >= fechaInicio && p.FechaPublicacion <= fechaFin)
+        //        {
+        //            publicacionesFiltradas.Add(p);
+        //        }
+        //    }
+        //    return publicacionesFiltradas;
+        //}
+
         public List<Publicacion> ListarPublicacionesPorFechas(DateTime fechaInicio, DateTime fechaFin)
         {
+            if (fechaInicio > fechaFin)
+            {
+                throw new Exception("La fecha de inicio no puede ser mayor a la fecha de fin.");
+            }
 
             List<Publicacion> publicacionesFiltradas = new List<Publicacion>();
-
 
             foreach (Publicacion p in _publicaciones)
             {
@@ -542,17 +553,16 @@ namespace Dominio
                     publicacionesFiltradas.Add(p);
                 }
             }
+
+            if (publicacionesFiltradas.Count == 0)
+            {
+                throw new Exception("No hay publicaciones en el rango de fechas especificado.");
+            }
+
             return publicacionesFiltradas;
         }
 
 
-        public void ImprimirFechasDePublicaciones()
-        {
-            foreach (Publicacion p in _publicaciones)
-            {
-                Console.WriteLine($"ID: {p.id}, Nombre: {p.Nombre}, Fecha de publicación: {p.FechaPublicacion.ToShortDateString()}");
-            }
-        }
 
     }
 
