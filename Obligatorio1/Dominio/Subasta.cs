@@ -8,20 +8,18 @@ namespace Dominio
 {
     public class Subasta : Publicacion
     {
-        public double MontoBase { get; set; } = 0;
-
-        private List<Oferta> _ofertas = new List<Oferta>();
+        public List<Oferta> Ofertas { get; private set; }
 
         public Subasta()
         {
 
         }
 
-        public Subasta(double montoBase, Estado estado, DateTime fechaPublicacion, Cliente cliente, DateTime fechaFin) : base(estado, fechaPublicacion, cliente, null, fechaFin)
+        public Subasta(string nombre, DateTime fechaPublicacion, double montoBase)
+          : base(nombre, fechaPublicacion)
         {
-            MontoBase = montoBase;
+            Ofertas = new List<Oferta>();
         }
-
 
 
         public void AgregarOferta(Oferta oferta)
@@ -30,21 +28,29 @@ namespace Dominio
             {
                 throw new Exception("La oferta no puede ser nula.");
             }
-            _ofertas.Add(oferta);
+            Ofertas.Add(oferta);
         }
 
-
-        // METODO PARA OBTENER LAS OFERTAS
-        public List<Oferta> ObtenerOfertas()
-        {
-            return _ofertas;
-        }
 
         public override double CalcularPrecioFinal()
         {
-            throw new NotImplementedException();
-        }   
+         
+            double montoMaximo = 0;
 
+            
+            if (Ofertas.Count > 0)
+            {
+                
+                foreach (Oferta o in Ofertas)
+                {
+                    if (o.Monto > montoMaximo)
+                    {
+                        montoMaximo = o.Monto;
+                    }
+                }
+            }
+            return montoMaximo; 
+        }
 
 
     }

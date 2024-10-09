@@ -41,7 +41,7 @@ namespace Dominio
         }
 
 
-        private void ValidarNombre()
+        public void ValidarNombre()
         {
             if (String.IsNullOrEmpty(Nombre))
             {
@@ -50,7 +50,7 @@ namespace Dominio
             }
         }
 
-        private void ValidarCategoria()
+        public void ValidarCategoria()
         {
             if (String.IsNullOrEmpty(Categoria))
             {
@@ -59,7 +59,7 @@ namespace Dominio
         }
 
 
-        private void ValidarPrecio()
+        public void ValidarPrecio()
         {
             if (Precio <= 0)
             {

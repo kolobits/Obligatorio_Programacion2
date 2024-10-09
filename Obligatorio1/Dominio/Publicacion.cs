@@ -26,74 +26,69 @@ namespace Dominio
         private List<Articulo> _articulos = new List<Articulo>();
 
 
-
-
         public Publicacion()
         {
             id = UltimoId++;
+            Estado = Estado.ABIERTA;
         }
 
 
-        public Publicacion(Estado estado, DateTime fechaPublicacion, Cliente cliente, Usuario usuario, DateTime fechaFin)
+        public Publicacion(string nombre, DateTime fechaPublicacion)
         {
             id = UltimoId++;
-            Estado = estado;
+            Nombre = nombre;
             FechaPublicacion = fechaPublicacion;
-            ClienteFinal = cliente;
-            UsuarioFinalizador = usuario;
-            FechaFin = fechaFin;
-        }
-
-        public virtual void MostrarDetalles()
-        {
-            Console.WriteLine($"ID: {id}, Nombre: {Nombre}, Estado: {Estado}, Fecha: {FechaPublicacion}");
+            Estado = Estado.ABIERTA;
+            Validar();
         }
 
 
 
-        public void AgregarArticulo(Articulo articulo)
+        // VALIDACIONES
+        public void Validar()
         {
+            ValidarNombre();  
+            ValidarArticulos();
+        }
 
+        
+        public void ValidarNombre()
+        {
+            if (string.IsNullOrEmpty(Nombre))
+            {
+                throw new Exception("El nombre de la publicación no puede estar vacío.");
+            }
+
+            if (Nombre.Length < 3)
+            {
+                throw new Exception("El nombre de la publicación debe tener al menos 3 caracteres.");
+            }
+        }
+
+        public void ValidarArticulos()
+        {
+            if (_articulos == null || _articulos.Count == 0)
+            {
+                throw new Exception("La publicación debe tener al menos un artículo.");
+            }
+        }
+
+        public void AltaArticulo(Articulo articulo)
+        {
             if (articulo == null)
             {
                 throw new Exception("El artículo no puede ser nulo.");
             }
-
-            if (string.IsNullOrEmpty(articulo.Nombre))
-            {
-                throw new Exception("El nombre del artículo no puede estar vacío.");
-            }
-
-            if (string.IsNullOrEmpty(articulo.Categoria))
-            {
-                throw new Exception("La categoría del artículo no puede estar vacía.");
-            }
-
-            if (articulo.Precio <= 0)
-            {
-                throw new Exception("El precio del artículo debe ser mayor a cero.");
-            }
-
             _articulos.Add(articulo);
         }
 
-
-        // METODO PARA OBTENER LISTA DE ARTICULOS
         public List<Articulo> GetArticulos()
         {
             return _articulos;
         }
 
-
         // METODO PARA CALCULAR EL PRECIO TOTAL DE LOS PRODUCTOS
         public abstract double CalcularPrecioFinal();
-
-
-
-
-        
-
-
 
     }
 

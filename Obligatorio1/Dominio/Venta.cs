@@ -11,43 +11,35 @@ namespace Dominio
         public bool EsOfertaRelampago { get; set; }
         public double PrecioFinal { get; set; }
 
-        public Venta()
-        {
 
-        }
-
-
-        public Venta(bool esOfertaRelampago, Estado estado, DateTime fechaPublicacion, Cliente cliente, Usuario usuario, DateTime fechaFin) : base(estado, fechaPublicacion, cliente, usuario, fechaFin)
+        public Venta(string nombre, DateTime fechaPublicacion, bool esOfertaRelampago) : base(nombre, fechaPublicacion)
         {
             EsOfertaRelampago = esOfertaRelampago;
-            PrecioFinal = CalcularPrecio();
-
+           
         }
 
 
         public override double CalcularPrecioFinal()
         {
-            List<Articulo> listAux = GetArticulos();
             double total = 0;
-            foreach (Articulo articulo in listAux)
+            foreach (Articulo articulo in GetArticulos())
             {
                 total += articulo.Precio;
             }
-            return total;
-
-        }
-
-
-        // METODO PARA CALCULAR PRECIO CON DESCUENTO
-        public double CalcularPrecio()
-        {
-            double precioBase = CalcularPrecioFinal();
             if (EsOfertaRelampago)
             {
-                return precioBase * 0.80;  // APLICA EL 20% SI ES RELAMPAGO
+                total *= 0.80;
             }
-            return precioBase;
+
+            return total;
         }
 
+
     }
+
+
+      
+          
+
+    
 }

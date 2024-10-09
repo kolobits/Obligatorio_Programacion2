@@ -24,28 +24,6 @@ namespace Dominio
             SaldoDisponible = saldoDisponible;
         }
 
-        //public override void MostrarDatos()
-        //{
-        //    Console.WriteLine($"Nombre: {Nombre}, Apellido: {Apellido}, Email: {Email}, Saldo Disponible: ${SaldoDisponible}");
-        //}
-
-
-
-
-
-
-
-
-
-
-
     }
-
-
-
-
-
-
-
 
 }

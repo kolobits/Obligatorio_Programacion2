@@ -39,7 +39,7 @@ namespace Dominio
             ValidarContrasena();
         }
 
-        private void ValidarNombre()
+        public void ValidarNombre()
         {
             if (string.IsNullOrEmpty(Nombre))
             {
@@ -52,7 +52,7 @@ namespace Dominio
             }
         }
 
-        private void ValidarApellido()
+        public void ValidarApellido()
         {
             if (string.IsNullOrEmpty(Apellido))
             {
@@ -65,7 +65,7 @@ namespace Dominio
             }
         }
 
-        private void ValidarEmail()
+        public void ValidarEmail()
         {
             if (string.IsNullOrEmpty(Email))
             {
@@ -73,7 +73,7 @@ namespace Dominio
             }
         }
 
-        private void ValidarContrasena()
+        public void ValidarContrasena()
         {
             if (string.IsNullOrEmpty(Contrasena))
             {
@@ -87,12 +87,6 @@ namespace Dominio
 
         }
 
-
-        public virtual void MostrarDatos()
-        {
-            Console.WriteLine($"Nombre: {Nombre}, Apellido: {Apellido}, Email: {Email}");
-
-        }
 
     }
 
