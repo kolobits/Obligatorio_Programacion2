@@ -71,8 +71,7 @@ namespace Dominio
                     mejorOferta = o;  
                 }
             }
-
-           
+         
             ClienteFinal = mejorOferta.Cliente;
             UsuarioFinalizador = admin;
 

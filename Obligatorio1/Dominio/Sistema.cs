@@ -450,7 +450,8 @@ namespace Dominio
 
         }
         #endregion
-         
+
+
 
         // METODO OBTENER ADMIN
         public Administrador GetAdministradorPorNombre(string nombre)
@@ -489,22 +490,7 @@ namespace Dominio
                     u.MostrarDatos();
                 }
             }
-        }
-
-
-
-        public Articulo GetArticuloPorNombre(string nombreArticulo)
-        {
-            foreach (Articulo a in _articulos)
-            {
-                if (a.Nombre == nombreArticulo)
-                {
-                    return a;
-                }
-            }
-            return null;
-
-        }
+        }  
 
         // METODO PARA DAR DE ALTA UNA PUBLICACION
         public void AltaPublicacion(Publicacion publicacion)
