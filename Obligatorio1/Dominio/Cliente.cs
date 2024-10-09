@@ -23,6 +23,8 @@ namespace Dominio
             SaldoDisponible = saldoDisponible;
         }
 
+      
+
     }
 
 }

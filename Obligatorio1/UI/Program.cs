@@ -29,9 +29,12 @@ namespace UI
                     case 1:
                         Console.Clear();
                         Console.WriteLine("Lista de clientes:");
-                        s.ListarClientes();
+                        List<Cliente> clientes = s.GetListaClientes();
+                        foreach (Cliente cliente in clientes)
+                        {
+                            Console.WriteLine(cliente.MostrarDatos());
+                        }
                         Console.ReadKey();
-                        opcion = -1;
                         return;
                     case 2:
                         Console.Clear();
@@ -43,7 +46,7 @@ namespace UI
                     case 3:
                         try
                         {
-                            DarDeAltaArticulo(s);
+                            OpcionDarDeAltaArticulo(s);
                             Console.ReadKey();
                         }
                         catch (Exception e)
@@ -51,7 +54,6 @@ namespace UI
 
                             Console.WriteLine(e.Message);
                         }
-
                         return;
                     case 4:
                         Console.Clear();
@@ -73,9 +75,6 @@ namespace UI
 
 
             Console.ReadKey();
-
-
-
         }
 
         public static void MostrarCategorias()
@@ -163,13 +162,25 @@ namespace UI
             return categoria;
         }
 
+
+
+        // METODO PARA MOSTRAR LOS ARTICULOS POR CATEGORIA EN MENU
         public static void MostrarArticulosPorCategoria(Sistema s)
         {
             int opcionCategoria = int.Parse(Console.ReadLine());
             string categoriaSeleccionada = LeerCategoria(opcionCategoria);
+
             if (categoriaSeleccionada != null)
             {
-                s.ListarArticulosPorCat(categoriaSeleccionada);
+                List<Articulo> articulos = s.ListarArticulosPorCat(categoriaSeleccionada);
+
+                if (articulos.Count > 0)
+                {
+                    foreach (Articulo a in articulos)
+                    {
+                        Console.WriteLine($"Nombre: {a.Nombre}, Precio: ${a.Precio}");
+                    }
+                }
             }
             else
             {
@@ -177,7 +188,8 @@ namespace UI
             }
         }
 
-        public static void DarDeAltaArticulo(Sistema s)
+        // METODO PARA DAR DE ALTA UN ARTICULO EN MENU
+        public static void OpcionDarDeAltaArticulo(Sistema s)
         {
             try
             {
@@ -202,42 +214,7 @@ namespace UI
 
         }
 
-
-        //public static void ListarPublicacionesPorFechas(Sistema s)
-        //{
-        //    try
-        //    {
-        //        Console.WriteLine("Ingrese la fecha de inicio (dd/mm/yyyy):");
-        //        DateTime fechaInicio = DateTime.Parse(Console.ReadLine());
-
-        //        Console.WriteLine("Ingrese la fecha de fin (dd/mm/yyyy):");
-        //        DateTime fechaFin = DateTime.Parse(Console.ReadLine());
-
-        //        if (fechaInicio > fechaFin)
-        //        {
-        //            Console.WriteLine("La fecha de inicio no puede ser mayor a la fecha de fin.");
-        //            return;
-        //        }
-
-        //        List<Publicacion> publicacionesFiltradas = s.ListarPublicacionesPorFechas(fechaInicio, fechaFin);
-        //        if (publicacionesFiltradas.Count == 0)
-        //        {
-        //            Console.WriteLine("No hay publicaciones en el rango de fechas especificado.");
-        //        }
-        //        else
-        //        {
-        //            foreach (Publicacion p in publicacionesFiltradas)
-        //            {
-        //                Console.WriteLine($"ID: {p.id}, Nombre: {p.Nombre}, Estado: {p.Estado}, Fecha: {p.FechaPublicacion.ToShortDateString()}");
-        //            }
-        //        }
-        //    }
-        //    catch (Exception)
-        //    {
-        //        Console.WriteLine("Formato de fecha no válido.");
-        //    }
-        //}
-
+        // METODO PARA LISTAR PUBLICACIONES POR FECHA
         public static void ListarPublicacionesPorFechas(Sistema s)
         {
             try
@@ -255,13 +232,11 @@ namespace UI
                     Console.WriteLine($"ID: {p.id}, Nombre: {p.Nombre}, Estado: {p.Estado}, Fecha: {p.FechaPublicacion.ToShortDateString()}");
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine(e.Message);
             }
         }
-
-
     }
 }
 

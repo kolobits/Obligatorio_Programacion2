@@ -352,7 +352,7 @@ namespace Dominio
 
             List<Articulo> articulos = GetArticulo();
 
-            Subasta subasta1 = new Subasta("Fotografía Profesional", DateTime.Now, 100);
+            Subasta subasta1 = new Subasta("Fotografía Profesional", DateTime.Now.AddDays(-2), 100);
             subasta1.AltaArticulo(articulos[18]);
             subasta1.AltaArticulo(articulos[19]);
             subasta1.AltaArticulo(articulos[20]);
@@ -360,58 +360,58 @@ namespace Dominio
             subasta1.AgregarOferta(new Oferta(cliente2, 600.00, DateTime.Now));
             _publicaciones.Add(subasta1);
 
-            Subasta subasta2 = new Subasta("Equipo de Camping", DateTime.Now, 150);
+            Subasta subasta2 = new Subasta("Equipo de Camping", DateTime.Now.AddDays(-15), 150);
             subasta2.AltaArticulo(articulos[15]);
             subasta2.AltaArticulo(articulos[16]);
             subasta2.AltaArticulo(articulos[13]);
             subasta2.AgregarOferta(new Oferta(cliente3, 200.00, DateTime.Now));
             _publicaciones.Add(subasta2);
            
-            Subasta subasta3 = new Subasta("Kit de Pesca y Aventura", DateTime.Now, 120);
+            Subasta subasta3 = new Subasta("Kit de Pesca y Aventura", DateTime.Now.AddDays(-20), 120);
             subasta3.AltaArticulo(articulos[31]);
             subasta3.AltaArticulo(articulos[17]);
             subasta3.AgregarOferta(new Oferta(cliente4, 150.00, DateTime.Now));
-            subasta3.AgregarOferta(new Oferta(cliente1, 180.00, DateTime.Now.AddMinutes(5)));
+            subasta3.AgregarOferta(new Oferta(cliente1, 180.00, DateTime.Now));
             _publicaciones.Add(subasta3);
 
-            Subasta subasta4 = new Subasta("Kit de Papelería", DateTime.Now, 50);
+            Subasta subasta4 = new Subasta("Kit de Papelería", DateTime.Now.AddDays(-1), 50);
             subasta4.AltaArticulo(articulos[48]);
             subasta4.AltaArticulo(articulos[49]);;         
             subasta4.AgregarOferta(new Oferta(cliente2, 60.00, DateTime.Now));
             _publicaciones.Add(subasta4);
 
             
-            Subasta subasta5 = new Subasta("Arte y Pintura", DateTime.Now, 80);
+            Subasta subasta5 = new Subasta("Arte y Pintura", DateTime.Now.AddDays(-31), 80);
             subasta5.AltaArticulo(articulos[47]);
             subasta5.AgregarOferta(new Oferta(cliente5, 100.00, DateTime.Now));
             _publicaciones.Add(subasta5);
 
-            Subasta subasta6 = new Subasta("Equipo de Cocina", DateTime.Now, 70);
+            Subasta subasta6 = new Subasta("Equipo de Cocina", DateTime.Now.AddDays(-18), 70);
             subasta6.AltaArticulo(articulos[40]);
             subasta6.AltaArticulo(articulos[41]);
             subasta6.AltaArticulo(articulos[42]);
             subasta6.AgregarOferta(new Oferta(cliente6, 80.00, DateTime.Now));
             _publicaciones.Add(subasta6);
 
-            Subasta subasta7 = new Subasta("Kit de Manualidades", DateTime.Now, 40);
+            Subasta subasta7 = new Subasta("Kit de Manualidades", DateTime.Now.AddDays(-5), 40);
             subasta7.AltaArticulo(articulos[45]);
             subasta7.AltaArticulo(articulos[46]);
             subasta7.AgregarOferta(new Oferta(cliente7, 50.00, DateTime.Now));
             _publicaciones.Add(subasta7);
 
-            Subasta subasta8 = new Subasta("Deporte Extremo", DateTime.Now, 250);
+            Subasta subasta8 = new Subasta("Deporte Extremo", DateTime.Now.AddDays(-10), 250);
             subasta8.AltaArticulo(articulos[26]);
             subasta8.AltaArticulo(articulos[27]);
             subasta8.AgregarOferta(new Oferta(cliente8, 300.00, DateTime.Now));
             _publicaciones.Add(subasta8);
 
-            Subasta subasta9 = new Subasta("Kit de Camping", DateTime.Now, 200);
+            Subasta subasta9 = new Subasta("Kit de Camping", DateTime.Now.AddDays(-28), 200);
             subasta9.AltaArticulo(articulos[15]);
             subasta9.AltaArticulo(articulos[16]);
             subasta9.AgregarOferta(new Oferta(cliente9, 220.00, DateTime.Now));
             _publicaciones.Add(subasta9);
 
-            Subasta subasta10 = new Subasta("Juguetes y Juegos", DateTime.Now, 50);
+            Subasta subasta10 = new Subasta("Juguetes y Juegos", DateTime.Now.AddDays(-7), 50);
             subasta10.AltaArticulo(articulos[34]);
             subasta10.AltaArticulo(articulos[35]);
             subasta10.AgregarOferta(new Oferta(cliente10, 60.00, DateTime.Now));
@@ -420,8 +420,8 @@ namespace Dominio
         }
         #endregion
 
+
         // ALTA ARTICULOS
-        #region
         public List<Articulo> GetArticulo()
         {
             return _articulos;
@@ -446,22 +446,6 @@ namespace Dominio
                 throw;
             }
         }
-        #endregion
-
-
-        // METODO OBTENER ADMIN
-        public Administrador GetAdministradorPorNombre(string nombre)
-        {
-            foreach (Usuario u in _usuarios)
-            {
-                if (u is Administrador && u.Nombre == nombre)
-                {
-                    return (Administrador)u;
-                }
-            }
-            return null;
-        }
-
 
         // METODO OBTENER CLIENTE
         public Cliente GetClientePorEmail(string email)
@@ -476,17 +460,22 @@ namespace Dominio
             return null;
         }
 
-        // METODO PARA LITAR CLIENTES
-        public void ListarClientes()
+        // METODO PARA LISTAR CLIENTES
+        public List<Cliente> GetListaClientes()
         {
+            List<Cliente> listaAux = new List<Cliente>();
+
             foreach (Usuario u in _usuarios)
             {
                 if (u is Cliente cliente)
                 {
-                    u.MostrarDatos();
+                    listaAux.Add(cliente);
                 }
             }
-        }  
+            return listaAux;
+
+        }
+
 
         // METODO PARA DAR DE ALTA UNA PUBLICACION
         public void AltaPublicacion(Publicacion publicacion)
@@ -521,22 +510,6 @@ namespace Dominio
 
 
         // METODO LISTAR PUBLICACIONES POR FECHA
-        //public List<Publicacion> ListarPublicacionesPorFechas(DateTime fechaInicio, DateTime fechaFin)
-        //{
-
-        //    List<Publicacion> publicacionesFiltradas = new List<Publicacion>();
-
-
-        //    foreach (Publicacion p in _publicaciones)
-        //    {
-        //        if (p.FechaPublicacion >= fechaInicio && p.FechaPublicacion <= fechaFin)
-        //        {
-        //            publicacionesFiltradas.Add(p);
-        //        }
-        //    }
-        //    return publicacionesFiltradas;
-        //}
-
         public List<Publicacion> ListarPublicacionesPorFechas(DateTime fechaInicio, DateTime fechaFin)
         {
             if (fechaInicio > fechaFin)
