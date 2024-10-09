@@ -326,7 +326,7 @@ namespace Dominio
             venta3.AltaArticulo(a20);
             _publicaciones.Add(venta3);
 
-            Venta venta4 = new Venta("Diversión deportiva", DateTime.Now.AddDays(3), false);
+            Venta venta4 = new Venta("Diversión deportiva", DateTime.Now, false);
             venta4.AltaArticulo(a26);
             venta4.AltaArticulo(a27);
             venta4.AltaArticulo(a30);
