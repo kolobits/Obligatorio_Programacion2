@@ -147,10 +147,10 @@ namespace UI
                     break;
                 default:
                     Console.WriteLine("Opción no válida.");
-                    return null; // Si es inválido, retorna null.
+                    return null; 
             }
 
-            return categoria; // Retorna el nombre de la categoría
+            return categoria;
         }
 
         public static void MostrarArticulosPorCategoria(Sistema s)
@@ -210,7 +210,7 @@ namespace UI
 
         //    }
 
-
+        //
 
 
     }

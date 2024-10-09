@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dominio
 {
-    public abstract class Usuario
+    public abstract class Usuario : IValidable
     {
         public int Id { get; private set; }
         public static int UltimoId { get; set; } = 1;
@@ -27,11 +27,11 @@ namespace Dominio
             Apellido = apellido;
             Email = email;
             Contrasena = contrasena;
-            ValidarUsuario();
+            Validar();
         }
 
         // VALIDACIONES
-        public void ValidarUsuario()
+        public void Validar()
         {
             ValidarNombre();
             ValidarApellido();

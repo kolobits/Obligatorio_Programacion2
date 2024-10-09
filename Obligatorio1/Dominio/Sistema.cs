@@ -243,10 +243,26 @@ namespace Dominio
         }
         #endregion
 
-
+        //traer los clientes
+        //se puede usar metodo GetCliente PorEmail directo en instancia
         private void PrecargarSubastas()
         {
-            Subasta s1 = new Subasta(800, Estado.ABIERTA, DateTime.Now.AddDays(-2),c1, DateTime.Now.AddDays(5));
+            Cliente cliente1 = GetClientePorEmail("luismartinez@gmail.com");
+            Cliente cliente2 = GetClientePorEmail("anagomez@gmail.com");
+            Cliente cliente3 = GetClientePorEmail("carloslopez@gmail.com");
+            Cliente cliente4 = GetClientePorEmail("mariafernandez@gmail.com");
+            Cliente cliente5 = GetClientePorEmail("sofiahernandez@gmail.com");
+            Cliente cliente6 = GetClientePorEmail("pedrosanchez@gmail.com");
+            Cliente cliente7 = GetClientePorEmail("lauramorales@gmail.com");
+            Cliente cliente8 = GetClientePorEmail("javiercastillo@gmail.com");
+            Cliente cliente9 = GetClientePorEmail("isabeltorres@gmail.com");
+            Cliente cliente10 = GetClientePorEmail("juanrodriguez@gmail.com");
+
+
+            Subasta s1 = new Subasta(800, Estado.ABIERTA, DateTime.Now.AddDays(-2),cliente1, DateTime.Now.AddDays(5));
+
+
+
         }
 
 
@@ -307,19 +323,16 @@ namespace Dominio
         // METODO PARA DAR DE ALTA UNA PUBLICACION
         public void AltaPublicacion(Publicacion publicacion)
         {
-            // Verificar si la publicación es nula
             if (publicacion == null)
             {
                 throw new Exception("La publicación no puede ser nula.");
             }
 
-            // Validar que la publicación esté en estado ABIERTA
             if (publicacion.Estado != Estado.ABIERTA)
             {
                 throw new Exception("La publicación debe estar en estado ABIERTA.");
             }
 
-            // Agregar la publicación a la lista
             _publicaciones.Add(publicacion);
         }
 
@@ -347,6 +360,8 @@ namespace Dominio
         }
 
         // METODO PARA LISTAR ARTICULOS POR CATEGORIA
+
+        //que el metodo sea una lista y la retorne y despeus la capturamos en program 
         public void ListarArticulosPorCategoria(string categoria)
         {
             bool existeArticulo = false;
