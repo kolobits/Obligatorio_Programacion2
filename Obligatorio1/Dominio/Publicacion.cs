@@ -50,7 +50,6 @@ namespace Dominio
         }
 
 
-
         public void AgregarArticulo(Articulo articulo)
         {
 
