@@ -40,8 +40,6 @@ namespace Dominio
             return _ofertas;
         }
 
-
-
         public override double CalcularPrecioFinal()
         {
             throw new NotImplementedException();

@@ -290,6 +290,7 @@ namespace Dominio
         }
 
 
+
         public Articulo GetArticuloPorNombre(string nombreArticulo)
         {
             foreach (Articulo a in _articulos)
@@ -306,17 +307,19 @@ namespace Dominio
         // METODO PARA DAR DE ALTA UNA PUBLICACION
         public void AltaPublicacion(Publicacion publicacion)
         {
-
+            // Verificar si la publicación es nula
             if (publicacion == null)
             {
                 throw new Exception("La publicación no puede ser nula.");
             }
 
+            // Validar que la publicación esté en estado ABIERTA
             if (publicacion.Estado != Estado.ABIERTA)
             {
                 throw new Exception("La publicación debe estar en estado ABIERTA.");
             }
 
+            // Agregar la publicación a la lista
             _publicaciones.Add(publicacion);
         }
 
@@ -363,6 +366,11 @@ namespace Dominio
             }
         }
 
+
+        //public void PrecargarPublicaciones()
+        //{
+
+        //}
 
 
         // METODO LISTAR PUBLICACIONES POR FECHA
