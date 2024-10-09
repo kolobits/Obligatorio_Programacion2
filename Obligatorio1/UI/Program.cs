@@ -46,7 +46,8 @@ namespace UI
                         return;
                     case 4:
                         Console.Clear();
-                        //ListarPublicacionesEntreFechas();
+                        ListarPublicacionesPorFechas(s);
+                        Console.ReadKey();
                         return;
                     case 5:
                         Console.WriteLine("Saliendo del sistema...");
@@ -193,25 +194,40 @@ namespace UI
         }
 
 
-        //private static void ListarPublicacionesPorFecha()
-        //{
+        public static void ListarPublicacionesPorFechas(Sistema s)
+        {
+            try
+            {
+                Console.WriteLine("Ingrese la fecha de inicio (dd/mm/yyyy):");
+                DateTime fechaInicio = DateTime.Parse(Console.ReadLine());
 
+                Console.WriteLine("Ingrese la fecha de fin (dd/mm/yyyy):");
+                DateTime fechaFin = DateTime.Parse(Console.ReadLine());
 
-        //    Console.Clear();
-        //    Console.WriteLine("Ingrese la primera fecha (dd/mm/yyyy):");
-        //    DateTime fechaInicial = DateTime.Parse(Console.ReadLine());
+                if (fechaInicio > fechaFin)
+                {
+                    Console.WriteLine("La fecha de inicio no puede ser mayor a la fecha de fin.");
+                    return;
+                }
 
-        //    Console.WriteLine("Ingrese la segunda fecha (dd-mm-yyyy):");
-        //    DateTime fechaFinal = DateTime.Parse(Console.ReadLine());
-
-        //    if (fechaInicial > fechaFinal)
-        //    {
-        //        Console.WriteLine("La fecha de inicio no puede ser mayor a la fecha de fin.");
-
-        //    }
-
-        //
-
+                List<Publicacion> publicacionesFiltradas = s.ListarPublicacionesPorFechas(fechaInicio, fechaFin);
+                if (publicacionesFiltradas.Count == 0)
+                {
+                    Console.WriteLine("No hay publicaciones en el rango de fechas especificado.");
+                }
+                else
+                {
+                    foreach (Publicacion p in publicacionesFiltradas)
+                    {
+                        Console.WriteLine($"ID: {p.id}, Nombre: {p.Nombre}, Estado: {p.Estado}, Fecha: {p.FechaPublicacion.ToShortDateString()}");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Formato de fecha no válido.");
+            }
+        }
 
     }
 }

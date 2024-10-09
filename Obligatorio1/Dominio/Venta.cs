@@ -18,7 +18,7 @@ namespace Dominio
            
         }
 
-
+        // CALCULAR PRECIO FINAL (CONTEMPLA OFERTA RELAMPAGO)
         public override double CalcularPrecioFinal()
         {
             double total = 0;

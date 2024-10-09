@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace Dominio
 {
@@ -84,7 +84,6 @@ namespace Dominio
         }
         #endregion
 
-
         // ALTA USUARIOS
         #region
         public List<Usuario> GetUsuarios()
@@ -112,7 +111,6 @@ namespace Dominio
             }
         }
         #endregion
-
 
         // PRECARGA ARTICULOS
         #region
@@ -223,35 +221,6 @@ namespace Dominio
         }
         #endregion
 
-        // ALTA ARTICULOS
-        #region
-        public List<Articulo> GetArticulo()
-        {
-            return _articulos;
-        }
-
-        public void AltaArticulo(Articulo articulo)
-        {
-            try
-            {
-                if (!_articulos.Contains(articulo))
-                {
-                    articulo.Validar();
-                    _articulos.Add(articulo);
-                }
-                else
-                {
-                    throw new Exception("El articulo ya existe en el sistema");
-                }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-        #endregion
-
-
         //PRECARGA VENTAS
         #region
         public void PrecargarVentas()
@@ -313,6 +282,7 @@ namespace Dominio
             venta1.AltaArticulo(a3);
             venta1.AltaArticulo(a9);
             _publicaciones.Add(venta1);
+            
 
             Venta venta2 = new Venta("Aventura en la naturaleza", DateTime.Now, false);
             venta2.AltaArticulo(a11);
@@ -405,9 +375,8 @@ namespace Dominio
             _publicaciones.Add(subasta3);
 
             Subasta subasta4 = new Subasta("Kit de Papelería", DateTime.Now, 50);
-            subasta4.AltaArticulo(articulos[49]);
-            subasta4.AltaArticulo(articulos[50]);
             subasta4.AltaArticulo(articulos[48]);
+            subasta4.AltaArticulo(articulos[49]);;         
             subasta4.AgregarOferta(new Oferta(cliente2, 60.00, DateTime.Now));
             _publicaciones.Add(subasta4);
 
@@ -451,6 +420,33 @@ namespace Dominio
         }
         #endregion
 
+        // ALTA ARTICULOS
+        #region
+        public List<Articulo> GetArticulo()
+        {
+            return _articulos;
+        }
+
+        public void AltaArticulo(Articulo articulo)
+        {
+            try
+            {
+                if (!_articulos.Contains(articulo))
+                {
+                    articulo.Validar();
+                    _articulos.Add(articulo);
+                }
+                else
+                {
+                    throw new Exception("El articulo ya existe en el sistema");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
 
 
         // METODO OBTENER ADMIN
@@ -533,7 +529,7 @@ namespace Dominio
 
 
         // METODO LISTAR PUBLICACIONES POR FECHA
-        public List<Publicacion> ObtenerPublicacionesPorFechas(DateTime fechaInicio, DateTime fechaFin)
+        public List<Publicacion> ListarPublicacionesPorFechas(DateTime fechaInicio, DateTime fechaFin)
         {
 
             List<Publicacion> publicacionesFiltradas = new List<Publicacion>();
@@ -547,6 +543,15 @@ namespace Dominio
                 }
             }
             return publicacionesFiltradas;
+        }
+
+
+        public void ImprimirFechasDePublicaciones()
+        {
+            foreach (Publicacion p in _publicaciones)
+            {
+                Console.WriteLine($"ID: {p.id}, Nombre: {p.Nombre}, Fecha de publicación: {p.FechaPublicacion.ToShortDateString()}");
+            }
         }
 
     }

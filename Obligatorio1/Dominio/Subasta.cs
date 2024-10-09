@@ -24,6 +24,8 @@ namespace Dominio
         }
 
 
+
+        // ALTA OFERTA
         public void AgregarOferta(Oferta oferta)
         {
             if (oferta == null)
@@ -34,6 +36,7 @@ namespace Dominio
         }
 
 
+        // CALCULAR PRECIO FINAL PARA LA SUBASTA (OFERTA MAYOR)
         public override double CalcularPrecioFinal()
         {
             if (_ofertas == null || _ofertas.Count == 0)
@@ -55,6 +58,7 @@ namespace Dominio
         }
 
 
+        // METODO PARA CERRAR SUBASTA
         public void CerrarSubasta(Administrador admin)
         {
             if (_ofertas == null || _ofertas.Count == 0)

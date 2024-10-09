@@ -48,7 +48,6 @@ namespace Dominio
         public void Validar()
         {
             ValidarNombre();  
-            ValidarArticulos();
         }
 
         
@@ -62,14 +61,6 @@ namespace Dominio
             if (Nombre.Length < 3)
             {
                 throw new Exception("El nombre de la publicación debe tener al menos 3 caracteres.");
-            }
-        }
-
-        public void ValidarArticulos()
-        {
-            if (_articulos == null || _articulos.Count == 0)
-            {
-                throw new Exception("La publicación debe tener al menos un artículo.");
             }
         }
 
