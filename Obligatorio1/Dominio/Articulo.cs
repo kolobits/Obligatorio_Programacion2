@@ -27,13 +27,13 @@ namespace Dominio
             Nombre = nombre;
             Categoria = categoria;
             Precio = precio;
-            ValidarArticulo();
+            Validar();
         }
 
 
 
         // VALIDACIONES
-        public void ValidarArticulo()
+        public void Validar()
         {
             ValidarNombre();
             ValidarCategoria();
