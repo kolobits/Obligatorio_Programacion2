@@ -450,7 +450,7 @@ namespace Dominio
 
         }
         #endregion
-
+         
 
         // METODO OBTENER ADMIN
         public Administrador GetAdministradorPorNombre(string nombre)
@@ -544,12 +544,6 @@ namespace Dominio
                 Console.WriteLine("No hay artículos disponibles en esta categoría.");
             }
         }
-
-
-        //public void PrecargarPublicaciones()
-        //{
-
-        //}
 
 
         // METODO LISTAR PUBLICACIONES POR FECHA
