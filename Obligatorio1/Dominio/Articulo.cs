@@ -66,7 +66,5 @@ namespace Dominio
                 throw new Exception("El precio no puede ser 0");
             }
         }
-
-
     }
 }

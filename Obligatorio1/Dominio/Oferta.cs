@@ -31,9 +31,5 @@ namespace Dominio
             Monto = monto;
             Fecha = fecha;
         }
-
-      
-
-
     }
 }

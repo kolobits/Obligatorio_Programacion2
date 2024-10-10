@@ -82,11 +82,5 @@ namespace Dominio
             Estado = Estado.CERRADA;
             FechaFin = DateTime.Now;
         }
-
-
-
-
-
-
     }
 }
