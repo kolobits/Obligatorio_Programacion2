@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UI", "UI\UI.csproj", "{1F60
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dominio", "Dominio\Dominio.csproj", "{593916E9-0A20-4151-880D-1CB10432B1F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{FC83439E-D72D-428F-9756-E587DD90866D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{593916E9-0A20-4151-880D-1CB10432B1F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{593916E9-0A20-4151-880D-1CB10432B1F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{593916E9-0A20-4151-880D-1CB10432B1F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC83439E-D72D-428F-9756-E587DD90866D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC83439E-D72D-428F-9756-E587DD90866D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC83439E-D72D-428F-9756-E587DD90866D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC83439E-D72D-428F-9756-E587DD90866D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

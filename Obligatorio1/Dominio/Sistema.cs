@@ -493,6 +493,17 @@ namespace Dominio
             _publicaciones.Add(publicacion);
         }
 
+        public List<Publicacion> GetPublicaciones() 
+        {
+            List<Publicacion> listAux = new List<Publicacion>();
+
+            foreach (Publicacion p in _publicaciones) 
+            {
+                listAux.Add(p);
+            }
+            return listAux;
+        }
+
         // METODO PARA LISTAR ARTICULOS POR CATEGORIA
         public List<Articulo> ListarArticulosPorCat(string categoria)
         {
