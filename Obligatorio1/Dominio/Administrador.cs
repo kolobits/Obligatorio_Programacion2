@@ -11,12 +11,19 @@ namespace Dominio
     {
         public Administrador()
         {
-
+            
         }
 
         public Administrador(string nombre, string apellido, string email, string contrasena) : base(nombre, apellido, email, contrasena)
         {
 
         }
-    }
+
+        public override string GetRol()
+        {
+            return "ADM";
+        }
+
+	
+	}
 }

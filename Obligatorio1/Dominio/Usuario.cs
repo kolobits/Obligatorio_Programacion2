@@ -92,5 +92,8 @@ namespace Dominio
             return $"ID: {Id}, Nombre: {Nombre}, Apellido: {Apellido}, Email: {Email}";
         }
 
+        public abstract string GetRol();
+       
+
     }
 }

@@ -15,6 +15,7 @@ namespace Dominio
 
         public Cliente()
         {
+            
 
         }
 
@@ -22,6 +23,13 @@ namespace Dominio
         {
             SaldoDisponible = saldoDisponible;
         }
-    }
+
+		public override string GetRol()
+		{
+			return "CLI";
+		}
+
+      
+	}
 
 }

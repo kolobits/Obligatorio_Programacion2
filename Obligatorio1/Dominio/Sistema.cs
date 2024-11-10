@@ -545,6 +545,18 @@ namespace Dominio
 
             return publicacionesFiltradas;
         }
-    }
+
+		public Usuario Login(string email, string pass)
+		{
+			foreach (Usuario u in _usuarios)
+			{
+				if (u.Email.Equals(email) && u.Contrasena.Equals(pass))
+				{
+					return u;
+				}
+			}
+			return null;
+		}
+	}
 }
 

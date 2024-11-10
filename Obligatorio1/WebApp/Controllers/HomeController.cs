@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Dominio;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Models;
 
@@ -6,16 +7,16 @@ namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        Sistema s = Sistema.Instancia();
 
         public IActionResult Index()
         {
-            return View();
+			string nombreLogueado = HttpContext.Session.GetString("NombreLogueado");
+			ViewBag.MsgNombreLog = nombreLogueado;
+
+			string RolUsuario = HttpContext.Session.GetString("RolLogueado");
+			ViewBag.MsgRolLog = RolUsuario;
+			return View();	
         }
 
         public IActionResult Privacy()
@@ -23,10 +24,63 @@ namespace WebApp.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+       public IActionResult Login()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View();
         }
+
+		[HttpPost]
+		public IActionResult Login(Cliente c)
+		{
+			try
+			{
+				Usuario usuarioBuscado = s.Login(c.Email, c.Contrasena);
+
+				if (usuarioBuscado != null)
+				{
+					//Guardar el id
+					HttpContext.Session.SetInt32("idLogueado", usuarioBuscado.Id);
+					//Guardar el rol
+					HttpContext.Session.SetString("RolLogueado", usuarioBuscado.GetRol());
+					//Guardo el nombre
+					HttpContext.Session.SetString("NombreLogueado", usuarioBuscado.Nombre);
+                    //Guardo el Apellido
+                    HttpContext.Session.SetString("ApellidoLogueado", usuarioBuscado.Apellido);
+
+
+                    if (usuarioBuscado.GetRol() == "ADM")
+                    {
+                        return RedirectToAction("Index", "Administrador");
+                    }
+                    else if (usuarioBuscado.GetRol() == "CLI")
+                    {
+                        return RedirectToAction("Index", "Cliente");
+                    }
+
+                }
+				else
+				{
+					ViewBag.Msg = "Ingrese datos correctos";
+				}
+
+			}
+			catch (Exception)
+			{
+
+				throw;
+			}
+
+
+			return View();
+		}
+
+        //LOGOUT
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index");
+        }
+
+
     }
 }

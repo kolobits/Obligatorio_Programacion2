@@ -15,10 +15,29 @@ namespace WebApp.Controllers
 
         public IActionResult Create()
         {
-            return View();
+			if (HttpContext.Session.GetInt32("idLogueado") != null)
+			{
+				return RedirectToAction("Index", "Home");
+			}
+			return View();
         }
 
-        public IActionResult Buy()
+		[HttpPost]
+		public IActionResult Create(Cliente c)
+		{
+			try
+			{
+				s.AltaUsuario(c);
+				ViewBag.Msg = "Persona creada correctamente";
+			}
+			catch (Exception e)
+			{
+				ViewBag.Msg = e.Message;
+			}
+			return View();
+		}
+
+		public IActionResult Buy()
         {
             List<Publicacion> publicaciones = s.GetPublicaciones();
 

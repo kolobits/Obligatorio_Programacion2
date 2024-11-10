@@ -6,8 +6,11 @@ namespace WebApp
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            //Inyecto la Session
+            builder.Services.AddSession();
+
+			// Add services to the container.
+			builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
@@ -25,8 +28,10 @@ namespace WebApp
             app.UseRouting();
 
             app.UseAuthorization();
+			
+            app.UseSession();
 
-            app.MapControllerRoute(
+			app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
