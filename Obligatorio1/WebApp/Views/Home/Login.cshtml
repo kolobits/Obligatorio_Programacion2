@@ -1,4 +1,4 @@
-﻿<h1>Login</h1>
+﻿@* <h1>Login</h1>
 
 <form method="post">
 	<input type="text" name="Email" placeholder="Email" />
@@ -9,4 +9,43 @@
 	<input type="submit" value="Login" />
 </form>
 
-<p>@ViewBag.Msg</p>
+<p>@ViewBag.Msg</p> *@
+
+@{
+	ViewData["Title"] = "Login";
+}
+
+<h1 class="text-center mb-4">Login</h1>
+
+<form method="post">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-6">
+				<div class="card p-4 shadow-sm">
+					<div class="card-body">
+						<h4 class="card-title text-center mb-4">Inicia sesión</h4>
+
+						<!-- Email -->
+						<div class="mb-3">
+							<label for="Email" class="form-label">Correo electrónico</label>
+							<input type="email" class="form-control" name="Email" id="Email" placeholder="Ingresa tu correo electrónico" style="max-width: 100%;" required>
+						</div>
+
+						<!-- Contraseña -->
+						<div class="mb-3">
+							<label for="Contrasena" class="form-label">Contraseña</label>
+							<input type="password" class="form-control" name="Contrasena" id="Contrasena" placeholder="Ingresa tu contraseña" style="max-width: 100%;" required>
+						</div>
+
+						<!-- Botón de Login -->
+						<div class="d-grid gap-2">
+							<button type="submit" class="btn btn-primary">Iniciar sesión</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+<p class="text-center mt-4 text-danger">@ViewBag.Msg</p>

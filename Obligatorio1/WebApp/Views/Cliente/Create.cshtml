@@ -1,4 +1,4 @@
-﻿
+﻿@* 
 <h1>Registrese como cliente</h1>
 
 
@@ -16,4 +16,55 @@
 	<br />
 </form>
 
-<p>@ViewBag.Msg</p>
+<p>@ViewBag.Msg</p> *@
+
+@{
+    ViewData["Title"] = "Registro de Cliente";
+}
+
+<h1 class="text-center mb-4">Regístrate como cliente</h1>
+
+<form method="post">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card p-4 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title text-center mb-4">Formulario de registro</h4>
+
+                        <!-- Nombre -->
+                        <div class="mb-3">
+                            <label for="Nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" name="Nombre" id="Nombre" placeholder="Ingresa tu nombre" style="max-width: 100%;" required>
+                        </div>
+
+                        <!-- Apellido -->
+                        <div class="mb-3">
+                            <label for="Apellido" class="form-label">Apellido</label>
+                            <input type="text" class="form-control" name="Apellido" id="Apellido" placeholder="Ingresa tu apellido" style="max-width: 100%;" required>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="Email" class="form-label">Correo electrónico</label>
+                            <input type="email" class="form-control" name="Email" id="Email" placeholder="Ingresa tu correo electrónico" style="max-width: 100%;" required>
+                        </div>
+
+                        <!-- Contraseña -->
+                        <div class="mb-3">
+                            <label for="Contrasena" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" name="Contrasena" id="Contrasena" placeholder="Ingresa tu contraseña" style="max-width: 100%;" required>
+                        </div>
+
+                        <!-- Botón de Registro -->
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Registrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<p class="text-center mt-4 text-danger">@ViewBag.Msg</p>
