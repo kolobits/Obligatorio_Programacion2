@@ -36,15 +36,15 @@ namespace Dominio
         }
 
 
-        // CALCULAR PRECIO FINAL PARA LA SUBASTA (OFERTA MAYOR)
-        public override double CalcularPrecioFinal()
+        // OFERTA MAS ALTA
+        public Oferta ofertaMasAlta()
         {
             if (_ofertas == null || _ofertas.Count == 0)
             {
-                return 0; 
+                return null;
             }
 
-            Oferta mejorOferta = _ofertas[0]; 
+            Oferta mejorOferta = _ofertas[0];
 
             foreach (Oferta o in _ofertas)
             {
@@ -54,33 +54,43 @@ namespace Dominio
                 }
             }
 
-            return mejorOferta.Monto; 
+            return mejorOferta;
         }
 
 
-        // METODO PARA CERRAR SUBASTA
+        // CALCULAR PRECIO FINAL
+        public override double CalcularPrecioFinal() 
+        {
+            Oferta mejorOferta = ofertaMasAlta();
+            if (mejorOferta != null)
+            {
+                return mejorOferta.Monto;
+            }
+            else 
+            { 
+                return 0;
+            }
+
+        }
+
+      // CERRAR SUBASTA
+
         public void CerrarSubasta(Administrador admin)
         {
-            if (_ofertas == null && _ofertas.Count == 0)
+            if (_ofertas == null || _ofertas.Count == 0)
             {
-                throw new Exception("No hay ofertas para cerrar esta subasta.");
+                throw new Exception("No hay ofertas para esta subasta.");
             }
 
-            Oferta mejorOferta = _ofertas[0]; 
-
-            foreach (Oferta o in _ofertas)
+            Oferta mejorOferta = ofertaMasAlta();
+            if (mejorOferta != null)
             {
-                if (o.Monto > mejorOferta.Monto)
-                {
-                    mejorOferta = o;  
-                }
+                ClienteFinal = mejorOferta.Cliente;
+                UsuarioFinalizador = admin;
+                Estado = Estado.CERRADA;
+                FechaFin = DateTime.Now;
             }
-         
-            ClienteFinal = mejorOferta.Cliente;
-            UsuarioFinalizador = admin;
-
-            Estado = Estado.CERRADA;
-            FechaFin = DateTime.Now;
         }
+
     }
 }

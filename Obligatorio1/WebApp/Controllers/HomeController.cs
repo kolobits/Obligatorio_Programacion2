@@ -9,17 +9,17 @@ namespace WebApp.Controllers
     {
         Sistema s = Sistema.Instancia();
 
-        public IActionResult Index()
-        {
+		public IActionResult Index()
+		{
 			string nombreLogueado = HttpContext.Session.GetString("NombreLogueado");
 			ViewBag.MsgNombreLog = nombreLogueado;
 
 			string RolUsuario = HttpContext.Session.GetString("RolLogueado");
 			ViewBag.MsgRolLog = RolUsuario;
-			return View();	
-        }
+			return View();
+		}
 
-        public IActionResult Privacy()
+		public IActionResult Privacy()
         {
             return View();
         }
@@ -38,13 +38,13 @@ namespace WebApp.Controllers
 
 				if (usuarioBuscado != null)
 				{
-					//Guardar el id
+					
 					HttpContext.Session.SetInt32("idLogueado", usuarioBuscado.Id);
-					//Guardar el rol
+					
 					HttpContext.Session.SetString("RolLogueado", usuarioBuscado.GetRol());
-					//Guardo el nombre
+					
 					HttpContext.Session.SetString("NombreLogueado", usuarioBuscado.Nombre);
-                    //Guardo el Apellido
+                    
                     HttpContext.Session.SetString("ApellidoLogueado", usuarioBuscado.Apellido);
 
 

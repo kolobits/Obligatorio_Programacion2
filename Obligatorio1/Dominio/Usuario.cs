@@ -80,9 +80,9 @@ namespace Dominio
                 throw new Exception("La contraseña no puede estar vacía.");
             }
 
-            if (Contrasena.Length < 6)
+            if (Contrasena.Length < 8)
             {
-                throw new Exception("La contraseña debe tener al menos 6 caracteres.");
+                throw new Exception("La contraseña debe tener al menos 8 caracteres.");
             }
 
         }

@@ -8,8 +8,15 @@ namespace WebApp.Controllers
         Sistema s = Sistema.Instancia();
         public IActionResult Index()
         {
-            List<Publicacion> listaPublicaciones = s.GetPublicaciones();
-            ViewBag.Publicacion = listaPublicaciones;
+            //List<Publicacion> listaPublicaciones = s.GetPublicaciones();
+            //ViewBag.Publicacion = listaPublicaciones;
+            //return View();
+
+            string nombreLogueado = HttpContext.Session.GetString("NombreLogueado");
+            ViewBag.MsgNombreLog = nombreLogueado;
+
+            string RolUsuario = HttpContext.Session.GetString("RolLogueado");
+            ViewBag.MsgRolLog = RolUsuario;
             return View();
         }
 
@@ -37,12 +44,12 @@ namespace WebApp.Controllers
 			return View();
 		}
 
-		public IActionResult Buy()
-        {
-            List<Publicacion> publicaciones = s.GetPublicaciones();
+		//public IActionResult Buy()
+  //      {
+  //          List<Publicacion> publicaciones = s.GetPublicaciones();
 
-            return View(publicaciones);
+  //          return View(publicaciones);
 
-        }
+  //      }
     }
 }

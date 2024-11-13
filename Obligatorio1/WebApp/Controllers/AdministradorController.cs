@@ -9,10 +9,12 @@ namespace WebApp.Controllers
 
         public IActionResult Index()
         {
-        //    Usuario usuarioBuscado = GetUsuarioLogueado();
+            string nombreLogueado = HttpContext.Session.GetString("NombreLogueado");
+            ViewBag.MsgNombreLog = nombreLogueado;
 
-        //ViewBag.MsgNombreLog = usuarioBuscado.Nombre;
-        //ViewBag.MsgRolLog = usuarioBuscado.GetRol();
+            string RolUsuario = HttpContext.Session.GetString("RolLogueado");
+            ViewBag.MsgRolLog = RolUsuario;
+
             return View();
         }
 

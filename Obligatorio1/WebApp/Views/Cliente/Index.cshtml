@@ -1,18 +1,22 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using Dominio
+
+
+@{
+    ViewData["Title"] = "Cliente";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Bienvenido @ViewBag.MsgNombreLog <br />Rol:@ViewBag.MsgRolLog</h1>
+    <h1 class="display-4">Bienvenido @ViewBag.MsgNombreLog</h1>
+    <br />
+    <h2>Rol:@ViewBag.MsgRolLog</h2>
 
 </div>
 
 
 
-@* @using Dominio
 
 
-<h1>Lista de publicaciones</h1>
+@* <h1>Lista de publicaciones</h1>
 
 
 <table class="table table-dark table-striped">
@@ -24,7 +28,7 @@
         <th>Acción</th>
 
 
-      
+
     </tr>
 
     @foreach (Publicacion p in ViewBag.Publicacion)
@@ -43,6 +47,6 @@
                     @Html.ActionLink("Ofertar", "Offer", new { id = p.id })
                 }
         </tr>
-        
+
     }
 </table> *@
