@@ -1,1 +1,39 @@
-﻿
+﻿@using Dominio
+@model Venta
+
+<h1>Detalles de la Venta</h1>
+
+<h3>@Model.Nombre</h3>
+<p>Estado: @Model.Estado</p>
+<p>Precio final: $@Model.CalcularPrecioFinal()</p>
+
+<h4>Artículos incluidos:</h4>
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Articulo articulo in Model.GetArticulos())
+        {
+            <tr>
+                <td>@articulo.Nombre</td>
+                <td>@articulo.Categoria</td>
+                <td>$@articulo.Precio</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<form asp-action="FinalizarCompra" method="post">
+    <input type="hidden" name="id" value="@Model.id" />
+    
+        <h5>Saldo disponible: $@ViewBag.SaldoDisponible</h5>
+        <h5 class="text-danger">@ViewBag.MsgError</h5>
+        <h5 class="text-success">@ViewBag.MsgExito</h5>
+   
+    <button type="submit" class="btn btn-primary mt-3">Finalizar Compra</button>
+</form>

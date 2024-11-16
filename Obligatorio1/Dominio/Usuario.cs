@@ -84,7 +84,10 @@ namespace Dominio
             {
                 throw new Exception("La contraseña debe tener al menos 8 caracteres.");
             }
-
+            if (!EsAlfanumerico())
+            {
+                throw new Exception("La contraseña debe tener al menos una letra y un número.");
+            }
         }
 
         public string MostrarDatos()
@@ -93,7 +96,12 @@ namespace Dominio
         }
 
         public abstract string GetRol();
-       
 
+        public bool EsAlfanumerico()
+        {
+            bool tieneLetra = Contrasena.Any(char.IsLetter);
+            bool tieneNumero = Contrasena.Any(char.IsDigit);
+            return tieneLetra && tieneNumero;
+        }
     }
 }

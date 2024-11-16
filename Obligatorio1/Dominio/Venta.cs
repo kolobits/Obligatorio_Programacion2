@@ -8,6 +8,7 @@ namespace Dominio
 {
     public class Venta : Publicacion
     {
+        
         public bool EsOfertaRelampago { get; set; }
         public double PrecioFinal { get; set; }
 

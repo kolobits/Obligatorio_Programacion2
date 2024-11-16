@@ -282,7 +282,7 @@ namespace Dominio
             venta1.AltaArticulo(a3);
             venta1.AltaArticulo(a9);
             _publicaciones.Add(venta1);
-            
+
 
             Venta venta2 = new Venta("Aventura en la naturaleza", DateTime.Now.AddDays(-45), false);
             venta2.AltaArticulo(a11);
@@ -294,6 +294,7 @@ namespace Dominio
             venta3.AltaArticulo(a18);
             venta3.AltaArticulo(a19);
             venta3.AltaArticulo(a20);
+            venta3.Estado = Estado.CERRADA;
             _publicaciones.Add(venta3);
 
             Venta venta4 = new Venta("Diversión deportiva", DateTime.Now.AddDays(-10), false);
@@ -366,21 +367,23 @@ namespace Dominio
             subasta2.AltaArticulo(articulos[13]);
             subasta2.AgregarOferta(new Oferta(cliente3, 200.00, DateTime.Now));
             _publicaciones.Add(subasta2);
-           
+
             Subasta subasta3 = new Subasta("Kit de Pesca y Aventura", DateTime.Now.AddDays(-20), 120);
             subasta3.AltaArticulo(articulos[31]);
             subasta3.AltaArticulo(articulos[17]);
             subasta3.AgregarOferta(new Oferta(cliente4, 150.00, DateTime.Now));
             subasta3.AgregarOferta(new Oferta(cliente1, 180.00, DateTime.Now));
+            subasta3.Estado = Estado.CERRADA;
             _publicaciones.Add(subasta3);
+
 
             Subasta subasta4 = new Subasta("Kit de Papelería", DateTime.Now.AddDays(-1), 50);
             subasta4.AltaArticulo(articulos[48]);
-            subasta4.AltaArticulo(articulos[49]);;         
+            subasta4.AltaArticulo(articulos[49]); ;
             subasta4.AgregarOferta(new Oferta(cliente2, 60.00, DateTime.Now));
             _publicaciones.Add(subasta4);
 
-            
+
             Subasta subasta5 = new Subasta("Arte y Pintura", DateTime.Now.AddDays(-31), 80);
             subasta5.AltaArticulo(articulos[47]);
             subasta5.AgregarOferta(new Oferta(cliente5, 100.00, DateTime.Now));
@@ -397,6 +400,7 @@ namespace Dominio
             subasta7.AltaArticulo(articulos[45]);
             subasta7.AltaArticulo(articulos[46]);
             subasta7.AgregarOferta(new Oferta(cliente7, 50.00, DateTime.Now));
+            subasta7.Estado = Estado.CERRADA;
             _publicaciones.Add(subasta7);
 
             Subasta subasta8 = new Subasta("Deporte Extremo", DateTime.Now.AddDays(-10), 250);
@@ -493,11 +497,11 @@ namespace Dominio
             _publicaciones.Add(publicacion);
         }
 
-        public List<Publicacion> GetPublicaciones() 
+        public List<Publicacion> GetPublicaciones()
         {
             List<Publicacion> listAux = new List<Publicacion>();
 
-            foreach (Publicacion p in _publicaciones) 
+            foreach (Publicacion p in _publicaciones)
             {
                 listAux.Add(p);
             }
@@ -546,16 +550,57 @@ namespace Dominio
             return publicacionesFiltradas;
         }
 
-		public Usuario Login(string email, string pass)
+        public Usuario Login(string email, string pass)
+        {
+            foreach (Usuario u in _usuarios)
+            {
+                if (u.Email.Equals(email) && u.Contrasena.Equals(pass))
+                {
+                    return u;
+                }
+            }
+            return null;
+        }
+
+
+        public Venta GetVentaPorId(int Id)
+        {
+            foreach (Publicacion p in _publicaciones)
+            {
+                if (p is Venta venta && venta.id == Id)
+                {
+                    return venta;
+                }
+            }
+            return null;
+        }
+
+
+        public void FinalizarCompra(Venta venta)
+        {
+            if (venta.PrecioFinal < venta.CalcularPrecioFinal())
+            {
+                throw new Exception("El monto ingresado no es suficiente para completar la compra.");
+            }           
+            venta.Estado = Estado.CERRADA;
+            venta.FechaFin = DateTime.Now;
+        }
+
+        public double GetSaldo(Cliente cliente)
+        {
+            return cliente.SaldoDisponible;
+        }
+
+		public Cliente GetClientePorId(int id)
 		{
-			foreach (Usuario u in _usuarios)
-			{
-				if (u.Email.Equals(email) && u.Contrasena.Equals(pass))
+            foreach (Usuario u in _usuarios) 
+            {
+				if (u is Cliente c && c.Id == id)
 				{
-					return u;
+					return c;
 				}
 			}
-			return null;
+            return null;
 		}
 	}
 }

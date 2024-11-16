@@ -39,7 +39,7 @@ namespace Dominio
         // OFERTA MAS ALTA
         public Oferta ofertaMasAlta()
         {
-            if (_ofertas == null || _ofertas.Count == 0)
+            if (_ofertas == null && _ofertas.Count == 0)
             {
                 return null;
             }
