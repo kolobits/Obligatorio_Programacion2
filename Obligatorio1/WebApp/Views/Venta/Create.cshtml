@@ -30,10 +30,10 @@
 
 <form asp-action="FinalizarCompra" method="post">
     <input type="hidden" name="id" value="@Model.id" />
-    
+    <div>
         <h5>Saldo disponible: $@ViewBag.SaldoDisponible</h5>
         <h5 class="text-danger">@ViewBag.MsgError</h5>
         <h5 class="text-success">@ViewBag.MsgExito</h5>
-   
+    </div>
     <button type="submit" class="btn btn-primary mt-3">Finalizar Compra</button>
 </form>

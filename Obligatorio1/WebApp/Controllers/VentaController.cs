@@ -44,20 +44,25 @@ namespace WebApp.Controllers
             
                 Venta ventaBuscada = s.GetVentaPorId(id);
 
-                double saldoDisponible = s.GetSaldo(clienteLogueado);
+				ventaBuscada.PrecioFinal = ventaBuscada.CalcularPrecioFinal();
+				
+                double precioFinal = ventaBuscada.CalcularPrecioFinal();
 
-                if (saldoDisponible < monto)
+				double saldoDisponible = s.GetSaldo(clienteLogueado);
+                if (saldoDisponible < precioFinal)
                 {
                     ViewBag.MsgError = "Saldo insuficiente.";
                     return RedirectToAction("Create", new { id }); // REDIRECCIONAR A RECARGAR BILLETERA
                 }
-				ventaBuscada.PrecioFinal = monto;
+				
 
 				s.FinalizarCompra(ventaBuscada);
 
-                ViewBag.MsgExito = "Compra finalizada exitosamente.";
-                ViewBag.SaldoDisponible = saldoDisponible - monto;
-                return View("Venta", ventaBuscada);
+				clienteLogueado.SaldoDisponible -= precioFinal;
+
+				ViewBag.MsgExito = "Compra finalizada exitosamente.";
+                ViewBag.SaldoDisponible = clienteLogueado.SaldoDisponible;
+				return View("Create", ventaBuscada);
             }
             catch (Exception e)
             {

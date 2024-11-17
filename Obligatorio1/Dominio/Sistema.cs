@@ -578,11 +578,14 @@ namespace Dominio
 
         public void FinalizarCompra(Venta venta)
         {
-            if (venta.PrecioFinal < venta.CalcularPrecioFinal())
-            {
-                throw new Exception("El monto ingresado no es suficiente para completar la compra.");
-            }           
-            venta.Estado = Estado.CERRADA;
+			double precioFinal = venta.CalcularPrecioFinal();
+
+			if (precioFinal <= 0)
+			{
+				throw new Exception("La venta no tiene un precio válido.");
+			}
+			venta.PrecioFinal = precioFinal;
+			venta.Estado = Estado.CERRADA;
             venta.FechaFin = DateTime.Now;
         }
 
