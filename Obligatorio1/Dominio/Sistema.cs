@@ -605,6 +605,18 @@ namespace Dominio
 			}
             return null;
 		}
-	}
+
+        public void RecargarBilletera(int idCliente, double monto)
+        {
+            if (monto <= 0)
+            {
+                throw new Exception("El monto debe ser mayor a 0.");
+            }
+
+            Cliente cliente = GetClientePorId(idCliente);
+
+            cliente.SaldoDisponible += monto;
+        }
+    }
 }
 

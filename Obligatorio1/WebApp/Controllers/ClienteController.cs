@@ -46,6 +46,46 @@ namespace WebApp.Controllers
             IEnumerable<Publicacion> listaPublicaciones = s.GetPublicaciones();
             return View(listaPublicaciones);
         }
+        
+
+
+        public IActionResult RecargarBilletera()
+        {
+            int idLogueado = HttpContext.Session.GetInt32("idLogueado").Value;
+            Cliente clienteLogueado = s.GetClientePorId(idLogueado);
+
+            ViewBag.NombreCliente = clienteLogueado.Nombre;
+            ViewBag.SaldoActual = clienteLogueado.SaldoDisponible;
+
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult RecargarBilletera(double monto)
+        {
+            if (monto <= 0)
+            {
+                ViewBag.MsgError = "El monto debe ser mayor a 0.";
+                return View();
+            }
+
+            try
+            {
+                int idLogueado = HttpContext.Session.GetInt32("idLogueado").Value;
+
+                s.RecargarBilletera(idLogueado, monto);
+
+                ViewBag.MsgExito = $"Se han recargado ${monto} correctamente.";
+            }
+            catch (Exception e)
+            {
+                ViewBag.MsgError = e.Message;
+            }
+
+            return View();
+        }
+        
 
     }
 }

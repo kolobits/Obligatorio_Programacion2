@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Recargar Billetera";
+}
+
+<h1>Recargar Billetera</h1>
+
+<p>Bienvenido, @ViewBag.NombreCliente</p>
+<p>Saldo actual: $@ViewBag.SaldoActual</p>
+
+@if (ViewBag.MsgExito != null)
+{
+    <p style="color: green; font-weight: bold;">@ViewBag.MsgExito</p>
+}
+@if (ViewBag.MsgError != null)
+{
+    <p style="color: red; font-weight: bold;">@ViewBag.MsgError</p>
+}
+
+<form asp-action="RecargarBilletera" method="post">
+  
+        <label for="monto">Monto a recargar:</label>
+        <input type="number" id="monto" name="monto" class="form-control" step="0.01" min="0" required /> 
+    <button type="submit" class="btn btn-primary mt-3">Recargar</button>
+</form>
+
