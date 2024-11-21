@@ -2,24 +2,48 @@
     ViewBag.Title = "Recargar Billetera";
 }
 
-<h1>Recargar Billetera</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8 col-sm-10">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <!-- Mensajes de éxito y error -->
+                    @if (ViewBag.MsgExito != null)
 
-<p>Bienvenido, @ViewBag.NombreCliente</p>
-<p>Saldo actual: $@ViewBag.SaldoActual</p>
+                    {
+                        <div class="alert alert-success text-center">
+                            @ViewBag.MsgExito
+                        </div>
+                    }
+                    @if (ViewBag.MsgError != null)
 
-@if (ViewBag.MsgExito != null)
-{
-    <p style="color: green; font-weight: bold;">@ViewBag.MsgExito</p>
-}
-@if (ViewBag.MsgError != null)
-{
-    <p style="color: red; font-weight: bold;">@ViewBag.MsgError</p>
-}
+                    {
+                        <div class="alert alert-danger text-center">
+                            @ViewBag.MsgError
+                        </div>
+                    }
 
-<form asp-action="RecargarBilletera" method="post">
-  
-        <label for="monto">Monto a recargar:</label>
-        <input type="number" id="monto" name="monto" class="form-control" step="0.01" min="0" required /> 
-    <button type="submit" class="btn btn-primary mt-3">Recargar</button>
-</form>
+                    <!-- Título -->
+                    <h1 class="text-center mb-4">Recargar Billetera</h1>
 
+                    <!-- Información del cliente -->
+                    <p class="text-center">
+                        <strong>Bienvenido:</strong> @ViewBag.NombreCliente
+                    </p>
+                    <p class="text-center">
+                        <strong>Saldo actual:</strong> $@ViewBag.SaldoActual
+                    </p>
+
+                    <!-- Formulario -->
+                    <form asp-action="RecargarBilletera" method="post">
+                        <div class="form-group">
+                            <label for="monto" class="form-label">Monto a recargar:</label>
+                            <input type="number" id="monto" name="monto" class="form-control" step="0.01" min="0" required />
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 mt-3">Recargar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
