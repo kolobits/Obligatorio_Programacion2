@@ -1,1 +1,42 @@
-﻿
+﻿@using Dominio
+@model Subasta
+
+<h1>Detalles de la Subasta</h1>
+
+<h2>@Model.Nombre</h2>
+<p>Estado: @Model.Estado</p>
+<p>Oferta más alta: $@Model.CalcularPrecioFinal()</p>
+
+<h3>Artículos incluidos:</h3>
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Articulo articulo in Model.GetArticulos())
+        {
+            <tr>
+                <td>@articulo.Nombre</td>
+                <td>@articulo.Categoria</td>
+                <td>$@articulo.Precio</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<form asp-action="Ofertar" method="post">
+    <input type="hidden" name="id" value="@Model.id" />
+    <div>
+        <h4>Saldo disponible: $@ViewBag.SaldoDisponible</h4>
+        <label for="monto">Monto a ofertar:</label>
+        <input type="number" id="monto" name="monto" class="form-control"/>
+    </div>
+    <h5 class="text-danger">@ViewBag.MsgError</h5>
+    <h5 class="text-success">@ViewBag.MsgExito</h5>
+    <button type="submit" class="btn btn-primary mt-3">Realizar Oferta</button>
+</form>

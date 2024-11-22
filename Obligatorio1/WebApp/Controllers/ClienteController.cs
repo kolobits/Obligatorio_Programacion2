@@ -67,33 +67,26 @@ namespace WebApp.Controllers
         {
             try
             {
-                // Validar que el monto sea mayor a 0
                 if (monto <= 0)
                 {
                     ViewBag.MsgError = "El monto debe ser mayor a 0.";
-                    return View(); // Retornamos la vista directamente para mostrar el error
+                    return View();
                 }
 
-                // Obtener el ID del cliente logueado desde la sesión
                 int idLogueado = HttpContext.Session.GetInt32("idLogueado").Value;
 
-                // Obtener el cliente logueado
                 Cliente clienteLogueado = s.GetClientePorId(idLogueado);
 
-                // Recargar billetera
                 s.RecargarBilletera(idLogueado, monto);
 
-                // Configurar ViewBag con información actualizada
                 ViewBag.NombreCliente = clienteLogueado.Nombre;
                 ViewBag.SaldoActual = clienteLogueado.SaldoDisponible;
                 ViewBag.MsgExito = $"Se han recargado ${monto} correctamente.";
 
-                // Retornar la vista con los datos actualizados
                 return View();
             }
             catch (Exception e)
             {
-                // Capturar cualquier excepción y mostrar el mensaje de error
                 ViewBag.MsgError = e.Message;
                 return View();
             }

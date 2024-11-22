@@ -60,7 +60,7 @@ namespace WebApp.Controllers
                 }
 				else
 				{
-					ViewBag.Msg = "Ingrese datos correctos";
+					ViewBag.Msg = "Email o contraseña incorrectos.";
 				}
 
 			}

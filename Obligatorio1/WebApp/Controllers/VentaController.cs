@@ -16,7 +16,6 @@ namespace WebApp.Controllers
         public IActionResult Create(int id)
         {
 
-
 			Venta ventaBuscada = s.GetVentaPorId(id);
 		
 			int? idLogueado = HttpContext.Session.GetInt32("idLogueado");
@@ -52,7 +51,7 @@ namespace WebApp.Controllers
                 if (saldoDisponible < precioFinal)
                 {
                     ViewBag.MsgError = "Saldo insuficiente.";
-                    return RedirectToAction("Create", new { id }); // REDIRECCIONAR A RECARGAR BILLETERA
+                    return RedirectToAction("Create", new { id }); 
                 }
 				
 

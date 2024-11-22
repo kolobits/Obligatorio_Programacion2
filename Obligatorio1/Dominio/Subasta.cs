@@ -12,6 +12,7 @@ namespace Dominio
         public Usuario UsuarioGanador { get; set; }
         public Usuario AdministradorQueCierra { get; set; }
 
+
         public Subasta()
         {
             _ofertas = new List<Oferta>();

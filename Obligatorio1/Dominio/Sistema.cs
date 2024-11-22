@@ -95,6 +95,14 @@ namespace Dominio
         {
             try
             {
+                foreach (Usuario u in _usuarios)
+                {
+                    if (u.Email == usuario.Email)
+                    {
+                        throw new Exception("El email ya está registrado en el sistema.");
+                    }
+                }
+
                 if (!_usuarios.Contains(usuario))
                 {
                     usuario.Validar();
@@ -102,12 +110,12 @@ namespace Dominio
                 }
                 else
                 {
-                    throw new Exception("El socio ya existe en el sistema");
+                    throw new Exception("El usuario ya existe en el sistema.");
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                throw new Exception($"Error al registrar el usuario: {e.Message}");
             }
         }
         #endregion
@@ -550,6 +558,7 @@ namespace Dominio
             return publicacionesFiltradas;
         }
 
+        // LOGIN
         public Usuario Login(string email, string pass)
         {
             foreach (Usuario u in _usuarios)
@@ -618,7 +627,17 @@ namespace Dominio
             cliente.SaldoDisponible += monto;
         }
 
-
+        public Subasta GetSubastaPorId(int Id)
+        {
+            foreach (Publicacion p in _publicaciones)
+            {
+                if (p is Subasta subasta && subasta.id == Id)
+                {
+                    return subasta;
+                }
+            }
+            return null;
+        }
     }
 }
 

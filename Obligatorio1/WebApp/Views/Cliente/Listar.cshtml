@@ -5,44 +5,70 @@
 
 <table class="table table-dark table-striped">
 
-    <tr>
-        <th>Nombre</th>
-        <th>Estado</th>
-        <th>Precio</th>
-        <th>Acción</th>
-    </tr>
+	<tr>
+		<th>Nombre</th>
+		<th>Estado</th>
+		<th>Precio</th>
+		<th>Usuario finalizador</th>
+		<th>Fecha de cierre</th>
+		<th>Acción</th>
+	</tr>
 
-    @foreach (Publicacion p in Model)
-    {
-        <tr>
-            <td>@p.Nombre</td>
-            <td>@p.Estado</td>
-            <td>@p.CalcularPrecioFinal()</td>
-            <td>
-                @if (p is Venta)
-                {
-                    if (p.Estado == Estado.ABIERTA)
-                    {
-                        @Html.ActionLink("Comprar", "Create", "Venta", new { id = p.id }, null)
-                    }
-                    else
-                    {
-                        <span class="text-muted">Comprar</span>
-                    }
-                }
-                else if (p is Subasta)
-                {
-                    if (p.Estado == Estado.ABIERTA)
-                    {
-                        @Html.ActionLink("Ofertar", "Offer", new { id = p.id }) 
-                        
+	@foreach (Publicacion p in Model)
+	{
+		<tr>
+			<td>@p.Nombre</td>
+			<td>@p.Estado</td>
+			<td>@p.CalcularPrecioFinal()</td>
+			<td>
+				@if (p.UsuarioFinalizador != null)
+				{
+					@p.UsuarioFinalizador.Nombre
+				}
+				else
+				{
+					<span class="text-muted">Sin asignar</span>
+				}
+			</td>
+			<td>
+				@if (p.FechaFin != null)
+				{
+					@p.FechaFin.ToShortDateString()
+				}
+				else
+				{
+					<span class="text-muted">Sin fecha</span>
+				}
+			</td>
+			<td>
+				@if (p is Venta)
+				{
+					if (p.Estado == Estado.ABIERTA)
+					{
+						@Html.ActionLink("Comprar", "Create", "Venta", new { id = p.id }, null)
 
-                    }
-                    else
-                    {
-                        <span class="text-muted">Ofertar</span>
-                    }
-                }
-        </tr>
-    }
+
+					}
+					else
+					{
+						<span class="text-muted">Comprar</span>
+					}
+				}
+				else if (p is Subasta)
+				{
+					if (p.Estado == Estado.ABIERTA)
+					{
+						@Html.ActionLink("Ofertar", "Create", "Subasta", new { id = p.id })
+
+
+					}
+					else
+					{
+						<span class="text-muted">Ofertar</span>
+					}
+				}
+			</td>
+
+		</tr>
+	}
 </table>
