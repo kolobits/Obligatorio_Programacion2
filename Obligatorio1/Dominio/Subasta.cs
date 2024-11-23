@@ -78,7 +78,7 @@ namespace Dominio
 
         public void CerrarSubasta(Administrador admin)
         {
-            if (_ofertas == null || _ofertas.Count == 0)
+            if (_ofertas == null && _ofertas.Count == 0)
             {
                 throw new Exception("No hay ofertas para esta subasta.");
             }

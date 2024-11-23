@@ -1,0 +1,42 @@
+﻿@using Dominio
+@model List<Publicacion>
+<h1>Lista de subastas</h1>
+
+
+<table class="table table-striped table-bordered">
+	<thead class="table-light">
+		<tr>
+			<th>Nombre</th>
+			<th>Fecha de publicación</th>
+			<th>Estado</th>
+			<th>Precio</th>
+			<th>Acción</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		@foreach (Publicacion p in Model)
+		{
+			<tr>
+				<td>@p.Nombre</td>
+				<td>@p.FechaPublicacion.ToShortDateString()</td>
+				<td>@p.Estado</td>
+				<td>@p.CalcularPrecioFinal().ToString("F2")</td>
+				<td>
+					@if (p.Estado == Estado.ABIERTA)
+					{
+						@Html.ActionLink("Cerrar", "Update", "Subasta", new { id = p.id }, null)
+
+					}
+					else
+					{
+						<span class="text-muted">Subasta cerrada</span>
+					}
+				</td>
+				
+			</tr>
+		}
+	</tbody>
+</table>
+
+

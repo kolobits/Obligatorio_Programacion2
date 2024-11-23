@@ -27,7 +27,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                        @if (Context.Session.GetInt32("idLogueado") != null)
+                        @if (Context.Session.GetInt32("idLogueado") != null && Context.Session.GetString("RolLogueado") == "CLI")
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="Listar">Lista de publicaciones</a>
@@ -36,6 +36,12 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Cliente" asp-action="RecargarBilletera">Billetera</a>
                             </li>
                         }
+                        @if (Context.Session.GetInt32("idLogueado") != null && Context.Session.GetString("RolLogueado") == "ADM")
+						{
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Administrador" asp-action="ListarSubastas">Lista de subastas</a>
+							</li>
+						}
                     </ul>
 
                     <!-- Login/Logout/Registro -->

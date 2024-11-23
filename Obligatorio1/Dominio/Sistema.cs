@@ -516,6 +516,21 @@ namespace Dominio
             return listAux;
         }
 
+        public List<Publicacion> GetSubastas()
+        {
+			List<Publicacion> listAux = new List<Publicacion>();
+
+			foreach (Publicacion s in _publicaciones)
+			{
+				if (s is Subasta)
+				{
+					listAux.Add(s);
+				}
+			}
+			return listAux;
+            
+		}
+
         // METODO PARA LISTAR ARTICULOS POR CATEGORIA
         public List<Articulo> ListarArticulosPorCat(string categoria)
         {
@@ -585,17 +600,17 @@ namespace Dominio
         }
 
 
-        public void FinalizarCompra(Venta venta)
+        public void FinalizarCompra(Venta venta, Cliente cliente)
         {
-			double precioFinal = venta.CalcularPrecioFinal();
+            if (cliente.SaldoDisponible < venta.CalcularPrecioFinal())
+            {
+                throw new Exception("Saldo insuficiente para completar la compra.");
+            }
 
-			if (precioFinal <= 0)
-			{
-				throw new Exception("La venta no tiene un precio válido.");
-			}
-			venta.PrecioFinal = precioFinal;
-			venta.Estado = Estado.CERRADA;
+            venta.PrecioFinal = venta.CalcularPrecioFinal();
+            venta.Estado = Estado.CERRADA;
             venta.FechaFin = DateTime.Now;
+            venta.UsuarioFinalizador = cliente;
         }
 
         public double GetSaldo(Cliente cliente)
@@ -638,6 +653,18 @@ namespace Dominio
             }
             return null;
         }
-    }
+
+		public Administrador GetAdministradorPorId(int id)
+		{
+			foreach (Usuario u in _usuarios)
+			{
+				if (u is Administrador a && a.Id == id)
+				{
+					return a;
+				}
+			}
+			return null;
+		}
+	}
 }
 

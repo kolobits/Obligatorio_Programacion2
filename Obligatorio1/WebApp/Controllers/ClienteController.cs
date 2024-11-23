@@ -42,8 +42,23 @@ namespace WebApp.Controllers
 
 
         public IActionResult Listar()
-        {
-            IEnumerable<Publicacion> listaPublicaciones = s.GetPublicaciones();
+        {			
+			int? idLogueado = HttpContext.Session.GetInt32("idLogueado");
+			if (idLogueado == null)
+			{
+                ViewBag.Msg = "Por favor, inicie sesión para acceder a esta funcionalidad.";
+                return View("Mensaje"); 
+            }
+
+			string rolLogueado = HttpContext.Session.GetString("RolLogueado");
+			if (rolLogueado != "CLI")
+			{
+                ViewBag.Msg = "Acceso denegado: no tiene el rol adecuado para esta funcionalidad.";
+                return View("Mensaje");
+            }
+
+			IEnumerable<Publicacion> listaPublicaciones = s.GetPublicaciones();
+
             return View(listaPublicaciones);
         }
         
@@ -51,11 +66,24 @@ namespace WebApp.Controllers
 
         public IActionResult RecargarBilletera()
         {
-            int idLogueado = HttpContext.Session.GetInt32("idLogueado").Value;
-            Cliente clienteLogueado = s.GetClientePorId(idLogueado);
+            int? idLogueado = HttpContext.Session.GetInt32("idLogueado");
+            if (idLogueado == null)
+            {
+                ViewBag.Msg = "Por favor, inicie sesión para acceder a esta funcionalidad.";
+                return View("Mensaje");
+            }
+
+            string rolLogueado = HttpContext.Session.GetString("RolLogueado");
+            if (rolLogueado != "CLI")
+            {
+                ViewBag.Msg = "Acceso denegado: no tiene el rol adecuado para esta funcionalidad.";
+                return View("Mensaje");
+            }
+
+            Cliente clienteLogueado = s.GetClientePorId(idLogueado.Value);
 
             ViewBag.NombreCliente = clienteLogueado.Nombre;
-            ViewBag.SaldoActual = clienteLogueado.SaldoDisponible;
+            ViewBag.SaldoActual = clienteLogueado.SaldoDisponible.ToString("F2");
 
             return View();
         }

@@ -12,56 +12,61 @@ namespace WebApp.Controllers
             return View();
         }
 
-
         public IActionResult Create(int id)
-        {
-
-			Venta ventaBuscada = s.GetVentaPorId(id);
-		
-			int? idLogueado = HttpContext.Session.GetInt32("idLogueado");
-			
-			Cliente clienteLogueado = s.GetClientePorId(idLogueado.Value);
-			
-
-			ViewBag.SaldoDisponible = clienteLogueado.SaldoDisponible;
-
-            return View(ventaBuscada);
-
-        }
-
-
-
-        [HttpPost]
-        public IActionResult FinalizarCompra(int id, double monto)
         {
             try
             {
-              
-                int? idLogueado = HttpContext.Session.GetInt32("idLogueado");
-                
-                Cliente clienteLogueado = s.GetClientePorId(idLogueado.Value);
-            
                 Venta ventaBuscada = s.GetVentaPorId(id);
 
-				ventaBuscada.PrecioFinal = ventaBuscada.CalcularPrecioFinal();
-				
-                double precioFinal = ventaBuscada.CalcularPrecioFinal();
-
-				double saldoDisponible = s.GetSaldo(clienteLogueado);
-                if (saldoDisponible < precioFinal)
+                int? idLogueado = HttpContext.Session.GetInt32("idLogueado");
+                if (idLogueado == null)
                 {
-                    ViewBag.MsgError = "Saldo insuficiente.";
-                    return RedirectToAction("Create", new { id }); 
+                    return RedirectToAction("Login", "Home");
                 }
-				
 
-				s.FinalizarCompra(ventaBuscada);
-
-				clienteLogueado.SaldoDisponible -= precioFinal;
-
-				ViewBag.MsgExito = "Compra finalizada exitosamente.";
+                Cliente clienteLogueado = s.GetClientePorId(idLogueado.Value);
+                if (clienteLogueado == null)
+                {
+                    return RedirectToAction("Login", "Home");
+                }
                 ViewBag.SaldoDisponible = clienteLogueado.SaldoDisponible;
-				return View("Create", ventaBuscada);
+
+                return View(ventaBuscada);
+            }
+            catch (Exception e)
+            {
+                ViewBag.MsgError = e.Message;
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult FinalizarCompra(int id)
+        {
+            try
+            {
+                int? idLogueado = HttpContext.Session.GetInt32("idLogueado");
+                if (idLogueado == null)
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
+                Cliente clienteLogueado = s.GetClientePorId(idLogueado.Value);
+                if (clienteLogueado == null)
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+
+                Venta ventaBuscada = s.GetVentaPorId(id);
+           
+                s.FinalizarCompra(ventaBuscada, clienteLogueado);
+
+                clienteLogueado.SaldoDisponible -= ventaBuscada.PrecioFinal;
+
+                ViewBag.MsgExito = "Compra finalizada exitosamente.";
+                ViewBag.SaldoDisponible = clienteLogueado.SaldoDisponible;
+
+                return View("Create", ventaBuscada);
             }
             catch (Exception e)
             {
@@ -69,9 +74,5 @@ namespace WebApp.Controllers
                 return RedirectToAction("Create", new { id });
             }
         }
-       
-
-
-
     }
 }

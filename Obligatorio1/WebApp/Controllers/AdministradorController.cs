@@ -18,9 +18,28 @@ namespace WebApp.Controllers
             return View();
         }
 
-        public IActionResult Create()
-        {
-            return View();
-        }
-    }
+
+		public IActionResult ListarSubastas()
+		{
+			int? idLogueado = HttpContext.Session.GetInt32("idLogueado");
+			if (idLogueado == null)
+			{
+				ViewBag.Msg = "Por favor, inicie sesión para acceder a esta funcionalidad.";
+				return View("Mensaje");
+			}
+
+			string rolLogueado = HttpContext.Session.GetString("RolLogueado");
+			if (rolLogueado != "ADM")
+			{
+				ViewBag.Msg = "Acceso denegado: no tiene el rol adecuado para esta funcionalidad.";
+				return View("Mensaje");
+			}
+
+			IEnumerable<Publicacion> listaSubastas = s.GetSubastas();
+
+			return View(listaSubastas);
+		}
+
+
+	}
 }

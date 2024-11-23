@@ -7,7 +7,6 @@
         <div class="col-lg-6 col-md-8 col-sm-10">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <!-- Mensajes de éxito y error -->
                     @if (ViewBag.MsgExito != null)
 
                     {
@@ -23,18 +22,15 @@
                         </div>
                     }
 
-                    <!-- Título -->
                     <h1 class="text-center mb-4">Recargar Billetera</h1>
 
-                    <!-- Información del cliente -->
                     <p class="text-center">
                         <strong>Bienvenido:</strong> @ViewBag.NombreCliente
                     </p>
                     <p class="text-center">
                         <strong>Saldo actual:</strong> $@ViewBag.SaldoActual
                     </p>
-
-                    <!-- Formulario -->
+                  
                     <form asp-action="RecargarBilletera" method="post">
                         <div class="form-group">
                             <label for="monto" class="form-label">Monto a recargar:</label>
