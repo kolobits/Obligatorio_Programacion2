@@ -48,13 +48,8 @@ namespace WebApp.Controllers
                 Administrador adminLogueado = s.GetAdministradorPorId(idLogueado.Value);
 
                 Subasta subastaBuscada = s.GetSubastaPorId(id);
-                //if (subastaBuscada == null)
-                //{
-                //    ViewBag.Msg = "La subasta no existe.";
-                //    return RedirectToAction("ListarSubastas");
-                //}
 
-                subastaBuscada.CerrarSubasta(adminLogueado);
+                subastaBuscada.CerrarPublicacion(adminLogueado);
 
                 ViewBag.MsgExito = "Subasta cerrada con éxito.";
                 return View("Update", subastaBuscada);

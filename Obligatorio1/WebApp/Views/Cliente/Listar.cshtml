@@ -46,7 +46,7 @@
 				</td>
 			
 				<td>
-					@if (p.FechaFin == DateTime.MinValue)
+					@if (p.FechaFin == default(DateTime))
 					{
 						<span class="text-muted">Sin asignar</span>
 					}

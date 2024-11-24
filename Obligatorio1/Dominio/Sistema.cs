@@ -76,8 +76,8 @@ namespace Dominio
         // ADMINISTRADORES
         public void PrecargarAdministradores()
         {
-            Administrador a1 = new Administrador("Pedro", "Perez", "pedroperez@gmail.com", "Admin123");
-            Administrador a2 = new Administrador("Andrés", "López", "andreslopez@gmail.com", "Admin456");
+            Administrador a1 = new Administrador("Andrés", "Ureta", "adressalvanos@gmail.com", "exonerar2024");
+            Administrador a2 = new Administrador("Pedro", "Perez", "pedroperez@gmail.com", "Admin123");
 
             AltaUsuario(a1);
             AltaUsuario(a2);
@@ -599,20 +599,6 @@ namespace Dominio
             return null;
         }
 
-
-        public void FinalizarCompra(Venta venta, Cliente cliente)
-        {
-            if (cliente.SaldoDisponible < venta.CalcularPrecioFinal())
-            {
-                throw new Exception("Saldo insuficiente para completar la compra.");
-            }
-
-            venta.PrecioFinal = venta.CalcularPrecioFinal();
-            venta.Estado = Estado.CERRADA;
-            venta.FechaFin = DateTime.Now;
-            venta.UsuarioFinalizador = cliente;
-        }
-
         public double GetSaldo(Cliente cliente)
         {
             return cliente.SaldoDisponible;
@@ -685,6 +671,18 @@ namespace Dominio
 				}
 			}
 			return null;
+		}
+
+        public Publicacion GetPublicacionPorId(int id) 
+        {
+			foreach (Publicacion p in _publicaciones)
+			{
+				if (p.id == id)
+				{
+					return p;
+				}
+			}
+            return null;
 		}
 	}
 }

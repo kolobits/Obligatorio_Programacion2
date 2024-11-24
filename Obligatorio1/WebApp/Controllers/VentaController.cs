@@ -57,13 +57,13 @@ namespace WebApp.Controllers
                     return RedirectToAction("Login", "Home");
                 }
 
-                Venta ventaBuscada = s.GetVentaPorId(id);
-           
-                s.FinalizarCompra(ventaBuscada, clienteLogueado);
+				Publicacion publicacion = s.GetPublicacionPorId(id);
 
-                clienteLogueado.SaldoDisponible -= ventaBuscada.PrecioFinal;
+				Venta ventaBuscada = (Venta)publicacion;
 
-                ViewBag.MsgExito = "Compra finalizada exitosamente.";
+				publicacion.CerrarPublicacion(clienteLogueado);
+
+				ViewBag.MsgExito = "Compra finalizada exitosamente.";
                 ViewBag.SaldoDisponible = clienteLogueado.SaldoDisponible;
 
                 return View("Create", ventaBuscada);

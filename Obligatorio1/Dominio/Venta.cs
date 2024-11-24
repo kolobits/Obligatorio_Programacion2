@@ -35,6 +35,29 @@ namespace Dominio
             return total;
         }
 
+		public override void CerrarPublicacion(Usuario usuario)
+		{
+			if (usuario is Cliente cliente)
+			{
+				double precioFinal = CalcularPrecioFinal();
 
-    }
+				if (cliente.SaldoDisponible < precioFinal)
+				{
+					throw new Exception("Saldo insuficiente para completar la compra.");
+				}
+
+				cliente.SaldoDisponible -= precioFinal;
+				PrecioFinal = precioFinal;
+				Estado = Estado.CERRADA;
+				FechaFin = DateTime.Now;
+				UsuarioFinalizador = cliente;
+                ClienteFinal = cliente;
+			}
+			else
+			{
+				throw new Exception("Solo un cliente puede finalizar una venta.");
+			}
+		}
+
+	}
 }

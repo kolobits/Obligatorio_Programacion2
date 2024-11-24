@@ -82,7 +82,10 @@ namespace Dominio
         // METODO PARA CALCULAR EL PRECIO TOTAL DE LOS PRODUCTOS
         public abstract double CalcularPrecioFinal();
 
-    }
+
+        public abstract void CerrarPublicacion(Usuario usuario);
+
+	}
 
 }
 

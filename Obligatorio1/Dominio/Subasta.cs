@@ -78,71 +78,38 @@ namespace Dominio
 
 		}
 
-		// CERRAR SUBASTA
-		//public void CerrarSubasta(Administrador admin)
-		//{
-		//	if (_ofertas == null && _ofertas.Count == 0)
-		//	{
-		//		throw new Exception("No hay ofertas para esta subasta.");
-		//	}
 
-		//	// Determinar la oferta más alta
-		//	Oferta mejorOferta = ofertaMasAlta();
-		//	if (mejorOferta != null)
-		//	{
-		//		// Actualizar datos de la subasta
-		//		ClienteFinal = mejorOferta.Cliente;
-		//		UsuarioFinalizador = admin;
-		//		Estado = Estado.CERRADA;
-		//		FechaFin = DateTime.Now;
-
-		//		// Descontar saldo al cliente ganador
-		//		if (ClienteFinal.SaldoDisponible < mejorOferta.Monto)
-		//		{
-		//			throw new Exception($"El cliente {ClienteFinal.Nombre} no tiene saldo suficiente para pagar la subasta.");
-		//		}
-
-		//		ClienteFinal.SaldoDisponible -= mejorOferta.Monto;
-		//	}
-		//	else
-		//	{
-		//		throw new Exception("No se pudo determinar la oferta más alta.");
-		//	}
-		//}
-
-		public void CerrarSubasta(Administrador admin)
+		public override void CerrarPublicacion(Usuario usuario)
 		{
-			if (_ofertas == null && _ofertas.Count == 0)
+			if (usuario is Administrador admin)
 			{
-				throw new Exception("No hay ofertas para esta subasta.");
-			}
-
-			Oferta mejorOferta = ofertaMasAlta();
-			if (mejorOferta != null)
-			{
-				//Cliente ganador y el administrador que cierra
-				ClienteFinal = mejorOferta.Cliente;
-				UsuarioFinalizador = admin;
-
-				//saldo del cliente que  gana
-				if (ClienteFinal.SaldoDisponible < mejorOferta.Monto)
+				if (_ofertas == null && _ofertas.Count == 0)
 				{
-					throw new Exception($"El cliente {ClienteFinal.Nombre} no tiene saldo suficiente para pagar la subasta.");
+					throw new Exception("No hay ofertas para esta subasta.");
 				}
 
-				//Descuento el saldo
-				ClienteFinal.SaldoDisponible -= mejorOferta.Monto;
+				Oferta mejorOferta = ofertaMasAlta();
+				if (mejorOferta != null)
+				{
+					ClienteFinal = mejorOferta.Cliente;
 
-				//cambiar estado
-				Estado = Estado.CERRADA;
-				FechaFin = DateTime.Now;
+					if (ClienteFinal.SaldoDisponible < mejorOferta.Monto)
+					{
+						throw new Exception($"El cliente {ClienteFinal.Nombre} no tiene saldo suficiente para pagar la subasta.");
+					}
+
+					ClienteFinal.SaldoDisponible -= mejorOferta.Monto;
+					Estado = Estado.CERRADA;
+					FechaFin = DateTime.Now;
+					UsuarioFinalizador = admin;
+				}
+				else
+				{
+					throw new Exception("No se pudo determinar la oferta más alta.");
+				}
 			}
-			else
-			{
-				throw new Exception("No se pudo determinar la oferta más alta.");
-			}
+
 		}
 	}
 }
-
 
