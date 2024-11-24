@@ -1,45 +1,50 @@
 ﻿@{
-    ViewBag.Title = "Recargar Billetera";
+	ViewBag.Title = "Recargar Billetera";
 }
 
 <div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-8 col-sm-10">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    @if (ViewBag.MsgExito != null)
+	<div class="row justify-content-center">
+		<div class="col-lg-6 col-md-8 col-sm-10">
+			<div class="card shadow-sm">
+				<div class="card-body">
+					<h1 class="text-center mb-4">Recargar Billetera</h1>
 
-                    {
-                        <div class="alert alert-success text-center">
-                            @ViewBag.MsgExito
-                        </div>
-                    }
-                    @if (ViewBag.MsgError != null)
+					<p class="text-center">
+						<strong>Bienvenido:</strong> @ViewBag.NombreCliente
+					</p>
+					<p class="text-center">
+						<strong>Saldo actual:</strong> $@ViewBag.SaldoActual
+					</p>
 
-                    {
-                        <div class="alert alert-danger text-center">
-                            @ViewBag.MsgError
-                        </div>
-                    }
+					<form asp-action="RecargarBilletera" method="post">
+						<div class="form-group">
+							<label for="monto" class="form-label">Monto a recargar:</label>
+							<input type="number" id="monto" name="monto" class="form-control" />
+						</div>
+						<button type="submit" class="btn btn-primary w-100 mt-3">Recargar</button>
+					</form>
 
-                    <h1 class="text-center mb-4">Recargar Billetera</h1>
+				</div>
 
-                    <p class="text-center">
-                        <strong>Bienvenido:</strong> @ViewBag.NombreCliente
-                    </p>
-                    <p class="text-center">
-                        <strong>Saldo actual:</strong> $@ViewBag.SaldoActual
-                    </p>
-                  
-                    <form asp-action="RecargarBilletera" method="post">
-                        <div class="form-group">
-                            <label for="monto" class="form-label">Monto a recargar:</label>
-                            <input type="number" id="monto" name="monto" class="form-control"/>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100 mt-3">Recargar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+			</div>
+			@if (ViewBag.MsgExito != null)
+
+
+
+			{
+				<div class="alert alert-success text-center">
+					@ViewBag.MsgExito
+				</div>
+			}
+			@if (ViewBag.MsgError != null)
+
+
+
+			{
+				<div class="alert alert-danger text-center">
+					@ViewBag.MsgError
+				</div>
+			}
+		</div>
+	</div>
 </div>

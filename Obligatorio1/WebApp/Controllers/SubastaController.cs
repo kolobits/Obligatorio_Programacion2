@@ -94,7 +94,7 @@ namespace WebApp.Controllers
                 if (clienteLogueado.SaldoDisponible < monto)
                 {
                     ViewBag.MsgError = "Saldo insuficiente para realizar esta oferta.";
-                    ViewBag.SaldoDisponible = clienteLogueado.SaldoDisponible;
+                    ViewBag.SaldoDisponible = clienteLogueado.SaldoDisponible.ToString("F2");
                     return View("Create", subastaBuscada);
                 }
 
@@ -103,13 +103,13 @@ namespace WebApp.Controllers
                 if (ofertaActual != null && monto <= ofertaActual.Monto)
                 {
                     ViewBag.MsgError = "La oferta ingresada debe ser mayor a la oferta más alta actual.";
-                    ViewBag.SaldoDisponible = clienteLogueado.SaldoDisponible;
+                    ViewBag.SaldoDisponible = clienteLogueado.SaldoDisponible.ToString("F2");
                     return View("Create", subastaBuscada);
                 }
                 if (ofertaActual.Monto <= 0)
                 {
                     ViewBag.MsgError = "La oferta ingresada debe ser mayor a 0.";
-                    ViewBag.SaldoDisponible = clienteLogueado.SaldoDisponible;
+                    ViewBag.SaldoDisponible = clienteLogueado.SaldoDisponible.ToString("F2");
                     return View("Create", subastaBuscada);
                 }
 
@@ -117,8 +117,9 @@ namespace WebApp.Controllers
                 subastaBuscada.AgregarOferta(nuevaOferta);
 
                 ViewBag.MsgExito = "Oferta realizada con éxito.";
-                ViewBag.SaldoDisponible = clienteLogueado.SaldoDisponible - monto;
-                return View("Create", subastaBuscada);
+                ViewBag.SaldoDisponible = clienteLogueado.SaldoDisponible.ToString("F2");
+
+				return View("Create", subastaBuscada);
             }
             catch (Exception e)
             {

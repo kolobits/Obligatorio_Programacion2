@@ -1,8 +1,4 @@
-﻿@{
-	ViewData["Title"] = "Registro de Cliente";
-}
-
-<h1 class="text-center mb-4">Regístrate como cliente</h1>
+﻿<h1 class="text-center mb-4">Regístrate como cliente</h1>
 
 <form method="post">
 	<div class="container">
@@ -47,5 +43,22 @@
 	</div>
 </form>
 
-<p class="text-center mt-4 text-success">@ViewBag.MsgExito</p>
-<p class="text-center mt-4 text-danger">@ViewBag.MsgError</p>
+
+
+<!-- Mensajes -->
+@if (ViewBag.MsgExito != null)
+{
+	<div class="d-flex justify-content-center">
+		<div class="alert alert-success text-center col-md-6">
+			@ViewBag.MsgExito
+		</div>
+	</div>
+}
+@if (ViewBag.MsgError != null)
+{
+	<div class="d-flex justify-content-center">
+		<div class="alert alert-danger text-center col-md-6">
+			@ViewBag.MsgError
+		</div>
+	</div>
+}

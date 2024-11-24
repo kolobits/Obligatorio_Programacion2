@@ -630,7 +630,9 @@ namespace Dominio
             return null;
 		}
 
-        public void RecargarBilletera(int idCliente, double monto)
+
+		// METODO PARA RECARGAR BILLETERA
+		public void RecargarBilletera(int idCliente, double monto)
         {
             if (monto <= 0)
             {
@@ -642,6 +644,7 @@ namespace Dominio
             cliente.SaldoDisponible += monto;
         }
 
+        // OBTENER SUBASTAS POR ID
         public Subasta GetSubastaPorId(int Id)
         {
             foreach (Publicacion p in _publicaciones)
@@ -654,6 +657,24 @@ namespace Dominio
             return null;
         }
 
+		// ORDENAR SUBASTAS POR FECHA
+		public IEnumerable<Subasta> GetSubastasOrdenadas()
+		{
+			List<Subasta> subastas = new List<Subasta>();
+
+			foreach (Publicacion publicacion in _publicaciones)
+			{
+				if (publicacion is Subasta subasta)
+				{
+					subastas.Add(subasta);
+				}
+			}
+			subastas.Sort((s1, s2) => s2.FechaPublicacion.CompareTo(s1.FechaPublicacion));
+
+			return subastas;
+		}
+
+		// OBTENER ADMINs POR ID
 		public Administrador GetAdministradorPorId(int id)
 		{
 			foreach (Usuario u in _usuarios)

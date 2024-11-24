@@ -1,5 +1,5 @@
 ﻿@using Dominio
-@model List<Publicacion>
+@model IEnumerable<Publicacion>
 <h1>Lista de publicaciones</h1>
 
 
@@ -10,7 +10,9 @@
 			<th>Estado</th>
 			<th>Precio</th>
 			<th>Usuario finalizador</th>
+			<th>Comprador final</th>
 			<th>Fecha de cierre</th>
+			<th>Fecha de publicación</th>
 			<th>Acción</th>
 		</tr>
 	</thead>
@@ -33,6 +35,17 @@
 					}
 				</td>
 				<td>
+					@if (p.ClienteFinal != null)
+					{
+						@($"{p.ClienteFinal.Nombre} {p.ClienteFinal.Apellido}")
+					}
+					else
+					{
+						<span class="text-muted">Sin asignar</span>
+					}
+				</td>
+			
+				<td>
 					@if (p.FechaFin == DateTime.MinValue)
 					{
 						<span class="text-muted">Sin asignar</span>
@@ -42,6 +55,7 @@
 						@p.FechaFin.ToShortDateString()
 					}
 				</td>
+				<td>@p.FechaPublicacion.ToShortDateString()</td>
 				<td>
 					@if (p is Venta)
 					{

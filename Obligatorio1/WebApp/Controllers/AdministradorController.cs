@@ -35,9 +35,9 @@ namespace WebApp.Controllers
 				return View("Mensaje");
 			}
 
-			IEnumerable<Publicacion> listaSubastas = s.GetSubastas();
+			IEnumerable<Subasta> subastasOrdenadas = s.GetSubastasOrdenadas();
 
-			return View(listaSubastas);
+			return View(subastasOrdenadas);
 		}
 
 

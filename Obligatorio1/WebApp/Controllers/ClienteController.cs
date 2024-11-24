@@ -57,7 +57,7 @@ namespace WebApp.Controllers
                 return View("Mensaje");
             }
 
-			IEnumerable<Publicacion> listaPublicaciones = s.GetPublicaciones();
+            IEnumerable<Publicacion> listaPublicaciones = s.GetPublicaciones();
 
             return View(listaPublicaciones);
         }
