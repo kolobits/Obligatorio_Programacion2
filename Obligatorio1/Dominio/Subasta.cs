@@ -26,23 +26,28 @@ namespace Dominio
 
 
 
-		// ALTA OFERTA
-		public void AgregarOferta(Oferta oferta)
-		{
-			if (oferta == null)
-			{
-				throw new Exception("La oferta no puede ser nula.");
-			}
-			if (oferta.Cliente.SaldoDisponible < oferta.Monto)
-			{
-				throw new Exception("No tiene saldo suficiente para realizar la oferta.");
-			}
-			_ofertas.Add(oferta);
-		}
+        // ALTA OFERTA
+        public void AgregarOferta(Oferta oferta)
+        {
+            if (oferta == null)
+            {
+                throw new Exception("La oferta no puede ser nula.");
+            }
+            if (oferta.Cliente == null)
+            {
+                throw new Exception("La oferta debe estar asociada a un cliente.");
+            }
+            if (oferta.Monto <= 0)
+            {
+                throw new Exception("El monto de la oferta debe ser mayor a 0.");
+            }
+            _ofertas.Add(oferta);
+        }
 
 
-		// OFERTA MAS ALTA
-		public Oferta ofertaMasAlta()
+
+        // OFERTA MAS ALTA
+        public Oferta ofertaMasAlta()
 		{
 			if (_ofertas == null && _ofertas.Count == 0)
 			{
@@ -78,38 +83,123 @@ namespace Dominio
 
 		}
 
+        // CERRAR PUBLICACION
+        //public override void CerrarPublicacion(Usuario usuario)
+        //{
+        //	if (usuario is Administrador admin)
+        //	{
+        //		if (_ofertas == null && _ofertas.Count == 0)
+        //		{
+        //			throw new Exception("No hay ofertas para esta subasta.");
+        //		}
 
-		public override void CerrarPublicacion(Usuario usuario)
+        //		Oferta mejorOferta = ofertaMasAlta();
+        //		if (mejorOferta != null)
+        //		{
+        //			ClienteFinal = mejorOferta.Cliente;
+
+        //			if (ClienteFinal.SaldoDisponible < mejorOferta.Monto)
+        //			{
+        //				throw new Exception($"El cliente {ClienteFinal.Nombre} no tiene saldo suficiente para pagar la subasta.");
+        //			}
+
+        //			ClienteFinal.SaldoDisponible -= mejorOferta.Monto;
+        //			Estado = Estado.CERRADA;
+        //			FechaFin = DateTime.Now;
+        //			UsuarioFinalizador = admin;
+        //		}
+        //		else
+        //		{
+        //			throw new Exception("No se pudo determinar la oferta más alta.");
+        //		}
+        //	}
+
+        //}
+
+        //public override void CerrarPublicacion(Usuario admin)
+        //{
+        //    if (admin == null)
+        //    {
+        //        throw new Exception("No se ha proporcionado un administrador válido para cerrar la subasta.");
+        //    }
+
+        //    if (_ofertas == null || _ofertas.Count == 0)
+        //    {
+        //        throw new Exception("No hay ofertas para esta subasta.");
+        //    }
+
+        //    if (Estado != Estado.ABIERTA)
+        //    {
+        //        throw new Exception("La subasta no está en un estado válido para cerrarse.");
+        //    }
+
+        //    // Ordenar las ofertas por monto descendente
+        //    _ofertas.Sort((o1, o2) => o2.Monto.CompareTo(o1.Monto));
+
+        //    foreach (Oferta oferta in _ofertas)
+        //    {
+        //        if (oferta.Cliente.SaldoDisponible > oferta.Monto)
+        //        {
+        //            // Actualiza los datos del ganador
+        //            ClienteFinal = oferta.Cliente;
+        //            ClienteFinal.SaldoDisponible -= oferta.Monto;
+
+        //            UsuarioFinalizador = admin;
+
+        //            // Cambiar el estado de la subasta
+        //            Estado = Estado.CERRADA;
+        //            FechaFin = DateTime.Now;
+        //            return; // Finaliza el método una vez que se encuentra un ganador válido
+        //        }
+        //    }
+
+        //    // Si ninguna oferta es válida, cancela la subasta
+        //    Estado = Estado.CANCELADA;
+        //    UsuarioFinalizador = admin;
+        //    FechaFin = DateTime.Now;
+        //}
+
+
+        public override void CerrarPublicacion(Usuario admin)
+        {
+            if (_ofertas == null && _ofertas.Count == 0)
+            {
+                throw new Exception("No hay ofertas para esta subasta.");
+            }
+
+            _ofertas.Sort((o1, o2) => o2.Monto.CompareTo(o1.Monto));
+
+            foreach (Oferta oferta in _ofertas)
+            {
+                if (oferta.Cliente.SaldoDisponible >= oferta.Monto)
+                {
+                    ClienteFinal = oferta.Cliente;
+                    ClienteFinal.SaldoDisponible -= oferta.Monto;
+
+                    UsuarioFinalizador = admin;
+
+                    Estado = Estado.CERRADA;
+                    FechaFin = DateTime.Now;
+                    return;
+                }
+            }
+
+            Estado = Estado.CANCELADA;
+            UsuarioFinalizador = admin;
+            FechaFin = DateTime.Now;
+        }
+
+
+
+        // GET ULTIMO OFERTANTE
+        public Cliente GetUltimoOfertante()
 		{
-			if (usuario is Administrador admin)
+			if (_ofertas == null && _ofertas.Count == 0)
 			{
-				if (_ofertas == null && _ofertas.Count == 0)
-				{
-					throw new Exception("No hay ofertas para esta subasta.");
-				}
-
-				Oferta mejorOferta = ofertaMasAlta();
-				if (mejorOferta != null)
-				{
-					ClienteFinal = mejorOferta.Cliente;
-
-					if (ClienteFinal.SaldoDisponible < mejorOferta.Monto)
-					{
-						throw new Exception($"El cliente {ClienteFinal.Nombre} no tiene saldo suficiente para pagar la subasta.");
-					}
-
-					ClienteFinal.SaldoDisponible -= mejorOferta.Monto;
-					Estado = Estado.CERRADA;
-					FechaFin = DateTime.Now;
-					UsuarioFinalizador = admin;
-				}
-				else
-				{
-					throw new Exception("No se pudo determinar la oferta más alta.");
-				}
+				return null;
 			}
 
+			return _ofertas[_ofertas.Count - 1].Cliente;
 		}
 	}
 }
-

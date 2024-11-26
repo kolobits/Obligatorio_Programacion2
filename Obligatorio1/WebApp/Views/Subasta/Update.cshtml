@@ -1,5 +1,9 @@
-﻿@using Dominio
-<h1>Detalles de la Subasta</h1>
+﻿
+
+@using Dominio
+@model Subasta
+
+<h1 class="text-center mb-4">Detalles de la Subasta</h1>
 
 @if (ViewBag.MsgExito != null)
 {
@@ -14,33 +18,60 @@
     </div>
 }
 
-<h2>@Model.Nombre</h2>
-<p>Estado: @Model.Estado</p>
-<p>Oferta más alta: $@Model.CalcularPrecioFinal().ToString("F2")</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>@Model.Nombre</h2>
+            <p><strong>Estado:</strong> @Model.Estado</p>
+            <p>
+                <strong>Último oferente:</strong>
+                @if (Model.GetUltimoOfertante() == null)
+                {
+                    <span class="text-muted">No hay ofertas realizadas</span>
+                }
+                else
+                {
+                    <span>@($"{Model.GetUltimoOfertante().Nombre} {Model.GetUltimoOfertante().Apellido}")</span>
+                }
+            </p>
+            <p><strong>Oferta más alta:</strong> $@Model.CalcularPrecioFinal().ToString("F2")</p>
+        </div>
+    </div>
 
-<h3>Artículos incluidos:</h3>
-<table class="table table-striped table-bordered">
-    <thead class="table-light">
-        <tr>
-            <th>Nombre</th>
-            <th>Categoría</th>
-            <th>Precio</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (Articulo articulo in Model.GetArticulos())
-        {
-            <tr>
-                <td>@articulo.Nombre</td>
-                <td>@articulo.Categoria</td>
-                <td>$@articulo.Precio</td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Artículos incluidos:</h3>
+            <table class="table table-striped table-bordered">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Articulo articulo in Model.GetArticulos())
+                    {
+                        <tr>
+                            <td>@articulo.Nombre</td>
+                            <td>@articulo.Categoria</td>
+                            <td>$@articulo.Precio.ToString("F2")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-<form asp-action="CerrarSubasta" method="post">
-    <input type="hidden" name="id" value="@Model.id" />
-    <button type="submit" class="btn btn-primary mt-3">Cerrar subasta</button>
-    <a asp-action="ListarSubastas" asp-controller="Administrador" class="btn btn-secondary mt-3">Volver</a>
-</form>
+    <div class="row mt-4">
+        <div class="col-md-6 text-center">
+            <form asp-action="CerrarSubasta" method="post">
+                <input type="hidden" name="id" value="@Model.id" />
+                <button type="submit" class="btn btn-primary">Cerrar subasta</button>
+            </form>
+        </div>
+        <div class="col-md-6 text-center">
+            <a asp-action="ListarSubastas" asp-controller="Administrador" class="btn btn-secondary">Volver</a>
+        </div>
+    </div>
+</div>
