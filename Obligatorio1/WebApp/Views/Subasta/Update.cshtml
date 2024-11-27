@@ -1,6 +1,4 @@
-﻿
-
-@using Dominio
+﻿@using Dominio
 @model Subasta
 
 <h1 class="text-center mb-4">Detalles de la Subasta</h1>
@@ -23,18 +21,38 @@
         <div class="col-md-12">
             <h2>@Model.Nombre</h2>
             <p><strong>Estado:</strong> @Model.Estado</p>
+
             <p>
-                <strong>Último oferente:</strong>
-                @if (Model.GetUltimoOfertante() == null)
+                <strong>Ganador:</strong>
+                @if (Model.Estado == Estado.CERRADA && Model.ClienteFinal != null)
                 {
-                    <span class="text-muted">No hay ofertas realizadas</span>
+                    <span>@($"{Model.ClienteFinal.Nombre} {Model.ClienteFinal.Apellido}")</span>
+                }
+                else if (Model.Estado == Estado.CANCELADA)
+                {
+                    <span class="text-muted">La subasta fue cancelada.</span>
                 }
                 else
                 {
-                    <span>@($"{Model.GetUltimoOfertante().Nombre} {Model.GetUltimoOfertante().Apellido}")</span>
+                    <span class="text-muted">No adjudicado</span>
                 }
             </p>
-            <p><strong>Oferta más alta:</strong> $@Model.CalcularPrecioFinal().ToString("F2")</p>
+
+            <p>
+                <strong>Oferta ganadora:</strong>
+                @if (Model.Estado == Estado.CERRADA && Model.ClienteFinal != null)
+                {
+                    <span>$@Model.CalcularPrecioFinal().ToString("F2")</span>
+                }
+                else if (Model.Estado == Estado.CANCELADA)
+                {
+                    <span class="text-muted">La subasta fue cancelada.</span>
+                }
+                else
+                {
+                    <span class="text-muted">No adjudicada</span>
+                }
+            </p>
         </div>
     </div>
 
@@ -64,12 +82,15 @@
     </div>
 
     <div class="row mt-4">
-        <div class="col-md-6 text-center">
-            <form asp-action="CerrarSubasta" method="post">
-                <input type="hidden" name="id" value="@Model.id" />
-                <button type="submit" class="btn btn-primary">Cerrar subasta</button>
-            </form>
-        </div>
+        @if (Model.Estado == Estado.ABIERTA)
+        {
+            <div class="col-md-6 text-center">
+                <form asp-action="CerrarSubasta" method="post">
+                    <input type="hidden" name="id" value="@Model.id" />
+                    <button type="submit" class="btn btn-primary">Cerrar subasta</button>
+                </form>
+            </div>
+        }
         <div class="col-md-6 text-center">
             <a asp-action="ListarSubastas" asp-controller="Administrador" class="btn btn-secondary">Volver</a>
         </div>

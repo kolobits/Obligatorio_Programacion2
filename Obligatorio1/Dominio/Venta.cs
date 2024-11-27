@@ -19,7 +19,7 @@ namespace Dominio
            
         }
 
-        // CALCULAR PRECIO FINAL (CONTEMPLA OFERTA RELAMPAGO)
+        // CALCULAR PRECIO FINAL
         public override double CalcularPrecioFinal()
         {
             double total = 0;
@@ -35,6 +35,7 @@ namespace Dominio
             return total;
         }
 
+        // CERRAR VENTA
 		public override void CerrarPublicacion(Usuario usuario)
 		{
 			if (usuario is Cliente cliente)

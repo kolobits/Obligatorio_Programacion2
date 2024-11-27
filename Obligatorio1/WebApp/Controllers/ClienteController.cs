@@ -42,17 +42,17 @@ namespace WebApp.Controllers
 
 
         public IActionResult Listar()
-        {			
-			int? idLogueado = HttpContext.Session.GetInt32("idLogueado");
-			if (idLogueado == null)
-			{
+        {
+            int? idLogueado = HttpContext.Session.GetInt32("idLogueado");
+            if (idLogueado == null)
+            {
                 ViewBag.Msg = "Por favor, inicie sesión para acceder a esta funcionalidad.";
-                return View("Mensaje"); 
+                return View("Mensaje");
             }
 
-			string rolLogueado = HttpContext.Session.GetString("RolLogueado");
-			if (rolLogueado != "CLI")
-			{
+            string rolLogueado = HttpContext.Session.GetString("RolLogueado");
+            if (rolLogueado != "CLI")
+            {
                 ViewBag.Msg = "Acceso denegado: no tiene el rol adecuado para esta funcionalidad.";
                 return View("Mensaje");
             }
@@ -61,7 +61,6 @@ namespace WebApp.Controllers
 
             return View(listaPublicaciones);
         }
-        
 
 
         public IActionResult RecargarBilletera()
@@ -87,7 +86,6 @@ namespace WebApp.Controllers
 
             return View();
         }
-
 
 
         [HttpPost]
@@ -119,8 +117,5 @@ namespace WebApp.Controllers
                 return View();
             }
         }
-
-
-
     }
 }

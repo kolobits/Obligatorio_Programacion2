@@ -11,7 +11,6 @@ namespace WebApp.Controllers
             return View();
         }
 
-
         public IActionResult Update(int id)
         {
             Subasta subastaBuscada = s.GetSubastaPorId(id);
@@ -25,44 +24,6 @@ namespace WebApp.Controllers
 
             return View("Update", subastaBuscada);
         }
-
-        //[HttpPost]
-        //public IActionResult CerrarSubasta(int id)
-        //{
-        //    try
-        //    {
-        //        string rolLogueado = HttpContext.Session.GetString("RolLogueado");
-        //        if (rolLogueado != "ADM")
-        //        {
-        //            ViewBag.Msg = "Acceso denegado: solo los administradores pueden cerrar subastas.";
-        //            return View("Mensaje");
-        //        }
-
-        //        int? idLogueado = HttpContext.Session.GetInt32("idLogueado");
-        //        if (idLogueado == null)
-        //        {
-        //            ViewBag.Msg = "Debe iniciar sesión como administrador.";
-        //            return View("Mensaje");
-        //        }
-
-        //        Administrador adminLogueado = s.GetAdministradorPorId(idLogueado.Value);
-
-        //        Subasta subastaBuscada = s.GetSubastaPorId(id);
-
-        //        subastaBuscada.CerrarPublicacion(adminLogueado);
-
-        //        ViewBag.MsgExito = "Subasta cerrada con éxito.";
-        //        return View("Update", subastaBuscada);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        ViewBag.MsgError = e.Message;
-        //        Subasta subastaBuscada = s.GetSubastaPorId(id);
-        //        return View("Update", subastaBuscada);
-        //    }
-        //}
-
-
 
         public IActionResult Create(int id)
         {
@@ -124,7 +85,6 @@ namespace WebApp.Controllers
         }
 
 
-
         [HttpPost]
         public IActionResult CerrarSubasta(int id)
         {
@@ -134,7 +94,7 @@ namespace WebApp.Controllers
                 if (idLogueado == null)
                 {
                     ViewBag.Msg = "Debe iniciar sesión como administrador.";
-                    return View("Mensaje"); 
+                    return View("Mensaje");
                 }
 
                 string rolLogueado = HttpContext.Session.GetString("RolLogueado");
@@ -158,15 +118,18 @@ namespace WebApp.Controllers
                     return View("Mensaje");
                 }
 
-                if (subastaBuscada.Estado == Estado.CERRADA && subastaBuscada.Estado == Estado.CANCELADA)
-                {
-                    ViewBag.MsgError = "La subasta ya está cerrada o fue cancelada.";
-                    return View("Update", subastaBuscada);
-                }
 
                 subastaBuscada.CerrarPublicacion(adminLogueado);
 
-                ViewBag.MsgExito = "Subasta cerrada con éxito.";
+                if (subastaBuscada.Estado == Estado.CERRADA)
+                {
+                    ViewBag.MsgExito = "Subasta cerrada con éxito.";
+                }
+                else
+                {
+                    ViewBag.MsgExito = "Subasta cancelada: ningún cliente tenía saldo suficiente para pagar.";
+                }
+
                 return View("Update", subastaBuscada);
             }
             catch (Exception e)
@@ -177,6 +140,5 @@ namespace WebApp.Controllers
                 return View("Update", subastaBuscada);
             }
         }
-
     }
 }

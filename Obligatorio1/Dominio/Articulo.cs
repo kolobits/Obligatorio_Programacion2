@@ -10,7 +10,6 @@ namespace Dominio
     public class Articulo : IValidable
     {
         public int Id { get; set; }
-
         public static int UltimoId { get; set; } = 1;
         public string Nombre { get; set; }
         public string Categoria { get; set; }
@@ -57,7 +56,6 @@ namespace Dominio
                 throw new Exception("La categoría no puede estar vacia");
             }
         }
-
 
         public void ValidarPrecio()
         {

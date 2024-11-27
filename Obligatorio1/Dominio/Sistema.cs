@@ -366,7 +366,6 @@ namespace Dominio
             subasta1.AltaArticulo(articulos[19]);
             subasta1.AltaArticulo(articulos[20]);
             subasta1.AgregarOferta(new Oferta(cliente1, 550.00, DateTime.Now));
-            subasta1.AgregarOferta(new Oferta(cliente2, 600.00, DateTime.Now));
             _publicaciones.Add(subasta1);
 
             Subasta subasta2 = new Subasta("Equipo de Camping", DateTime.Now.AddDays(-15), 150);
@@ -380,7 +379,6 @@ namespace Dominio
             subasta3.AltaArticulo(articulos[31]);
             subasta3.AltaArticulo(articulos[17]);
             subasta3.AgregarOferta(new Oferta(cliente4, 150.00, DateTime.Now));
-            subasta3.AgregarOferta(new Oferta(cliente1, 180.00, DateTime.Now));
             subasta3.Estado = Estado.CERRADA;
             _publicaciones.Add(subasta3);
 
@@ -505,6 +503,7 @@ namespace Dominio
             _publicaciones.Add(publicacion);
         }
 
+        // METODO PARA OBTENER PUBLICACIONES
         public List<Publicacion> GetPublicaciones()
         {
             List<Publicacion> listAux = new List<Publicacion>();
@@ -516,6 +515,7 @@ namespace Dominio
             return listAux;
         }
 
+        // METODO PARA OBTENER SUBASTAS
         public List<Publicacion> GetSubastas()
         {
 			List<Publicacion> listAux = new List<Publicacion>();
@@ -546,33 +546,6 @@ namespace Dominio
             return listaAux;
         }
 
-
-        // METODO LISTAR PUBLICACIONES POR FECHA
-        public List<Publicacion> ListarPublicacionesPorFechas(DateTime fechaInicio, DateTime fechaFin)
-        {
-            if (fechaInicio > fechaFin)
-            {
-                throw new Exception("La fecha de inicio no puede ser mayor a la fecha de fin.");
-            }
-
-            List<Publicacion> publicacionesFiltradas = new List<Publicacion>();
-
-            foreach (Publicacion p in _publicaciones)
-            {
-                if (p.FechaPublicacion >= fechaInicio && p.FechaPublicacion <= fechaFin)
-                {
-                    publicacionesFiltradas.Add(p);
-                }
-            }
-
-            if (publicacionesFiltradas.Count == 0)
-            {
-                throw new Exception("No hay publicaciones en el rango de fechas especificado.");
-            }
-
-            return publicacionesFiltradas;
-        }
-
         // LOGIN
         public Usuario Login(string email, string pass)
         {
@@ -586,7 +559,7 @@ namespace Dominio
             return null;
         }
 
-
+        // OBTENER VENTA POR ID
         public Venta GetVentaPorId(int Id)
         {
             foreach (Publicacion p in _publicaciones)
@@ -599,11 +572,14 @@ namespace Dominio
             return null;
         }
 
+        // OBTENER SALDO
         public double GetSaldo(Cliente cliente)
         {
             return cliente.SaldoDisponible;
         }
 
+        
+        // OBTENER CLIENTE POR ID
 		public Cliente GetClientePorId(int id)
 		{
             foreach (Usuario u in _usuarios) 
@@ -644,7 +620,7 @@ namespace Dominio
         }
 
 		// ORDENAR SUBASTAS POR FECHA
-		public IEnumerable<Subasta> GetSubastasOrdenadas()
+		public List<Subasta> GetSubastasOrdenadas()
 		{
 			List<Subasta> subastas = new List<Subasta>();
 
@@ -673,6 +649,7 @@ namespace Dominio
 			return null;
 		}
 
+        // OBTENER PUBLICACION POR ID
         public Publicacion GetPublicacionPorId(int id) 
         {
 			foreach (Publicacion p in _publicaciones)

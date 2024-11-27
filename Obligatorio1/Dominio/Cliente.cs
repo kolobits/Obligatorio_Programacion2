@@ -9,14 +9,12 @@ namespace Dominio
 {
     public class Cliente : Usuario
     {
-
         public double SaldoDisponible { get; set; }
 
 
         public Cliente()
         {
             
-
         }
 
         public Cliente(double saldoDisponible, string nombre, string apellido, string email, string contrasena) : base(nombre, apellido, email, contrasena)

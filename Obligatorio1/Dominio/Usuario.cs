@@ -31,6 +31,7 @@ namespace Dominio
         }
 
         // VALIDACIONES
+        #region
         public void Validar()
         {
             ValidarNombre();
@@ -38,7 +39,7 @@ namespace Dominio
             ValidarEmail();
             ValidarContrasena();
         }
-
+        
         public void ValidarNombre()
         {
             if (string.IsNullOrEmpty(Nombre))
@@ -89,19 +90,20 @@ namespace Dominio
                 throw new Exception("La contraseña debe tener al menos una letra y un número.");
             }
         }
+        #endregion
 
         public string MostrarDatos()
         {
             return $"ID: {Id}, Nombre: {Nombre}, Apellido: {Apellido}, Email: {Email}";
         }
-
-        public abstract string GetRol();
-
         public bool EsAlfanumerico()
         {
             bool tieneLetra = Contrasena.Any(char.IsLetter);
             bool tieneNumero = Contrasena.Any(char.IsDigit);
             return tieneLetra && tieneNumero;
         }
+
+        public abstract string GetRol();
+
     }
 }

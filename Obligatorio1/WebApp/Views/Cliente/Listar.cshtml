@@ -62,8 +62,6 @@
 						if (p.Estado == Estado.ABIERTA)
 						{
 							@Html.ActionLink("Comprar", "Create", "Venta", new { id = p.id }, null)
-
-
 						}
 						else
 						{
@@ -75,8 +73,6 @@
 						if (p.Estado == Estado.ABIERTA)
 						{
 							@Html.ActionLink("Ofertar", "Create", "Subasta", new { id = p.id })
-
-
 						}
 						else
 						{
@@ -84,7 +80,6 @@
 						}
 					}
 				</td>
-
 			</tr>
 		}
 	</tbody>
