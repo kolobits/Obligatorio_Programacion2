@@ -102,7 +102,7 @@ El sistema está dividido en 3 capas principales:
 
 ## 👨‍💻 Autores
 
-- **Camilo Pardo**
+- **Camilo Pardo** - 200710
 - **Matías Lemos** - 241970
 
 Desarrollado como parte del curso **Programación 2 - Universidad ORT Uruguay**
