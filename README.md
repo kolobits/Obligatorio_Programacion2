@@ -1,154 +1,108 @@
-# Obligatorio Programación 2 - Sistema de Marketplace
 
-Sistema de marketplace desarrollado en .NET que permite gestionar ventas directas y subastas con interfaces web y consola.
+# 🏪 Obligatorio Programación 2 - Sistema de Marketplace
 
-## 🏗️ Arquitectura del Sistema
+Este proyecto fue desarrollado como parte del curso **Programación 2** en la carrera de **Analista en Tecnologías de la Información** en la Universidad ORT Uruguay. Consiste en un sistema de marketplace que permite a los usuarios realizar **compras directas** y participar en **subastas**, utilizando interfaces tanto web como de consola.
 
-El proyecto implementa una arquitectura de 3 capas:
+---
 
-- **Dominio**: Lógica de negocio y entidades del sistema
-- **WebApp**: Interfaz web ASP.NET Core MVC
-- **UI**: Aplicación de consola para administración
+## 🧱 Arquitectura del Sistema
 
-## ✨ Funcionalidades Principales
+El sistema está dividido en 3 capas principales:
 
-### 🛒 Sistema de Ventas
-- Compras directas con precios fijos
-- Ofertas relámpago con 20% de descuento
-- Validación de saldo disponible
+- **Dominio**: lógica de negocio, entidades y validaciones.
+- **WebApp**: interfaz web construida con ASP.NET Core MVC.
+- **UI (Consola)**: herramienta administrativa de línea de comandos.
 
-### 🏆 Sistema de Subastas
-- Ofertas competitivas con validación de montos
-- Cierre administrativo con selección automática del ganador
-- Gestión de estados (ABIERTA, CERRADA, CANCELADA)
+---
 
-### 👥 Gestión de Usuarios
-- Autenticación con roles (Cliente/Administrador)
-- Manejo de sesiones HTTP
-- Sistema de billetera virtual
+## ✨ Funcionalidades Clave
 
-## 🚀 Tecnologías Utilizadas
+### 🛍️ Ventas Directas
+- Visualización de productos disponibles.
+- Compras con validación de saldo.
+- Ofertas relámpago con descuento aplicado.
 
-- **.NET 6+** - Framework principal
-- **ASP.NET Core MVC** - Interfaz web
-- **C#** - Lenguaje de programación
-- **Entity Framework** - Manejo de datos (en memoria)
-- **Bootstrap** - Estilos CSS
+### 🔨 Subastas
+- Usuarios ofertan en subastas activas.
+- Cierre manual por administrador.
+- Validación de montos y selección automática del ganador.
+- Estados: `ABIERTA`, `CERRADA`, `CANCELADA`.
 
-## 📋 Requisitos del Sistema
+### 👤 Gestión de Usuarios
+- Autenticación con roles (`Cliente`, `Administrador`).
+- Inicio de sesión web con manejo de sesiones HTTP.
+- Billetera virtual para cada usuario.
+
+---
+
+## 🚀 Tecnologías Usadas
+
+- `.NET 6` – Framework base
+- `ASP.NET Core MVC` – Web frontend
+- `Entity Framework (InMemory)` – Acceso a datos
+- `C#` – Lógica de negocio
+- `Bootstrap` – Estilos y diseño responsivo
+
+---
+
+## 📦 Requisitos
 
 - .NET 6.0 SDK o superior
-- Visual Studio 2022 o VS Code
-- Navegador web moderno
+- Visual Studio 2022 o Visual Studio Code
+- Navegador moderno (Chrome, Firefox, Edge)
 
-## ⚙️ Instalación y Configuración
-
-1. **Clonar el repositorio**
-```bash
-git clone https://github.com/kolobits/Obligatorio_Programacion2.git
-cd Obligatorio_Programacion2/Obligatorio1
-```
-
-2. **Restaurar dependencias**
-```bash
-dotnet restore
-```
-
-3. **Ejecutar la aplicación web**
-```bash
-cd WebApp
-dotnet run
-```
-
-4. **Ejecutar la aplicación de consola**
-```bash
-cd UI
-dotnet run
-```
-
-## 🔐 Usuarios de Prueba
-
-### Administradores
-- **Email**: `adressalvanos@gmail.com` | **Contraseña**: `exonerar2024`
-- **Email**: `pedroperez@gmail.com` | **Contraseña**: `Admin123`
-
-### Clientes
-- **Email**: `juanrodriguez@gmail.com` | **Contraseña**: `contrasenia1`
-- **Email**: `anagomez@gmail.com` | **Contraseña**: `contrasenia2`
+---
 
 ## 🎯 Funcionalidades por Rol
 
 ### Cliente
-- ✅ Registrarse en el sistema
-- ✅ Realizar compras directas
-- ✅ Participar en subastas
-- ✅ Recargar billetera virtual
-- ✅ Ver historial de transacciones
+- Registro e inicio de sesión
+- Compras directas
+- Participación en subastas
+- Recarga de billetera
+- Visualización de historial
 
 ### Administrador
-- ✅ Cerrar subastas 
-- ✅ Gestionar publicaciones
-- ✅ Ver reportes del sistema
-- ✅ Administrar usuarios
-
-## 📊 Datos de Prueba
-
-El sistema incluye datos precargados: 
-- 10 clientes con saldos variados
-- 2 administradores
-- 50 artículos en diferentes categorías
-- 10 ventas activas
-- 10 subastas en diferentes estados
-
-## 🏃‍♂️ Guía de Uso Rápido
-
-### Interfaz Web
-1. Navegar a `https://localhost:5001`
-2. Iniciar sesión con credenciales de prueba
-3. Explorar publicaciones disponibles
-4. Realizar compras o participar en subastas
-
-### Interfaz de Consola
-1. Ejecutar `dotnet run` en el proyecto UI
-2. Seleccionar opciones del menú:
-   - Listar clientes
-   - Filtrar artículos por categoría
-   - Agregar nuevos artículos
-   - Consultar publicaciones por fecha
-
-## 🔧 Estructura del Proyecto
-
-```
-Obligatorio1/
-├── Dominio/           # Lógica de negocio
-│   ├── Sistema.cs     # Singleton principal
-│   ├── Usuario.cs     # Entidades de usuario
-│   ├── Publicacion.cs # Ventas y subastas
-│   └── Articulo.cs    # Productos del sistema
-├── WebApp/            # Interfaz web MVC
-│   ├── Controllers/   # Controladores
-│   ├── Views/         # Vistas Razor
-│   └── Program.cs     # Configuración
-└── UI/                # Aplicación consola
-    └── Program.cs     # Menú principal
-```
-
-## 🐛 Validaciones Implementadas
-
-- **Artículos**: Nombre, categoría y precio obligatorios
-- **Publicaciones**: Nombres no vacíos y estados válidos
-- **Transacciones**: Saldo suficiente y montos positivos
-- **Subastas**: Ofertas superiores a la actual
-
-## 📝 Notas de Desarrollo
-
-- El sistema utiliza el patrón Singleton para `Sistema.cs`
-- Los datos se almacenan en memoria (no persistentes)
-- Implementa validaciones robustas en todas las entidades
-- Manejo de excepciones centralizado
-- Separación clara de responsabilidades por capas
-
+- Cierre de subastas
+- Gestión de artículos y publicaciones
+- Visualización de reportes
+- Administración de usuarios
 
 ---
 
-**Desarrollado como proyecto académico - Universidad ORT Uruguay**
+## 📊 Datos Precargados
+
+- 10 clientes con diferentes saldos
+- 2 administradores
+- 50 artículos
+- 10 ventas activas
+- 10 subastas en distintos estados
+
+---
+
+## ✅ Validaciones Implementadas
+
+- Artículos con nombre, categoría y precio obligatorios
+- Publicaciones con nombre no vacío y estado válido
+- Subastas con ofertas válidas y control de duplicados
+- Saldo mínimo requerido para cada transacción
+- Ofertas superiores al mínimo actual
+
+---
+
+## 🧠 Notas de Diseño
+
+- Se utiliza patrón Singleton para la clase `Sistema`
+- Persistencia en memoria (sin base de datos real)
+- Separación clara por responsabilidades
+- Manejo de errores centralizado
+- Validaciones estrictas en todas las entidades
+
+---
+
+## 👨‍💻 Autores
+
+- **Camilo Pardo**
+- **Matías Lemos** - 241970
+
+Desarrollado como parte del curso **Programación 2 - Universidad ORT Uruguay**
